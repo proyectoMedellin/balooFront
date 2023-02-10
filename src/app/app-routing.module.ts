@@ -26,7 +26,7 @@ import { ReportsComponent } from './reports/reports.component';
 
 const routes: Routes = 
 [
-  { path: "", redirectTo: "Inicio", pathMatch: "full" },
+  { path: "", redirectTo: "LoginCaptchat", pathMatch: "full" },
   { path: "Inicio", component: IndexComponent, },
   {
     path: 'Holidays',
@@ -116,8 +116,8 @@ const routes: Routes =
     canActivate: [AuthPermissionGuard], data:{permiso: ["Prueba"]}
   },
   {
-    path: "**",
-    redirectTo: 'Login'
+    path: "*",
+    redirectTo: 'LoginCaptchat'
   }
 ]
 @NgModule({

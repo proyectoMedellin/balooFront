@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment';
 
 export class AppComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  title = 'SECURITYLAYER-ANGULAR-FRONT';
+  title = 'Sieca';
   public items: any[] = [] ;
   public login: boolean= false;
   constructor(
@@ -47,5 +47,6 @@ export class AppComponent implements OnInit {
     this.userservice.logOut()
     location.reload()
     this.localservice.clearData()
+    location.href = environment.url + 'LoginCaptchat'
   }
 }

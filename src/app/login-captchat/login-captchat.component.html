@@ -1,7 +1,5 @@
-<div class="title">
-    <h1>Login</h1>
-    <div class="line">
-    </div>
+<div class="center">
+    <h1>Sistema de identificación de emociones y control de asistencia SIECA</h1>
 </div>
 <div class="custom-form">
     <form  (ngSubmit)="LoginForm.valid && loginCaptchat()" [formGroup]="LoginForm">
@@ -25,10 +23,13 @@
                 <mat-error>
                     Este campo es <strong>obligatorio</strong>
                 </mat-error>
-            </mat-form-field>  
+            </mat-form-field>
+            <br>
+            <a style="position: relative" routerLink="/Recover">Recuperar contraseña</a>
+            <br>  
             <br>
             <re-captcha style="display: inline-block;" (resolved)="resolved($event)" siteKey="6LeCH8kfAAAAACqZeDLt9WRs-qXKFk3X9ZHuIWi1"></re-captcha>
             <br>
-            <button mat-raised-button disabled="{{!loginbutton}}" color="primary" type="submit">Login</button>
+            <button mat-raised-button disabled="{{!loginbutton}}" color="primary" type="submit">Iniciar sesión</button>            
     </form>
 </div>

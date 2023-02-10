@@ -18,6 +18,11 @@
     width: 100%;
     text-align: center;
 }
+.page-container{
+  position: relative;
+  top: 5%;
+  left: 5%;
+}
 .spacer {
     flex: 1 1 initial;
   }
@@ -51,9 +56,12 @@
 .mat-elevation-z8{
   width: 90%;
   position: relative;
-  bottom: -5%;
-  left: 5%;
 }
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 table {

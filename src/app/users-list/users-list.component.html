@@ -1,54 +1,76 @@
-<div class="center">
-  <mat-form-field appearance="outline">
-    <mat-label>Filtrar usuario</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Filtrar por Nombre, Apellido, No.Documento" #input>
-  </mat-form-field>
-  <br>
-</div>
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="users">
-    <ng-container matColumnDef="userName">
-      <th mat-header-cell *matHeaderCellDef> Usuario </th>
-      <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
-    </ng-container>
+<div class="container">
+  <div class="row">
+    <h1>Usuarios</h1> 
+    <div class="line"></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-8">
+      <mat-form-field>
+        <mat-label>Buscar usuario</mat-label>
+        <input #tableFilter (keyup)="applyFilter(tableFilter.value)" matInput placeholder="" />
+      </mat-form-field>
+    </div>
+    <div class="col-sm-2">
+      <button mat-raised-button color="primary" [routerLink]="['/HolidaysCreate']">Crear usuario</button>
+    </div>
+    <div class="col-sm-2">
+      <button mat-raised-button color="primary" [routerLink]="['/HolidaysCreate']">Cargar usuarios</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="users">
+        <ng-container matColumnDef="userName">
+          <th mat-header-cell *matHeaderCellDef> Usuario </th>
+          <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Correo </th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="documentNo">
+          <th mat-header-cell *matHeaderCellDef> No documento </th>
+          <td mat-cell *matCellDef="let element"> {{element.documentNo}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef> Nombre</th>
+          <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef> Apellido </th>
+          <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="Update">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let element">
+            <a href="/UpdateUser?user={{element.userName}}">Actualizar</a>
+          </td>
+        </ng-container>    
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter </td>
+        </tr>
 
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef> Correo </th>
-      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="documentNo">
-      <th mat-header-cell *matHeaderCellDef> No documento </th>
-      <td mat-cell *matCellDef="let element"> {{element.documentNo}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="firstName">
-      <th mat-header-cell *matHeaderCellDef> Nombre</th>
-      <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="lastName">
-      <th mat-header-cell *matHeaderCellDef> Apellido </th>
-      <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Update">
-      <th mat-header-cell *matHeaderCellDef> </th>
-      <td mat-cell *matCellDef="let element">
-        <a href="/UpdateUser?user={{element.userName}}">Actualizar</a>
-      </td>
-    </ng-container>
-
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-    <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-    </tr>
-  </table>
-  <mat-paginator [length]="countUsers" [pageSize]="initPageSize" [pageSizeOptions]="[1, 10, 20]" (page)="changePage($event)"
-    >
-  </mat-paginator>
-
+      </table>
+      <mat-paginator #paginator
+                         [pageSize]="5"
+                         [pageSizeOptions]="[5, 10, 15, 20]"
+                         [showFirstLastButtons]="true">
+      </mat-paginator>
+      <!--<mat-paginator #paginator
+                      [pageSizeOptions]="[5, 10, 15, 20]"
+                      [length]="countUsers" 
+                      [pageSize]="initPageSize" 
+                      (page)="changePage($event)">
+      </mat-paginator>-->
+    </div>
+  </div>
 </div>
