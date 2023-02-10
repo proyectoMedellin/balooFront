@@ -9,14 +9,25 @@
     <span class="spacer"></span>
 </mat-toolbar>
 <mat-drawer  #drawer class="app-sidenav" mode="side">
-    <button  mat-menu-item routerLink="/Inicio">Inicio</button>
-    <button *ngIf="login ==  false" mat-menu-item routerLink="/Login">Iniciar sesión </button>
+    <button  mat-menu-item routerLink="Inicio">Inicio</button>
+    <button  mat-menu-item routerLink="Holidays">Registro de festivos y días hábiles</button>
+    <button  mat-menu-item routerLink="Integrations">Configuración integraciones</button>
+    <button  mat-menu-item routerLink="TrainingCenters">Centros de formación</button>
+    <button  mat-menu-item routerLink="Campus">Sedes</button>
+    <button  mat-menu-item routerLink="DevelopmentRooms">Salas de desarrollo</button>
+    <button  mat-menu-item routerLink="UsersList">Gestión de usuarios</button>
+    <button  mat-menu-item routerLink="EducationalAgents">Asignación de agentes educativos</button>
+    <button  mat-menu-item routerLink="Beneficiaries">Registro de niñas y niños</button>
+    <button  mat-menu-item routerLink="PhotoAssignment">Asignación de foto</button>
+    <button  mat-menu-item routerLink="BeneficiariesDevelopmentRooms">Asignación de de salas a niñas y niños</button>
+    <button  mat-menu-item routerLink="Reports">Consulta de información</button>
+    <!--<button *ngIf="login ==  false" mat-menu-item routerLink="/Login">Iniciar sesión </button>
     <button *ngIf="login ==  false" mat-menu-item routerLink="/LoginCaptchat">Iniciar sesión captchat </button>
     <button *ngIf="login ==  false" mat-menu-item routerLink="/Recover">Recuperar</button>
     <div *ngFor="let item of items">
         <button mat-menu-item routerLink={{item.route}}>{{item.menuLabel}}</button>
-    </div>
-    <button *ngIf="login ==  true" mat-menu-item (click)="logOut()">Salir</button>
+    </div>-->
+    <button mat-menu-item (click)="logOut()">Salir</button>
 </mat-drawer>
 
 

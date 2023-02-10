@@ -12,11 +12,65 @@ import { UsersListComponent } from './users-list/users-list.component';
 import { RolesListComponent } from './roles-list/roles-list.component';
 import { UpdateRolPermisosComponent } from './update-rol-permisos/update-rol-permisos.component';
 import { AuthPermissionGuard } from './auth/auth-permission.guard';
+import { HolidaysComponent } from './holidays/holidays.component';
+import { HolidaysCreateComponent } from './holidays/holidays-create/holidays-create.component';
+import { IntegrationsComponent } from './integrations/integrations.component';
+import { TrainingCentersComponent } from './training-centers/training-centers.component';
+import { CampusComponent } from './campus/campus.component';
+import { DevelopmentRoomsComponent } from './development-rooms/development-rooms.component';
+import { EducationalAgentsComponent } from './educational-agents/educational-agents.component';
+import { BeneficiariesComponent } from './beneficiaries/beneficiaries.component';
+import { PhotoAssignmentComponent } from './photo-assignment/photo-assignment.component';
+import { BeneficiariesDevelopmentRoomsComponent } from './beneficiaries-development-rooms/beneficiaries-development-rooms.component';
+import { ReportsComponent } from './reports/reports.component';
+
 const routes: Routes = 
 [
   { path: "", redirectTo: "Inicio", pathMatch: "full" },
-  { path: "Inicio",
-    component: IndexComponent,
+  { path: "Inicio", component: IndexComponent, },
+  {
+    path: 'Holidays',
+    component: HolidaysComponent,
+  },
+  {
+    path: 'HolidaysCreate',
+    component: HolidaysCreateComponent,
+  },
+  {
+    path: 'Integrations',
+    component: IntegrationsComponent,
+  },
+  {
+    path: 'TrainingCenters',
+    component: TrainingCentersComponent,
+  },
+  {
+    path: 'Campus',
+    component: CampusComponent,
+  },
+  {
+    path: 'DevelopmentRooms',
+    component: DevelopmentRoomsComponent,
+  },
+  {
+    path: 'EducationalAgents',
+    component: EducationalAgentsComponent,
+  },
+  {
+    path: 'Beneficiaries',
+    component: BeneficiariesComponent,
+  },
+  {
+    path: 'PhotoAssignment',
+    component: PhotoAssignmentComponent,
+  },
+  {
+    path: 'BeneficiariesDevelopmentRooms',
+    component: BeneficiariesDevelopmentRoomsComponent,
+  },
+  {
+    path: 'Reports',
+    component: ReportsComponent,
   },
   {
     //Url
@@ -28,7 +82,7 @@ const routes: Routes =
   {
     path: 'UsersList',
     component: UsersListComponent,
-    canActivate:[AuthPermissionGuard], data:{permiso: ["Permiso, Prueba"]}
+    /*canActivate:[AuthPermissionGuard], data:{permiso: ["Permiso, Prueba"]}*/
   },
   {
     path: 'ChangePassword',

@@ -19,6 +19,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {matSnackBarAnimations, MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatGridListModule} from '@angular/material/grid-list';
 //aqui se importan los componentes creados
 import { AddUserComponent } from './add-user/add-user.component'; 
 import { ChangePasswordComponent } from './change-password/change-password.component';
@@ -33,6 +34,17 @@ import { LoginCaptchatComponent } from './login-captchat/login-captchat.componen
 import { UsersListComponent } from './users-list/users-list.component';
 import { RolesListComponent } from './roles-list/roles-list.component';
 import { UpdateRolPermisosComponent } from './update-rol-permisos/update-rol-permisos.component';
+import { HolidaysComponent } from './holidays/holidays.component';
+import { TrainingCentersComponent } from './training-centers/training-centers.component';
+import { CampusComponent } from './campus/campus.component';
+import { DevelopmentRoomsComponent } from './development-rooms/development-rooms.component';
+import { EducationalAgentsComponent } from './educational-agents/educational-agents.component';
+import { BeneficiariesComponent } from './beneficiaries/beneficiaries.component';
+import { PhotoAssignmentComponent } from './photo-assignment/photo-assignment.component';
+import { BeneficiariesDevelopmentRoomsComponent } from './beneficiaries-development-rooms/beneficiaries-development-rooms.component';
+import { ReportsComponent } from './reports/reports.component';
+import { IntegrationsComponent } from './integrations/integrations.component';
+import { HolidaysCreateComponent } from './holidays/holidays-create/holidays-create.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +58,18 @@ import { UpdateRolPermisosComponent } from './update-rol-permisos/update-rol-per
     LoginCaptchatComponent,
     UsersListComponent,
     RolesListComponent,
-    UpdateRolPermisosComponent
+    UpdateRolPermisosComponent,
+    HolidaysComponent,
+    TrainingCentersComponent,
+    CampusComponent,
+    DevelopmentRoomsComponent,
+    EducationalAgentsComponent,
+    BeneficiariesComponent,
+    PhotoAssignmentComponent,
+    BeneficiariesDevelopmentRoomsComponent,
+    ReportsComponent,
+    IntegrationsComponent,
+    HolidaysCreateComponent
     //aqui se adicionan los componentes creados  
   ],
   imports: [
@@ -66,6 +89,7 @@ import { UpdateRolPermisosComponent } from './update-rol-permisos/update-rol-per
     MatSidenavModule,
     MatTableModule,
     MatPaginatorModule,
+    MatGridListModule,
     BrowserAnimationsModule,
     RecaptchaModule
   ],
