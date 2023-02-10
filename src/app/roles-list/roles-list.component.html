@@ -1,0 +1,54 @@
+
+<div class="center">
+    <mat-form-field appearance="outline">
+      <mat-label>Filtrar rol</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Filtrar por Nombre, Descripción" #input>
+    </mat-form-field>
+</div>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="roles">
+  
+    
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef> Descripción </th>
+          <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="newAccessUserDefaultRol">
+          <th mat-header-cell *matHeaderCellDef> Es rol por defecto </th>
+          <td mat-cell *matCellDef="let element"> {{element.newAccessUserDefaultRol}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="enabled">
+        <th mat-header-cell *matHeaderCellDef> Activo </th>
+        <td mat-cell *matCellDef="let element"> {{element.enabled}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="Update">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let element"> 
+              <a href="/UpdateRolesPermisos?rol={{element.name}}">Actualizar</a>
+          </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </table>
+    <mat-paginator
+        [length]="500" 
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 20]"
+      (page)="changePage($event)">
+    </mat-paginator>
+   
+</div>
+

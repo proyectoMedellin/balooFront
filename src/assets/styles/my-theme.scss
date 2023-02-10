@@ -1,0 +1,101 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+// GAMA COLORES
+$my-primary-color: (
+    50: #ECEFF1,
+    100: #CFD8DC,
+    200: #B0BEC5,
+    300: #90A4AE,
+    400: #78909C,
+    500: #607D8B,
+    600: #546E7A,
+    700: #455A64,
+    800: #37474F,
+    900: #263238,
+    contrast: (
+        50: rgba(black, 0.87),
+        100: rgba(black, 0.87),
+        200: rgba(black, 0.87),
+        300: white,
+        400: white,
+        500: white,
+        600: white,
+        700: white,
+        800: white,
+        900: white,
+    )
+   );
+
+$my-accent-color: (
+    50: #edf6e8,
+    100: #D2F8CA,
+    200: #B3F3DA,
+    300: #8FEE75,
+    400: #6DE950,
+    500: #47E324,
+    600: #30D210,
+    700: #00BC00,
+    800: #00A800,
+    900: #008500,
+    contrast: (
+      50: rgba(black, 0.87),
+      100: rgba(black, 0.87),
+      200: rgba(black, 0.87),
+      300: white,
+      400: white,
+      500: white,
+      600: white,
+      700: white,
+      800: white,
+      900: white,
+    )
+);
+
+$my-warn-color: (
+    50: #edf6e8,
+    100: #D2F8CA,
+    200: #B3F3DA,
+    300: #8FEE75,
+    400: #6DE950,
+    500: #47E324,
+    600: #30D210,
+    700: #00BC00,
+    800: #00A800,
+    900: #008500,
+    contrast: (
+   50: rgba(black, 0.87),
+      100: rgba(black, 0.87),
+      200: rgba(black, 0.87),
+      300: white,
+      400: white,
+      500: white,
+      600: white,
+      700: white,
+      800: white,
+      900: white,
+    )
+);
+
+// PALETA DE COLORES
+$my-primary: mat.define-palette($my-primary-color);
+$my-accent: mat.define-palette(mat.$indigo-palette, A200, A100, A400);
+$my-warn: mat.define-palette(mat.$red-palette);
+// TEMA PROPIO
+$my-theme: mat.define-light-theme((
+ color: (
+   primary: $my-primary,
+   accent: $my-accent,
+   warn: $my-warn,
+ ),
+ typography: mat.define-typography-config(),
+ density: 0,
+));
+
+
+// APLICAR NUESTRO TEMA A ANGULAR
+@include mat.all-component-themes($my-theme);
+// REEMPLAZA EN ANGULAR.JSON -> STYLES
+// POR LA RUTA DEL CUSTOM THEME
+// "src/assets/styles/my-theme.scss",

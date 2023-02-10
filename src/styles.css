@@ -1,0 +1,63 @@
+/* You can add global styles to this file, and also import other style files */
+.custom-form {
+    position: relative;
+    left: 30%;
+    bottom: -10%;
+    min-width: 200px;
+    max-width: 30%;
+    text-align: right;
+}
+.title{
+    position: relative;
+    bottom: -5%;
+    margin-left: 10%;
+}
+.center{
+    position: relative;
+    bottom: -5%;
+    width: 100%;
+    text-align: center;
+}
+.spacer {
+    flex: 1 1 initial;
+  }
+.line {
+    border-top: 1px solid rgb(185, 184, 184);
+    max-width: 89%; 
+    height: 2px;
+    padding: 0;
+    margin: 0;
+    background: rgb(185, 184, 184)
+  }
+.app-container {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.app-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.mat-drawer-container {
+  background-color: white;
+  color: rgba(0, 0, 0, 0.87); 
+}
+.app-sidenav {
+  padding: 20px;
+  }
+.mat-elevation-z8{
+  width: 90%;
+  position: relative;
+  bottom: -5%;
+  left: 5%;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+table {
+  width: 100%;
+  position: relative;
+  bottom: -5%;
+}

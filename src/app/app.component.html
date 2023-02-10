@@ -1,0 +1,24 @@
+<mat-drawer-container class="app-container" autosize>
+<mat-toolbar color="primary" style=" position: sticky; top: 0px; z-index:1">
+    <button mat-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu"> 
+    </mat-menu>
+    <img width="150" height="70" src="../assets/images/Logo.png">
+    <span class="spacer"></span>
+</mat-toolbar>
+<mat-drawer  #drawer class="app-sidenav" mode="side">
+    <button  mat-menu-item routerLink="/Inicio">Inicio</button>
+    <button *ngIf="login ==  false" mat-menu-item routerLink="/Login">Iniciar sesión </button>
+    <button *ngIf="login ==  false" mat-menu-item routerLink="/LoginCaptchat">Iniciar sesión captchat </button>
+    <button *ngIf="login ==  false" mat-menu-item routerLink="/Recover">Recuperar</button>
+    <div *ngFor="let item of items">
+        <button mat-menu-item routerLink={{item.route}}>{{item.menuLabel}}</button>
+    </div>
+    <button *ngIf="login ==  true" mat-menu-item (click)="logOut()">Salir</button>
+</mat-drawer>
+
+
+<router-outlet></router-outlet>
+</mat-drawer-container>

@@ -1,0 +1,88 @@
+<div class="title">
+    <h1>Registro Usuario</h1>
+    <div class="line">
+    </div>
+</div>
+<div class="custom-form">
+    <form  (ngSubmit)="AddUsers.valid && SignUp(AddUsers.value)" [formGroup]="AddUsers">
+            <label>Primer Nombre: </label>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" maxlength="150" formControlName="FirstName">
+                <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
+                <mat-hint align="end">{{AddUsers.value['FirstName'].length}} / 150</mat-hint>
+                <mat-error>
+                    Este campo es <strong>obligatorio</strong>
+                </mat-error>
+            </mat-form-field>   
+            <br>
+            <label>Segundo Nombre: </label>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" maxlength="300" formControlName="OtherNames">
+                <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
+                <mat-hint align="end">{{AddUsers.value['OtherNames'].length}} / 300</mat-hint>
+            </mat-form-field>
+            <br>
+            <label>Primer Apellido: </label>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" maxlength="150" formControlName="LastName">
+                <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
+                <mat-hint align="end">{{AddUsers.value['LastName'].length}} / 150</mat-hint>
+                <mat-error>
+                    Este campo es <strong>obligatorio</strong>
+                </mat-error>
+            </mat-form-field>  
+            <br>
+            <label>Segundo Apellido: </label>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" maxlength="300" formControlName="OtherLastName">
+                <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
+                <mat-hint align="end">{{AddUsers.value['OtherLastName'].length}} / 300</mat-hint>
+            </mat-form-field>      
+            <br>
+            <label>Correo electronico: </label>
+            <mat-form-field appearance="outline">
+                <input matInput type="email" maxlength="300" formControlName="Email"  (keyup)="ChangeInputUser()">
+                <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
+                <mat-hint align="end">{{AddUsers.value['Email'].length}} / 300</mat-hint>
+                <mat-error>
+                    Es requerido un <strong>correo electronico</strong>
+                </mat-error>
+            </mat-form-field>
+            <br>
+            <label>Usuario: </label>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" maxlength="300" formControlName="UserName" >
+                <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
+                <mat-hint align="end">{{AddUsers.value['UserName'].length}} / 300</mat-hint>
+                <mat-error>
+                    Se requiere un nombre de <strong>Usuario</strong>
+                </mat-error>
+            </mat-form-field>
+            <br>
+            <label>Telefono: </label>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" maxlength="150" formControlName="Phone" >
+                <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
+                <mat-hint align="end">{{AddUsers.value['Phone'].length}} / 150</mat-hint>
+            </mat-form-field>
+            <br>
+            <label>Tipo de documento: </label>
+            <mat-form-field appearance="outline">
+                <mat-label>Seleccione</mat-label>
+                <mat-select formControlName="DocumentTypeId">
+                  <mat-option *ngFor="let tido of documents" [value]="tido.id">
+                    {{tido.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            <br>
+            <label>Numero de documento: </label>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" maxlength="150" formControlName="DocumentNo" >
+                <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
+                <mat-hint align="end">{{AddUsers.value['DocumentNo'].length}} / 150</mat-hint>
+            </mat-form-field>
+            <br>
+            <button mat-raised-button color="primary" type="submit">Crear Usuario</button>
+     </form>
+</div>
