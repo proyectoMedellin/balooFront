@@ -32,6 +32,32 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
+    let password = MD5(this.LoginForm.getRawValue()['UserPassword']).toString()
+
+    let userlogin = this.LoginForm.getRawValue()['User']+'||' +  password + '||' + moment().locale('es').format()
+    let dataUserLogin = {UserData:userlogin}
+    
+     this.userservice.login(dataUserLogin).subscribe(data => 
+      {
+       this.userservice.setToken(data["registros"][0]["token"])
+       this.security();
+      });
+  }
+  security(){
+    this.securityServices.getAllPermission(this.LoginForm.getRawValue()['User']).subscribe(data => {
+      data["registros"][0].forEach((value: any) => 
+      { 
+        let permiso = MD5("permiso"+value["name"]).toString()
+        this.localservice.saveData(permiso, value["name"]+value["type"]);
+     }
+     );
+     let userEncrypt = AES.encrypt(this.LoginForm.getRawValue()['User'], environment.Key).toString()
+     this.localservice.saveData("user", userEncrypt)
+     location.href = environment.url + "Inicio"
+    })
+  }
+
+  /*login(){
     //let prueba = AES(this.LoginForm.getRawValue()['UserPassword'])
     let password = MD5(this.LoginForm.getRawValue()['UserPassword']).toString()
     let userlogin = this.LoginForm.getRawValue()['User']+'||' +  password + '||' + moment().locale('es').format()
@@ -71,5 +97,5 @@ export class LoginComponent implements OnInit {
      this.localservice.saveData("user", userEncrypt)
      //location.href = environment.url + "Inicio"
     })
-  }
+  }*/
 }

@@ -45,6 +45,7 @@ import { BeneficiariesDevelopmentRoomsComponent } from './beneficiaries-developm
 import { ReportsComponent } from './reports/reports.component';
 import { IntegrationsComponent } from './integrations/integrations.component';
 import { HolidaysCreateComponent } from './holidays/holidays-create/holidays-create.component';
+import { TrainingCenterCreateComponent } from './training-centers/training-center-create/training-center-create.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { HolidaysCreateComponent } from './holidays/holidays-create/holidays-cre
     BeneficiariesDevelopmentRoomsComponent,
     ReportsComponent,
     IntegrationsComponent,
-    HolidaysCreateComponent
+    HolidaysCreateComponent,
+    TrainingCenterCreateComponent
     //aqui se adicionan los componentes creados  
   ],
   imports: [

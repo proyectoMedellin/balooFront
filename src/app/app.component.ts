@@ -47,6 +47,6 @@ export class AppComponent implements OnInit {
     this.userservice.logOut()
     location.reload()
     this.localservice.clearData()
-    location.href = environment.url + 'LoginCaptchat'
+    location.href = environment.url + 'Login'
   }
 }

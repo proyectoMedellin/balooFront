@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/07e88883-1d7d-4dd0-96b5-9160985e1fd6/AppServices/subscriptions/07e88883-1d7d-4dd0-96b5-9160985e1fd6/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/siecafront",
+    "appService.deploySubpath": "dist\\securitylayer-angular-front"
+}

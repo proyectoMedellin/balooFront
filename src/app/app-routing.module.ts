@@ -26,7 +26,7 @@ import { ReportsComponent } from './reports/reports.component';
 
 const routes: Routes = 
 [
-  { path: "", redirectTo: "LoginCaptchat", pathMatch: "full" },
+  { path: "", redirectTo: "Login", pathMatch: "full" },
   { path: "Inicio", component: IndexComponent, },
   {
     path: 'Holidays',
@@ -117,7 +117,7 @@ const routes: Routes =
   },
   {
     path: "*",
-    redirectTo: 'LoginCaptchat'
+    redirectTo: 'Login'
   }
 ]
 @NgModule({
