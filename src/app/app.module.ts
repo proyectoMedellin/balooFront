@@ -20,6 +20,11 @@ import {matSnackBarAnimations, MatSnackBarModule} from '@angular/material/snack-
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatCardModule} from '@angular/material/card';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 //aqui se importan los componentes creados
 import { AddUserComponent } from './add-user/add-user.component'; 
 import { ChangePasswordComponent } from './change-password/change-password.component';
@@ -46,6 +51,9 @@ import { ReportsComponent } from './reports/reports.component';
 import { IntegrationsComponent } from './integrations/integrations.component';
 import { HolidaysCreateComponent } from './holidays/holidays-create/holidays-create.component';
 import { TrainingCenterCreateComponent } from './training-centers/training-center-create/training-center-create.component';
+import { CampuesCreateComponent } from './campus/campues-create/campues-create.component';
+import { DevelopmentRoomsCreateComponent } from './development-rooms/development-rooms-create/development-rooms-create.component';
+import { BeneficiariesCreateComponent } from './beneficiaries/beneficiaries-create/beneficiaries-create.component';
 
 @NgModule({
   declarations: [
@@ -71,16 +79,21 @@ import { TrainingCenterCreateComponent } from './training-centers/training-cente
     ReportsComponent,
     IntegrationsComponent,
     HolidaysCreateComponent,
-    TrainingCenterCreateComponent
+    TrainingCenterCreateComponent,
+    CampuesCreateComponent,
+    DevelopmentRoomsCreateComponent,
+    BeneficiariesCreateComponent
     //aqui se adicionan los componentes creados  
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule, 
+    ReactiveFormsModule,
     HttpClientModule,
     ReactiveFormsModule,
     MatFormFieldModule,
+    MatCardModule,
     MatInputModule,
     MatIconModule,
     MatButtonModule,
@@ -92,6 +105,10 @@ import { TrainingCenterCreateComponent } from './training-centers/training-cente
     MatTableModule,
     MatPaginatorModule,
     MatGridListModule,
+    MatSlideToggleModule,
+    MatStepperModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     BrowserAnimationsModule,
     RecaptchaModule
   ],

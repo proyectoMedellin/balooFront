@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
     private rolservice: SecurityRolService,
     private userservice: UsersService,
     private localservice: LocalService,
-    private alertMessage: MatSnackBar,
+    private alertMessage: MatSnackBar
   ){
   }
   ngOnInit(){

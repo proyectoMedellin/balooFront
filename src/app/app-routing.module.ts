@@ -23,6 +23,10 @@ import { BeneficiariesComponent } from './beneficiaries/beneficiaries.component'
 import { PhotoAssignmentComponent } from './photo-assignment/photo-assignment.component';
 import { BeneficiariesDevelopmentRoomsComponent } from './beneficiaries-development-rooms/beneficiaries-development-rooms.component';
 import { ReportsComponent } from './reports/reports.component';
+import { TrainingCenterCreateComponent } from './training-centers/training-center-create/training-center-create.component';
+import { CampuesCreateComponent } from './campus/campues-create/campues-create.component';
+import { DevelopmentRoomsCreateComponent } from './development-rooms/development-rooms-create/development-rooms-create.component';
+import { BeneficiariesCreateComponent } from './beneficiaries/beneficiaries-create/beneficiaries-create.component';
 
 const routes: Routes = 
 [
@@ -45,12 +49,23 @@ const routes: Routes =
     component: TrainingCentersComponent,
   },
   {
+    path: 'TrainingCenters/TrainingCentersCreate',
+    component: TrainingCenterCreateComponent,
+  },
+  {
     path: 'Campus',
     component: CampusComponent,
   },
   {
+    path: 'Campus/CampusCreate',
+    component: CampuesCreateComponent,
+  },
+  {
     path: 'DevelopmentRooms',
     component: DevelopmentRoomsComponent,
+  },{
+    path: 'DevelopmentRooms/DevelopmentRoomsCreate',
+    component: DevelopmentRoomsCreateComponent,
   },
   {
     path: 'EducationalAgents',
@@ -59,6 +74,10 @@ const routes: Routes =
   {
     path: 'Beneficiaries',
     component: BeneficiariesComponent,
+  },
+  {
+    path: 'Beneficiaries/BeneficiariesCreate',
+    component: BeneficiariesCreateComponent,
   },
   {
     path: 'PhotoAssignment',

@@ -1,17 +1,29 @@
 <div class="container">
     <div class="row">
-        <form [formGroup]="TrainingCenterForm" class="form-container">
+        <form [formGroup]="DevelopmentRoomForm" class="form-container">
             <mat-card>
                 <mat-card-header>
-                    <mat-card-title>Centro de formación</mat-card-title>
+                    <mat-card-title>Sala de desarrollo</mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
+                    <div class="row">
+                        <mat-form-field>
+                            <mat-select placeholder="Sede" formControlName="CampusId">
+                              <mat-option *ngFor="let sede of sedes" [value]="sede.value">
+                                {{sede.viewValue}}
+                              </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                Este campo es <strong>obligatorio</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
                     <div class="row">
                         <label>Código: </label>
                         <mat-form-field>
                             <input matInput type="text" maxlength="50" formControlName="Code">
                             <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
-                            <mat-hint align="end">{{TrainingCenterForm.value['Code'].length}} / 50</mat-hint>
+                            <mat-hint align="end">{{DevelopmentRoomForm.value['Code'].length}} / 50</mat-hint>
                             <mat-error>
                                 Este campo es <strong>obligatorio</strong>
                             </mat-error>
@@ -19,11 +31,11 @@
                     </div>
                     <br />
                     <div class="row">
-                        <label>Nombre: </label>
+                        <label>Código canal (Camara): </label>
                         <mat-form-field>
-                            <input matInput type="text" maxlength="300" formControlName="Name">
+                            <input matInput type="text" maxlength="300" formControlName="CameraCode">
                             <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
-                            <mat-hint align="end">{{TrainingCenterForm.value['Name'].length}} / 300</mat-hint>
+                            <mat-hint align="end">{{DevelopmentRoomForm.value['CameraCode'].length}} / 300</mat-hint>
                             <mat-error>
                                 Este campo es <strong>obligatorio</strong>
                             </mat-error>
@@ -33,7 +45,7 @@
                     <div class="row">
                         <mat-slide-toggle 
                             formControlName="Enabled">
-                            <span *ngIf="TrainingCenterForm.value['Enabled']; else inactivo">Activo</span>
+                            <span *ngIf="DevelopmentRoomForm.value['Enabled']; else inactivo">Activo</span>
                             <ng-template #inactivo><span>Inactivo</span></ng-template>
                         </mat-slide-toggle>
                     </div>

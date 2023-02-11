@@ -10,8 +10,7 @@ import { BeneficiariesListDto } from '../intefaces/beneficiaries-list-dto';
 })
 export class BeneficiariesComponent implements OnInit {
 
-  displayedColumns: string[] = ['DocumentType', 'DocumentNumber', 'Names', 'LastNames'
-  , 'Update', 'PhotoUpload'];
+  displayedColumns: string[] = ['DocumentType', 'DocumentNumber', 'Names', 'LastNames'];
   dataSource = new MatTableDataSource<BeneficiariesListDto>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator! : MatPaginator;
@@ -31,6 +30,7 @@ export class BeneficiariesComponent implements OnInit {
 }
 
 const ELEMENT_DATA: BeneficiariesListDto[] = [
-  {Id: 'weqfwergrgwrgw45', DocumentType: '01', DocumentNumber: '', Names: '', LastNames:''},
-  {Id: 'weqfwergrgwrgw45', DocumentType: '01', DocumentNumber: '', Names: '', LastNames:''},
+  {Id: 'weqfwergrgwrgw45', DocumentType: 'RC', DocumentNumber: '9999999998', Names: 'AARON DE JESUS', LastNames:'BELEÑO CUESTA'},
+  {Id: 'weqfwergrgwrgw45', DocumentType: 'RC', DocumentNumber: '7777777778', Names: 'ABBY SAMANTHA', LastNames:'SERNA MENDEZ'},
 ];
+
