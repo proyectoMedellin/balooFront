@@ -28,7 +28,7 @@ export class UsersListComponent implements OnInit, AfterViewInit {
     this.userservices.getAllUser(0,this.initPageSize).subscribe(data=>
       {
         this.users = data["registros"][0];  
-        console.log(this.users)
+        //console.log(this.users)
         this.countUsers = data["totalDbRegistros"];
       });
   }

@@ -3,6 +3,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { MD5 } from 'crypto-js';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +16,8 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    let token = this.cookies.get("token");
+    let tokenname = MD5("token").toString();
+    let token = this.cookies.get(tokenname);
 
     let request = req;
     

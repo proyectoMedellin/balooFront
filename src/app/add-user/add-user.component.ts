@@ -47,7 +47,7 @@ export class AddUserComponent implements OnInit {
   }
   SignUp(data: any){
     console.log(data)
-    this.userservice.register(data).subscribe(response => location.href = environment.url)
+    //this.userservice.register(data).subscribe(response => location.href = environment.url)
   }
   sendNotificacion(){
     let text = `${this.AddUsers.get("UserName")?.value}||${moment().locale('es').format()}`

@@ -16,20 +16,32 @@
     </div>
     <div class="row">
         <div class="mat-elevation-z8">
-            <table #table mat-table [dataSource]="dataSource" class="mat-e">
+            <table #table mat-table [dataSource]="ELEMENT_DATA" class="mat-e">
                 <ng-container matColumnDef="Code">
                   <th mat-header-cell *matHeaderCellDef> Código </th>
-                  <td mat-cell *matCellDef="let element"> {{element.Code}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.code}} </td>
                 </ng-container>
                 <ng-container matColumnDef="Name">
                     <th mat-header-cell *matHeaderCellDef> Nombre </th>
-                    <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="Update">
                   <th mat-header-cell *matHeaderCellDef> </th>
+                  <td mat-cell *matCellDef="let element"> 
+                      <a href="/TrainingCenters/TrainingCentersUpdate?register={{element.id}}"><mat-icon>edit</mat-icon></a>
+
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                  <th mat-header-cell *matHeaderCellDef> Acciones </th>
                   <td mat-cell *matCellDef="let element">
-                    <!--<a href="/UpdateUser?user={{element.Id}}">Actualizar</a>-->
+                    <button mat-icon-button color="primary" [routerLink]="'/TrainingCenters/TrainingCentersUpdate?register=' + element.id">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="onDelete(element.id)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
                   </td>
                 </ng-container>
 
@@ -41,6 +53,12 @@
                          [pageSizeOptions]="[5, 10, 15, 20]"
                          [showFirstLastButtons]="true">
             </mat-paginator>
+            <!--<mat-paginator #paginator
+                      [pageSizeOptions]="[5, 10, 15, 20]"
+                      [length]="countRegisters" 
+                      [pageSize]="initPageSize" 
+                      (page)="changePage($event)">
+            </mat-paginator>-->
         </div>        
     </div>
 </div>

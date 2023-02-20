@@ -27,6 +27,7 @@ import { TrainingCenterCreateComponent } from './training-centers/training-cente
 import { CampuesCreateComponent } from './campus/campues-create/campues-create.component';
 import { DevelopmentRoomsCreateComponent } from './development-rooms/development-rooms-create/development-rooms-create.component';
 import { BeneficiariesCreateComponent } from './beneficiaries/beneficiaries-create/beneficiaries-create.component';
+import { TrainingCenterUpdateComponent } from './training-centers/training-center-update/training-center-update.component';
 
 const routes: Routes = 
 [
@@ -51,6 +52,10 @@ const routes: Routes =
   {
     path: 'TrainingCenters/TrainingCentersCreate',
     component: TrainingCenterCreateComponent,
+  },
+  {
+    path: 'TrainingCenters/TrainingCentersUpdate',
+    component: TrainingCenterUpdateComponent
   },
   {
     path: 'Campus',
@@ -127,12 +132,12 @@ const routes: Routes =
   {
     path: 'RolesList',
     component: RolesListComponent,
-    canActivate: [AuthPermissionGuard], data:{permiso: ["Prueba"]}
+    //canActivate: [AuthPermissionGuard], data:{permiso: ["Prueba"]}
   },
   {
     path: 'UpdateRolesPermisos',
     component: UpdateRolPermisosComponent,
-    canActivate: [AuthPermissionGuard], data:{permiso: ["Prueba"]}
+    //canActivate: [AuthPermissionGuard], data:{permiso: ["Prueba"]}
   },
   {
     path: "*",
