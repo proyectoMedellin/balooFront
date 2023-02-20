@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { UsersService } from 'src/app/services/users.service';
+import { AES, enc } from 'crypto-js';
+import { TrainingCenterService } from 'src/app/services/training-center.service';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-training-center-create',
@@ -11,17 +14,24 @@ export class TrainingCenterCreateComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    public userservice: UsersService,
+    public trainingCenterService: TrainingCenterService,
   ) { }
+
+  private userEncrypt:string = localStorage.getItem("user")!;
+  private user =AES.decrypt(this.userEncrypt, environment.Key).toString(enc.Utf8);
 
   public TrainingCenterForm = this.formBuilder.group({
     Code:['', Validators.required],
     Name:['', Validators.required],
-    Enabled:['true', Validators.required]
+    Enabled:[true, Validators.required],
+    CreatedBy:[this.user, Validators.required]
   });
   public TrainingCenterStatus: boolean = true;
 
   ngOnInit(): void {
   }
-
+  CreateTrainingCenter(data: any){
+    console.log(data)
+    this.trainingCenterService.createTraningCenter(data).subscribe(response => location.href = environment.url + "TrainingCenters")
+  }
 }

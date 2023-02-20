@@ -54,6 +54,7 @@ import { TrainingCenterCreateComponent } from './training-centers/training-cente
 import { CampuesCreateComponent } from './campus/campues-create/campues-create.component';
 import { DevelopmentRoomsCreateComponent } from './development-rooms/development-rooms-create/development-rooms-create.component';
 import { BeneficiariesCreateComponent } from './beneficiaries/beneficiaries-create/beneficiaries-create.component';
+import { TrainingCenterUpdateComponent } from './training-centers/training-center-update/training-center-update.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { BeneficiariesCreateComponent } from './beneficiaries/beneficiaries-crea
     TrainingCenterCreateComponent,
     CampuesCreateComponent,
     DevelopmentRoomsCreateComponent,
-    BeneficiariesCreateComponent
+    BeneficiariesCreateComponent,
+    TrainingCenterUpdateComponent
     //aqui se adicionan los componentes creados  
   ],
   imports: [

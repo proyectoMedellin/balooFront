@@ -1,7 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { MD5 } from 'crypto-js';
+import { AES, enc, MD5 } from 'crypto-js';
 import { Observable, Subscription } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { LocalService } from '../services/local.service';
 import { SecurityRolService } from '../services/security-rol.service';
 import { UsersService } from '../services/users.service';
@@ -22,8 +23,10 @@ export class AuthPermissionGuard implements CanActivate {
   canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree 
   { 
     let autorizathion: boolean = false;
+    let userEncrypt:string = localStorage.getItem("user")!
+    let user =AES.decrypt(userEncrypt, environment.Key).toString(enc.Utf8);
     this.subs.add(
-      this.securityServices.getAllPermission("dcote").subscribe(data => this.permission = data["registros"][0])
+      this.securityServices.getAllPermission(user).subscribe(data => this.permission = data["registros"][0])
     ) 
     let  permisosRequeridos= route.data["permiso"][0]
     let permiso = permisosRequeridos.split(", ")

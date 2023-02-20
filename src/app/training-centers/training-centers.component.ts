@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { TrainingCenterListDto } from '../intefaces/training-center-list-dto';
+import { TrainingCenterService } from '../services/training-center.service';
 
 @Component({
   selector: 'app-training-centers',
@@ -9,15 +10,24 @@ import { TrainingCenterListDto } from '../intefaces/training-center-list-dto';
   styleUrls: ['./training-centers.component.css']
 })
 export class TrainingCentersComponent implements OnInit {
-
-  displayedColumns: string[] = ['Code', 'Name', 'Update'];
-  dataSource = new MatTableDataSource<TrainingCenterListDto>(ELEMENT_DATA);
+  countRegisters: number = 0
+  initPageSize: number = 5
+  displayedColumns: string[] = ['Code', 'Name', 'Update','actions'];
+  ELEMENT_DATA: TrainingCenterListDto[] = [];
+  dataSource = new MatTableDataSource<TrainingCenterListDto>(this.ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator! : MatPaginator;
 
-  constructor() { }
+  constructor( private traningCenterService : TrainingCenterService) { }
 
   ngOnInit(): void {
+    this.traningCenterService.getAllTrainingCenter(0,this.initPageSize,true).subscribe(
+      data =>
+      {
+        this.ELEMENT_DATA = data["registros"];  
+        this.countRegisters = data["totalDbRegistros"];
+      }
+    )
   }
 
   ngAfterViewInit() {
@@ -27,9 +37,13 @@ export class TrainingCentersComponent implements OnInit {
   applyFilter(filterValue: string){
     this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
   }
+  changePage(event: PageEvent) {
+    /*this.traningCenterService.getAllTrainingCenter(event.pageIndex,event.pageSize,true).subscribe(data=>
+      {
+        this.ELEMENT_DATA = new MatTableDataSource(data["registros"])  
+        this.countRegisters = data["totalDbRegistros"]
+      })*/
+  }
 }
 
-const ELEMENT_DATA: TrainingCenterListDto[] = [
-  {Id: 'weqfwergrgwrgw45', Code: '01', Name: 'CI ALMALEGRE'},
-  {Id: 'weqfwergrgwrgw44', Code: '02', Name: 'CI AMIGO DE LOS NIÑOS'},
-];
+ 
