@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { CampusListDto } from '../intefaces/campus-list-dto';
 import { TrainingCenterListDto } from '../intefaces/training-center-list-dto';
+import { CampusService } from '../services/campus.service';
 
 @Component({
   selector: 'app-campus',
@@ -10,15 +11,26 @@ import { TrainingCenterListDto } from '../intefaces/training-center-list-dto';
   styleUrls: ['./campus.component.css']
 })
 export class CampusComponent implements OnInit {
-
-  displayedColumns: string[] = ['TrainingCenterName', 'Code', 'Name'];
-  dataSource = new MatTableDataSource<TrainingCenterListDto>(ELEMENT_DATA);
+  countRegisters: number = 0
+  initPageSize: number = 5
+  displayedColumns: string[] = ['TrainingCenterName', 'Code', 'Name', 'actions'];
+  ELEMENT_DATA: CampusListDto[] = [];
+  dataSource = new MatTableDataSource<CampusListDto>(this.ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator! : MatPaginator;
 
-  constructor() { }
+  constructor(
+    private campusService : CampusService
+  ) { }
 
   ngOnInit(): void {
+    this.campusService.getAllCampus(0,this.initPageSize,true).subscribe(
+      data =>
+      {
+        this.dataSource = data["registros"];  
+        this.countRegisters = data["totalDbRegistros"];
+      }
+    )
   }
 
   ngAfterViewInit() {
@@ -28,13 +40,18 @@ export class CampusComponent implements OnInit {
   applyFilter(filterValue: string){
     this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
   }
+  onDelete(Id: string) {
+    this.campusService.DeleteByIdCampus(Id).subscribe(response => 
+      this.campusService.getAllCampus(0,this.initPageSize,true).subscribe(
+        data =>
+        {
+          this.dataSource = data["registros"];  
+          this.countRegisters = data["totalDbRegistros"];
+        }
+      )
+      )
+  }
 }
 
-const ELEMENT_DATA: CampusListDto[] = [
-  {Id: 'weqfwergrgwrgw45', TrainigCenterId: 'weqfwergrgwrgw45', TrainingCenterCode:'01' , TrainingCenterName:'CI ALMALEGRE', Code: '011', Name: 'CI ALMALEGRE BARRIO CORAZÓN'},
-  {Id: 'weqfwergrgwrgw45', TrainigCenterId: 'weqfwergrgwrgw45', TrainingCenterCode:'01' , TrainingCenterName:'CI ALMALEGRE', Code: '012', Name: 'CI ALMALEGRE BARRIO CRISTÓBAL'},
-  {Id: 'weqfwergrgwrgw45', TrainigCenterId: 'weqfwergrgwrgw45', TrainingCenterCode:'01' , TrainingCenterName:'CI ALMALEGRE', Code: '013', Name: 'CI ALMALEGRE BARRIO EL SALADO'},
-  {Id: 'weqfwergrgwrgw45', TrainigCenterId: 'weqfwergrgwrgw45', TrainingCenterCode:'02' , TrainingCenterName:'CI AMIGO DE LOS NIÑOS', Code: '021', Name: 'CI AMIGO DE LOS NIÑOS SAN JAVIER'},
-];
 
 
