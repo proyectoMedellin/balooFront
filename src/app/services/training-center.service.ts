@@ -36,7 +36,7 @@ export class TrainingCenterService {
   DeleteByIdTraningCenter(Id: string): Observable<any> {
     return this.http.get(environment.API_SERVICES + "TrainingCenter/Delete?id=" + Id, httpOptions);
   }
-  GetAllEnabledTraningCenter(Id: string): Observable<any> {
+  GetAllEnabledTraningCenter(): Observable<any> {
     return this.http.get(environment.API_SERVICES + "TrainingCenter/GetEnabledTrainigCenterList", httpOptions);
   }
 }

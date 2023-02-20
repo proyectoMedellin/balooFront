@@ -29,7 +29,7 @@ export class UsersService {
     return this.http.post(environment.API_AUTHENTICATION + "Authentication/Login", user, httpOptions);
   }
   register(user: any): Observable<any> {
-    return this.http.post(environment.API_AUTHENTICATION + "Users", user, httpOptions);
+    return this.http.post(environment.API_AUTHENTICATION + "Users/CreateAccessUser", user, httpOptions);
   }
   updatePassword(user: string, password: string): Observable<any>{
     return this.http.get(environment.API_AUTHENTICATION + "ChangePassword?userName=" + user + '&password=' + password, httpOptions);
