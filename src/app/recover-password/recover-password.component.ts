@@ -19,7 +19,7 @@ export class RecoverPasswordComponent implements OnInit {
   public RecoveryForm  = new FormGroup({
     Body: new FormControl(''),
     UserName: new FormControl('', [Validators.required]),
-    Subject: new FormControl('Prueba')
+    Subject: new FormControl('Recupercion de contraseña')
   });
   
   ngOnInit(): void {
