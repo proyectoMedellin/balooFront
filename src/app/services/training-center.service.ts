@@ -33,5 +33,8 @@ export class TrainingCenterService {
   GetByIdTraningCenter(Id: string): Observable<any> {
     return this.http.get(environment.API_SERVICES + "TrainingCenter/GetById?id=" + Id, httpOptions);
   }
+  DeleteByIdTraningCenter(Id: string): Observable<any> {
+    return this.http.get(environment.API_SERVICES + "TrainingCenter/Delete?id=" + Id, httpOptions);
+  }
 }
 

@@ -44,6 +44,16 @@ export class TrainingCentersComponent implements OnInit {
         this.countRegisters = data["totalDbRegistros"]
       })*/
   }
+  onDelete(Id: string) {
+    this.traningCenterService.DeleteByIdTraningCenter(Id).subscribe(response => 
+      this.traningCenterService.getAllTrainingCenter(0,this.initPageSize,true).subscribe(
+        data =>
+        {
+          this.ELEMENT_DATA = data["registros"];  
+          this.countRegisters = data["totalDbRegistros"];
+        }
+      ))
+  }
 }
 
  
