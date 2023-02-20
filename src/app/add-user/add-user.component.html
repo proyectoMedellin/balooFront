@@ -83,6 +83,16 @@
                 <mat-hint align="end">{{AddUsers.value['DocumentNo'].length}} / 150</mat-hint>
             </mat-form-field>
             <br>
+            <label>Rol: </label>
+            <mat-form-field appearance="outline">
+                <mat-label>Seleccione</mat-label>
+                <mat-select multiple formControlName="DocumentTypeId">
+                  <mat-option *ngFor="let tido of rols" [value]="tido.id">
+                    {{tido.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            <br>
             <button mat-raised-button color="primary" type="submit">Crear Usuario</button>
      </form>
 </div>

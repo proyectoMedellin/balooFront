@@ -5,6 +5,8 @@ import { environment } from 'src/environments/environment';
 import { UsersService } from '../services/users.service';
 import { AES } from 'crypto-js';
 import { CorreoService } from '../services/correo.service';
+import { SecurityRolService } from '../services/security-rol.service';
+//import { CampusService } from '../services/campus.service';
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
@@ -22,24 +24,33 @@ export class AddUserComponent implements OnInit {
     Phone: new FormControl(''),
     DocumentTypeId: new FormControl('', [Validators.required]),
     DocumentNo: new FormControl('', ),
-    CreatedBy: new FormControl('SuperAdminTest', [Validators.required])
+    CreatedBy: new FormControl('SuperAdminTest', [Validators.required]),
+    Rols: new FormControl('', [Validators.required])
   });
   public documents: any = [];
-
+  public campus: any = [];
+  public rols: any = [];
+  public traingcenter: any = [];
   constructor(
     private formBulider: FormBuilder,
     public userservice: UsersService,
-    private correoservice: CorreoService
+    private correoservice: CorreoService,
+    public rolservice: SecurityRolService,
+    //public campusservice: CampusService
   ) { }
 
   ngOnInit(): void {
     this.Documents()
+    this.Rols()
   }
   
   Documents(){
     this.userservice.getAllDocuments().subscribe(data => this.documents = data["registros"][0])
   }
-
+  Rols(){
+    this.rolservice.getAllRoles().subscribe(data => this.rols = data["registros"][0])
+  }
+  
   ChangeInputUser(){
     this.AddUsers.patchValue({
       UserName: this.AddUsers.get('Email')?.value

@@ -101,7 +101,7 @@ const routes: Routes =
     path: 'AddUser',
     //Componente al que dirigira la Url 
     component: AddUserComponent,
-    canActivate:[AuthPermissionGuard], data:{permiso: ["Users"]}
+    //canActivate:[AuthPermissionGuard], data:{permiso: ["Users"]}
   },
   {
     path: 'UsersList',
