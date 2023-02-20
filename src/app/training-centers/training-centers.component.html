@@ -39,7 +39,7 @@
                     <button mat-icon-button color="primary" [routerLink]="'/TrainingCenters/TrainingCentersUpdate?register=' + element.id">
                       <mat-icon>edit</mat-icon>
                     </button>
-                    <button mat-icon-button color="warn" >
+                    <button mat-icon-button color="warn" (click)="onDelete()">
                       <mat-icon>delete</mat-icon>
                     </button>
                   </td>
