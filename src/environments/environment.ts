@@ -5,7 +5,7 @@ export const environment = {
     //APIS
     API_AUTHENTICATION: "https://localhost:7205/",
     API_SERVICES:  "https://localhost:7205/",
-    API_Notification:  "https://localhost:7205/Notification",
+    API_NotificationRecover:  "https://localhost:7205/Notification/RecoverPassword",
     /*API_AUTHENTICATION: "https://siecaapi20230210190623.azurewebsites.net/",
     API_SERVICES:  "https://siecaapi20230210190623.azurewebsites.net/",
     API_Notification:  "https://siecaapi20230210190623.azurewebsites.net/",*/

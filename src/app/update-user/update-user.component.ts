@@ -57,7 +57,7 @@ export class UpdateUserComponent implements OnInit, AfterContentInit{
       this.UpdateUsers.patchValue({
         OldUserName:user["userName"],
         FirstName: user["firstName"],
-        OtherName: user["otherNames"],
+        OtherNames: user["otherNames"],
         LastName: user["lastName"],
         OtherLastName: user["otherLastName"],
         UserName: user["userName"],
@@ -66,7 +66,8 @@ export class UpdateUserComponent implements OnInit, AfterContentInit{
         DocumentNo: user["documentNo"],
         TrainingCenterId: user["trainingCenterId"],
         CampusId: user["campusId"],
-        RolsId: user["rolsId"]
+        RolsId: user["rolsId"],
+        Phone: user["phone"]
       })
       this.Campus(user["trainingCenterId"])
     })

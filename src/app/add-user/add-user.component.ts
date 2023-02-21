@@ -30,6 +30,11 @@ export class AddUserComponent implements OnInit {
     TrainingCenterId: new FormControl('', [Validators.required]),
     CampusId: new FormControl('', [Validators.required])
   });
+  public RecoveryForm  = new FormGroup({
+    Body: new FormControl(''),
+    UserName: new FormControl('', [Validators.required]),
+    Subject: new FormControl('Asignacion')
+  });
   public documents: any = [];
   public campus: any = [];
   public rols: any = [];
@@ -73,14 +78,13 @@ export class AddUserComponent implements OnInit {
   sendNotificacion(){
     let text = `${this.AddUsers.get("UserName")?.value}||${moment().locale('es').format()}`
     let textEncrypt = AES.encrypt(text, environment.Key).toString()
-    let Formdata: any;
-    Formdata['Body'] = environment.url + "ChangePassword?DateRecover=" + textEncrypt
-    Formdata['UserName'] = text
-    Formdata['Subject'] = "Asignar contraseña"
-    this.correoservice.sendEmail(this.AddUsers.getRawValue()['Email'], Formdata).subscribe(
-        response => {
-          location.href = environment.url
-        }
+    let urlpassword = environment.url + "ChangePassword?DateRecover=" + textEncrypt
+    let dataUser = {Body:urlpassword, UserName:this.AddUsers.get("UserName")?.value, Subject:"Asignar clave"}
+
+    this.correoservice.sendEmailRecover(this.AddUsers.getRawValue()['Email'], dataUser).subscribe(
+        response => {location.href = environment.url
+        console.log(response)}
+
       )
   }
 }
