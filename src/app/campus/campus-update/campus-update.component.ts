@@ -59,7 +59,7 @@ export class CampusUpdateComponent implements OnInit {
   }
   UpdateCampus(){
     this.campusService.updateCampus(this.CampusForm.value)
-    .subscribe(response => location.href = environment.url + "Campus")
+      .subscribe(response => location.href = environment.url + "Campus")
   }
 
 }

@@ -16,7 +16,7 @@ export class CampusComponent implements OnInit {
   confirmed = false;
   countRegisters: number = 0
   initPageSize: number = 1000
-  displayedColumns: string[] = ['TrainingCenterName', 'Code', 'Name', 'actions'];
+  displayedColumns: string[] = ['TrainingCenterCode', 'TrainingCenterName', 'Code', 'Name', 'actions'];
   dataSource = new MatTableDataSource<CampusListDto>();
 
   @ViewChild(MatPaginator) paginator! : MatPaginator;

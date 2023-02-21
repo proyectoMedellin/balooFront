@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { CookieService } from 'ngx-cookie-service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 //configuracion de cabezeras 
@@ -21,6 +20,10 @@ export class CampusService {
     private http: HttpClient,
   ) { }
   getAllCampus(pageIndex: number,pageSize: number, fEnabled:boolean): Observable<any>{
+    return this.http.get(environment.API_SERVICES + "Campus/ViewGrid?page="+ pageIndex + "&pageSize=" + pageSize, httpOptions)
+    // return this.http.get(environment.API_SERVICES + "Campus/ViewGrid?page="+ pageIndex + "&pageSize=" + pageSize +"&fEnabled=" + fEnabled, httpOptions)
+  }
+  getAllCampusEnabled(pageIndex: number,pageSize: number, fEnabled:boolean): Observable<any>{
     return this.http.get(environment.API_SERVICES + "Campus/ViewGrid?page="+ pageIndex + "&pageSize=" + pageSize +"&fEnabled=" + fEnabled, httpOptions)
   }
   createCampus(Campus: any): Observable<any> {

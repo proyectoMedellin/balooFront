@@ -1,8 +1,10 @@
 <div class="container">
+  <br>
     <div class="row">
         <h1>Asignación de agentes educativos</h1> 
         <div class="line"></div>
     </div>
+    <br>
     <div class="row">
       <div class="col-sm">
         <mat-form-field>
@@ -56,6 +58,7 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
+            <br>
             <mat-paginator #paginator
                          [pageSize]="5"
                          [pageSizeOptions]="[5, 10, 15, 20]"
