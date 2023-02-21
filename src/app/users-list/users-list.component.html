@@ -46,10 +46,15 @@
         </ng-container>
     
         <ng-container matColumnDef="Update">
-          <th mat-header-cell *matHeaderCellDef> </th>
+          <th mat-header-cell *matHeaderCellDef>Actions </th>
           <td mat-cell *matCellDef="let element">
-            <!--<a href="/UpdateUser?user={{element.userName}}">Actualizar</a>-->
-          </td>
+              <button mat-icon-button color="primary" [routerLink]="['../UpdateUser']"[queryParams]="{user: element.userName}">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deletedRegister(element.userName)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
         </ng-container>    
     
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

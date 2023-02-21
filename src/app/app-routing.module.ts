@@ -115,7 +115,7 @@ const routes: Routes =
   {
     path: 'UpdateUser',
     component: UpdateUserComponent,
-    canActivate: [AuthPermissionGuard], data:{permiso: ["Prueba"]}
+    //canActivate: [AuthPermissionGuard], data:{permiso: ["Prueba"]}
   },
   {
     path: 'Login',

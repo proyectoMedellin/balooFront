@@ -29,10 +29,16 @@ export class UsersService {
     return this.http.post(environment.API_AUTHENTICATION + "Authentication/Login", user, httpOptions);
   }
   register(user: any): Observable<any> {
-    return this.http.post(environment.API_AUTHENTICATION + "Users/CreateAccessUser", user, httpOptions);
+    return this.http.post(environment.API_SERVICES + "Users/CreateAccessUser", user, httpOptions);
+  }
+  updateUser(user: any): Observable<any> {
+    return this.http.post(environment.API_SERVICES + "Users/UpdateAccessUser", user, httpOptions);
   }
   updatePassword(user: string, password: string): Observable<any>{
     return this.http.get(environment.API_AUTHENTICATION + "ChangePassword?userName=" + user + '&password=' + password, httpOptions);
+  }
+  deletedUser(username: string): Observable<any>{
+    return this.http.get(environment.API_SERVICES + "Users/DeletedUser?userName=" + username, httpOptions);
   }
   setToken(token: string) {
     const expirationDate = new Date();

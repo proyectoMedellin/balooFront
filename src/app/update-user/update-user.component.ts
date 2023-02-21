@@ -1,6 +1,9 @@
 import { Component, OnInit, AfterContentInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, Form } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CampusService } from '../services/campus.service';
+import { SecurityRolService } from '../services/security-rol.service';
+import { TrainingCenterService } from '../services/training-center.service';
 import { UsersService } from '../services/users.service';
 @Component({
   selector: 'app-update-user',
@@ -10,44 +13,80 @@ import { UsersService } from '../services/users.service';
 export class UpdateUserComponent implements OnInit, AfterContentInit{
 
   public UpdateUsers = new FormGroup({
+    OldUserName: new FormControl('', [Validators.required]),
     FirstName: new FormControl('', [Validators.required]),
-    OtherName: new FormControl(''),
+    OtherNames: new FormControl(''),
     LastName: new FormControl('',[Validators.required]),
-    OtherSurName: new FormControl(''),
-    Mail: new FormControl('', [Validators.required, Validators.email]),
-    User: new FormControl('', [Validators.required]),
+    OtherLastName: new FormControl(''),
+    Email: new FormControl('', [Validators.required, Validators.email]),
+    UserName: new FormControl('', [Validators.required]),
     Phone: new FormControl(''),
-    PrimaryKey: new FormControl('', )
+    PrimaryKey: new FormControl('', ),
+    DocumentTypeId: new FormControl('', [Validators.required]),
+    DocumentNo: new FormControl('', [Validators.required]),
+    TrainingCenterId: new FormControl('', [Validators.required]),
+    CampusId: new FormControl('', [Validators.required]),
+    RolsId: new FormControl('', [Validators.required])
    });
    
   constructor(
     private route: Router,
     private formBulider: FormBuilder,
-    private userservices: UsersService
+    private userservices: UsersService,
+    public rolservice: SecurityRolService,
+    public campusservice: CampusService,
+    public trainingCenterService: TrainingCenterService
   ) { }
 
   public urlTree = this.route.parseUrl(this.route.url);
   public userName = this.urlTree.queryParams['user'];
   public userUpdate: any;
+  public documents: any = [];
+  public campus: any = [];
+  public rols: any = [];
+  public trainingcenter: any = [];
   ngOnInit(): void {
+    this.Documents()
+    this.Rols()
+    this.Trainingcenter()
+   
+  }
+  ngAfterContentInit(): void {
     this.userservices.getUser(this.userName).subscribe(data=> {
       let user= data["registros"][0]
       this.UpdateUsers.patchValue({
+        OldUserName:user["userName"],
         FirstName: user["firstName"],
         OtherName: user["otherNames"],
         LastName: user["lastName"],
-        OtherSurName: user["otherLastName"],
-        User: user["userName"],
-        Mail: user["email"]
+        OtherLastName: user["otherLastName"],
+        UserName: user["userName"],
+        Email: user["email"],
+        DocumentTypeId: user["documentTypeId"],
+        DocumentNo: user["documentNo"],
+        TrainingCenterId: user["trainingCenterId"],
+        CampusId: user["campusId"],
+        RolsId: user["rolsId"]
       })
+      this.Campus(user["trainingCenterId"])
+    })
+  }
+  
+  Documents(){
+    this.userservices.getAllDocuments().subscribe(data => this.documents = data["registros"][0])
+  }
+  Rols(){
+    this.rolservice.getAllRoles().subscribe(data => this.rols = data["registros"][0])
+  }
+  Trainingcenter(){
+    this.trainingCenterService.GetAllEnabledTraningCenter().subscribe(data => this.trainingcenter = data["registros"])
+  }
+  Campus(trainingCenter: string){
+    if(trainingCenter != null && trainingCenter.length > 0){
+      this.campusservice.getAllBytrainingCenterCampus(trainingCenter).subscribe(data => this.campus= data["registros"])
     }
-      )
   }
-  ngAfterContentInit(): void {
-    // console.log(this.userUpdate)
-    // this.UpdateUsers.patchValue({
-    //   User: this.userUpdate["userName"]
-    // })
+  UpdateRegister(Formdata: any){
+    this.userservices.updateUser(Formdata).subscribe((data)=> location.reload())
   }
-
 }
