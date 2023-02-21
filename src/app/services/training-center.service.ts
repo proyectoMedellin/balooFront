@@ -22,7 +22,8 @@ export class TrainingCenterService {
     private cookies: CookieService
   ) { }
   getAllTrainingCenter(pageIndex: number,pageSize: number, fEnabled:boolean): Observable<any>{
-    return this.http.get(environment.API_SERVICES + "TrainingCenter/ViewGrid?page="+ pageIndex + "&pageSize=" + pageSize +"&fEnabled=" + fEnabled, httpOptions)
+    // return this.http.get(environment.API_SERVICES + "TrainingCenter/ViewGrid?page="+ pageIndex + "&pageSize=" + pageSize +"&fEnabled=" + fEnabled, httpOptions)
+    return this.http.get(environment.API_SERVICES + "TrainingCenter/ViewGrid?page="+ pageIndex + "&pageSize=" + pageSize , httpOptions)
   }
   createTraningCenter(traningCenter: any): Observable<any> {
     return this.http.post(environment.API_SERVICES + "TrainingCenter/Create", traningCenter, httpOptions);

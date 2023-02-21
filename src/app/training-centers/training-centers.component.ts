@@ -14,10 +14,9 @@ import { TrainingCenterService } from '../services/training-center.service';
 export class TrainingCentersComponent implements OnInit {
   confirmed = false;
   countRegisters: number = 0
-  initPageSize: number = 5
+  initPageSize: number = 1000
   displayedColumns: string[] = ['Code', 'Name','actions'];
-  ELEMENT_DATA: TrainingCenterListDto[] = [];
-  dataSource = new MatTableDataSource<TrainingCenterListDto>(this.ELEMENT_DATA);
+  dataSource = new MatTableDataSource<TrainingCenterListDto>();
 
   @ViewChild(MatPaginator) paginator! : MatPaginator;
 
@@ -30,8 +29,9 @@ export class TrainingCentersComponent implements OnInit {
     this.traningCenterService.getAllTrainingCenter(0,this.initPageSize,true).subscribe(
       data =>
       {
-        this.ELEMENT_DATA = data["registros"];  
+        this.dataSource =new MatTableDataSource<TrainingCenterListDto>( data["registros"]);  
         this.countRegisters = data["totalDbRegistros"];
+        this.dataSource.paginator = this.paginator;
       }
     )
   }
@@ -41,6 +41,7 @@ export class TrainingCentersComponent implements OnInit {
   }
 
   applyFilter(filterValue: string){
+    //const filterValue = (event.target as HTMLInputElement).value
     this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
   }
   changePage(event: PageEvent) {
@@ -63,8 +64,9 @@ export class TrainingCentersComponent implements OnInit {
               this.traningCenterService.getAllTrainingCenter(0,this.initPageSize,true).subscribe(
                 data =>
                 {
-                  this.ELEMENT_DATA = data["registros"];  
+                  this.dataSource =new MatTableDataSource<TrainingCenterListDto>( data["registros"]); 
                   this.countRegisters = data["totalDbRegistros"];
+                  this.dataSource.paginator = this.paginator
                 }
               ))
       }

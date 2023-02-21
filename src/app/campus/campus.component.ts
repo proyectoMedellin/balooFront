@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CampusListDto } from '../intefaces/campus-list-dto';
 import { TrainingCenterListDto } from '../intefaces/training-center-list-dto';
 import { CampusService } from '../services/campus.service';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-campus',
@@ -11,24 +13,25 @@ import { CampusService } from '../services/campus.service';
   styleUrls: ['./campus.component.css']
 })
 export class CampusComponent implements OnInit {
+  confirmed = false;
   countRegisters: number = 0
-  initPageSize: number = 5
+  initPageSize: number = 1000
   displayedColumns: string[] = ['TrainingCenterName', 'Code', 'Name', 'actions'];
-  ELEMENT_DATA: CampusListDto[] = [];
-  dataSource = new MatTableDataSource<CampusListDto>(this.ELEMENT_DATA);
+  dataSource = new MatTableDataSource<CampusListDto>();
 
   @ViewChild(MatPaginator) paginator! : MatPaginator;
 
   constructor(
-    private campusService : CampusService
+    private campusService : CampusService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.campusService.getAllCampus(0,this.initPageSize,true).subscribe(
       data =>
       {
-        this.dataSource = data["registros"];  
-        this.countRegisters = data["totalDbRegistros"];
+        this.dataSource = new MatTableDataSource<CampusListDto>( data["registros"]);  
+        this.dataSource.paginator = this.paginator;
       }
     )
   }
@@ -40,16 +43,26 @@ export class CampusComponent implements OnInit {
   applyFilter(filterValue: string){
     this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
   }
+
   onDelete(Id: string) {
-    this.campusService.deleteByIdCampus(Id).subscribe(response => 
-      this.campusService.getAllCampus(0,this.initPageSize,true).subscribe(
-        data =>
-        {
-          this.dataSource = data["registros"];  
-          this.countRegisters = data["totalDbRegistros"];
-        }
-      )
-      )
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {type: 'alert-red',title: '¿Está seguro que desea eliminar este registro?', message: 'Esta operación es irreversible', textButton: 'Eliminar' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.confirmed = result;
+      if (this.confirmed) {
+        this.campusService.deleteByIdCampus(Id).subscribe(response => 
+          this.campusService.getAllCampus(0,this.initPageSize,true).subscribe(
+            data =>
+            {
+              this.dataSource = new MatTableDataSource<CampusListDto>( data["registros"]);  
+              this.dataSource.paginator = this.paginator;
+            }
+          )
+          )
+      }
+    });
   }
 }
 

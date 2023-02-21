@@ -1,5 +1,5 @@
 export interface TrainingCenterListDto {
-    Id: string;
-    Code: string;
-    Name: string;
+    id: string;
+    code: string;
+    name: string;
 }
