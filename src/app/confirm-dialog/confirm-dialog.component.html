@@ -1,0 +1,27 @@
+
+<h2 mat-dialog-title>
+<mat-icon color="accent" [ngClass]="{
+    'color-successful': data.type === 'successful',
+    'color-error': data.type === 'error',
+    'color-alert': data.type === 'alert',
+    'color-alert-red': data.type === 'alert-red',
+    'display-none': data.type === 'loading'
+  }">
+  {{ data.type === 'error' ? 'warning_amber' : data.type=== 'successful' ? 'check_circle_outline' :
+  data.type=== 'info' ? 'cached' :  'error_outline' }}
+</mat-icon>
+<div class="modal-title"> {{data.title}}</div>
+</h2>
+<mat-dialog-content>{{data.message}}</mat-dialog-content>
+<mat-dialog-actions [ngClass]="{'display-none': data.type === 'loading'}">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-raised-button  color="primary" [mat-dialog-close]="true">{{data.textButton}}</button>
+</mat-dialog-actions>
+<br>
+<div  [ngClass]="{'display-none': data.type !== 'loading', '  modal-container': data.type === 'loading'}">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+
+<!-- <mat-form-field>
+    <input matInput placeholder="Nombre de usuario" [(ngModel)]="data.type">
+  </mat-form-field> -->

@@ -29,12 +29,12 @@ export class CampusService {
   updateCampus(Campus: any): Observable<any> {
     return this.http.post(environment.API_SERVICES + "Campus/Update", Campus, httpOptions);
   }
-  GetByIdCampus(Id: string): Observable<any> {
+  getByIdCampus(Id: string): Observable<any> {
     return this.http.get(environment.API_SERVICES + "Campus/GetById?id=" + Id, httpOptions);
   }
-  DeleteByIdCampus(Id: string): Observable<any> {
+  deleteByIdCampus(Id: string): Observable<any> {
     return this.http.get(environment.API_SERVICES + "Campus/Delete?id=" + Id, httpOptions);
   }
   getAllBytrainingCenterCampus(trainingCenter: string): Observable<any>{
-    return this.http.get(environment.API_SERVICES + "Campus/GetEnableCampusesByTrainingCenter?trainingCenterId=" + trainingCenter, httpOptions)  }
+    return this.http.get(environment.API_SERVICES + "Campus/GetEnableCampusesByTrainingCenter?trainingCenterId=" + trainingCenter, httpOptions) }
 }

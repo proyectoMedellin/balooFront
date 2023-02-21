@@ -74,3 +74,16 @@ table {
   position: relative;
   bottom: -5%;
 }
+
+.right-align {
+  text-align: right;
+}
+
+.row {
+  position: relative;
+}
+.center-vertical {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}

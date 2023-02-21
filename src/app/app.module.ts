@@ -25,6 +25,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 //aqui se importan los componentes creados
 import { AddUserComponent } from './add-user/add-user.component'; 
 import { ChangePasswordComponent } from './change-password/change-password.component';
@@ -55,6 +57,7 @@ import { CampuesCreateComponent } from './campus/campues-create/campues-create.c
 import { DevelopmentRoomsCreateComponent } from './development-rooms/development-rooms-create/development-rooms-create.component';
 import { BeneficiariesCreateComponent } from './beneficiaries/beneficiaries-create/beneficiaries-create.component';
 import { TrainingCenterUpdateComponent } from './training-centers/training-center-update/training-center-update.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +87,8 @@ import { TrainingCenterUpdateComponent } from './training-centers/training-cente
     CampuesCreateComponent,
     DevelopmentRoomsCreateComponent,
     BeneficiariesCreateComponent,
-    TrainingCenterUpdateComponent
+    TrainingCenterUpdateComponent,
+    ConfirmDialogComponent
     //aqui se adicionan los componentes creados  
   ],
   imports: [
@@ -111,6 +115,8 @@ import { TrainingCenterUpdateComponent } from './training-centers/training-cente
     MatStepperModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
+    MatProgressSpinnerModule,
     BrowserAnimationsModule,
     RecaptchaModule
   ],

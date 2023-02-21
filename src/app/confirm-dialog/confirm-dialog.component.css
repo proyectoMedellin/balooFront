@@ -1,0 +1,58 @@
+
+.mat-dialog-title,
+.mat-dialog-content,
+.mat-dialog-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mat-dialog-title {
+    flex-direction: column;
+  }
+  
+
+  .mat-icon{
+    font-size: 74px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%
+  }
+  .display-none{
+    display: none;
+  }
+  .display-block{
+    display: block;
+  }
+/* Loading */
+.modal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+  
+  mat-progress-spinner {
+    width: 100px;
+    height: 100px;
+  }
+/* Colors Notifications */
+  .color-successful {
+    color: #36B37E;
+  }
+  .color-error {
+    color: #FF5630;
+  }
+  .color-alert-red {
+    color: #FF5630;
+  }
+  .color-alert {
+    color: #FFAB00;
+  }
+  .color-update {
+    color: #FFAB00;
+  }
+
+  

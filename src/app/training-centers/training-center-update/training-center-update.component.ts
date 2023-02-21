@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute  } from '@angular/router';
 import { AES, enc } from 'crypto-js';
 import { TrainingCenterService } from 'src/app/services/training-center.service';
 import { environment } from 'src/environments/environment';
@@ -13,19 +13,19 @@ import { environment } from 'src/environments/environment';
 export class TrainingCenterUpdateComponent implements OnInit {
 
   constructor(
-    private route: Router,
+    private route: ActivatedRoute ,
     private formBuilder: FormBuilder,
     private trainingCenterService: TrainingCenterService,
   ) { }
-  private urlTree = this.route.parseUrl(this.route.url);
-  private regiterId = this.urlTree.queryParams['register'];
+ 
+  private recordId = '';
   private regiterUpdate: any;
 
   private userEncrypt:string = localStorage.getItem("user")!;
   private user =AES.decrypt(this.userEncrypt, environment.Key).toString(enc.Utf8);
 
   public TrainingCenterForm = this.formBuilder.group({
-    Id: [this.regiterId, Validators.required],
+    Id: ['', Validators.required],
     Code:['', Validators.required],
     Name:['', Validators.required],
     Enabled:[true, Validators.required],
@@ -33,8 +33,14 @@ export class TrainingCenterUpdateComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    console.log(this.regiterId)
-    this.trainingCenterService.GetByIdTraningCenter(this.regiterId).subscribe(data=> 
+    this.route.params.subscribe(params => {
+      this.recordId =params['record']
+      this.TrainingCenterForm.patchValue({ 
+        Id: this.recordId 
+    })
+      // hacer algo con los parámetros...
+    });
+    this.trainingCenterService.GetByIdTraningCenter(this.recordId).subscribe(data=> 
       {
         let regiter = data["registros"][0]
         this.TrainingCenterForm.patchValue({

@@ -54,7 +54,7 @@ const routes: Routes =
     component: TrainingCenterCreateComponent,
   },
   {
-    path: 'TrainingCenters/TrainingCentersUpdate',
+    path: 'TrainingCenters/TrainingCentersUpdate/:record',
     component: TrainingCenterUpdateComponent
   },
   {

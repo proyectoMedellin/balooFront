@@ -41,7 +41,7 @@ export class CampusComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
   }
   onDelete(Id: string) {
-    this.campusService.DeleteByIdCampus(Id).subscribe(response => 
+    this.campusService.deleteByIdCampus(Id).subscribe(response => 
       this.campusService.getAllCampus(0,this.initPageSize,true).subscribe(
         data =>
         {
