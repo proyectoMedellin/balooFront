@@ -31,7 +31,6 @@ export class TrainingCenterCreateComponent implements OnInit {
   ngOnInit(): void {
   }
   CreateTrainingCenter(data: any){
-    console.log(data)
     this.trainingCenterService.createTraningCenter(data).subscribe(response => location.href = environment.url + "TrainingCenters")
   }
 }

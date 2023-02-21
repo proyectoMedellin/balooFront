@@ -4,20 +4,21 @@
         <h1>Centros de formación</h1> 
         <div class="line"></div>
     </div>
+    <br>
     <div class="row">
-      <div class="col-sm">
+      <div class="col-sm " >
         <mat-form-field>
             <mat-label>Buscar centro</mat-label>
             <input #tableFilter (keyup)="applyFilter(tableFilter.value)" matInput placeholder="" />
         </mat-form-field>
       </div>
-      <div class="col-sm right-align center-vertical" >
+      <div class="col-sm right-align" >
         <button mat-raised-button color="primary" [routerLink]="['TrainingCentersCreate']">Adicionar centro</button>
       </div>
     </div>
     <div class="row">
         <div class="mat-elevation-z8">
-            <table #table mat-table [dataSource]="ELEMENT_DATA" class="mat-e">
+            <table #table mat-table [dataSource]="dataSource" class="mat-e">
                 <ng-container matColumnDef="Code">
                   <th mat-header-cell *matHeaderCellDef> Código </th>
                   <td mat-cell *matCellDef="let element"> {{element.code}} </td>

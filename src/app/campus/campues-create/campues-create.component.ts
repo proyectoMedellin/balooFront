@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { AES, enc } from 'crypto-js';
+import { CampusService } from 'src/app/services/campus.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-campues-create',
@@ -9,13 +12,19 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class CampuesCreateComponent implements OnInit {
 
   constructor(
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private campusService: CampusService
+    ) { }
+
+  private userEncrypt:string = localStorage.getItem("user")!;
+  private user =AES.decrypt(this.userEncrypt, environment.Key).toString(enc.Utf8);
 
   CampusForm = this.formBuilder.group({
     TrainingCenterId:['', Validators.required],
     Code:['', Validators.required],
     Name:['', Validators.required],
-    Enabled:['true']
+    Enabled:['true'],
+    CreatedBy:[this.user, Validators.required]
   });
 
   listaCentros: CentrosFormacion[] = [
