@@ -83,10 +83,30 @@
                 <mat-hint align="end">{{AddUsers.value['DocumentNo'].length}} / 150</mat-hint>
             </mat-form-field>
             <br>
+            <label>Centro de formación: </label>
+            <mat-form-field appearance="outline">
+                <mat-label>Seleccione</mat-label>
+                <mat-select formControlName="TrainingCenterId" (selectionChange)="Campus(AddUsers.value['TrainingCenterId'])">
+                  <mat-option *ngFor="let tido of trainingcenter" [value]="tido.id">
+                    {{tido.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            <br>
+            <label>Sedes: </label>
+            <mat-form-field appearance="outline">
+                <mat-label >Seleccione</mat-label>
+                <mat-select [disabled]="AddUsers.value['TrainingCenterId'].length == 0" multiple formControlName="CampusId">
+                  <mat-option *ngFor="let tido of campus" [value]="tido.id">
+                    {{tido.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            <br>
             <label>Rol: </label>
             <mat-form-field appearance="outline">
                 <mat-label>Seleccione</mat-label>
-                <mat-select multiple formControlName="DocumentTypeId">
+                <mat-select multiple formControlName="RolsId">
                   <mat-option *ngFor="let tido of rols" [value]="tido.id">
                     {{tido.name}}
                   </mat-option>

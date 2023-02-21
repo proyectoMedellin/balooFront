@@ -31,7 +31,7 @@ import { TrainingCenterUpdateComponent } from './training-centers/training-cente
 
 const routes: Routes = 
 [
-  { path: "", redirectTo: "Login", pathMatch: "full" },
+  { path: "", redirectTo: "Inicio", pathMatch: "full" },
   { path: "Inicio", component: IndexComponent, },
   {
     path: 'Holidays',

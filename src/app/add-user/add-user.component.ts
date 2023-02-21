@@ -6,7 +6,8 @@ import { UsersService } from '../services/users.service';
 import { AES } from 'crypto-js';
 import { CorreoService } from '../services/correo.service';
 import { SecurityRolService } from '../services/security-rol.service';
-//import { CampusService } from '../services/campus.service';
+import { CampusService } from '../services/campus.service';
+import { TrainingCenterService } from '../services/training-center.service';
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
@@ -25,23 +26,27 @@ export class AddUserComponent implements OnInit {
     DocumentTypeId: new FormControl('', [Validators.required]),
     DocumentNo: new FormControl('', ),
     CreatedBy: new FormControl('SuperAdminTest', [Validators.required]),
-    Rols: new FormControl('', [Validators.required])
+    RolsId: new FormControl('', [Validators.required]),
+    TrainingCenterId: new FormControl('', [Validators.required]),
+    CampusId: new FormControl('', [Validators.required])
   });
   public documents: any = [];
   public campus: any = [];
   public rols: any = [];
-  public traingcenter: any = [];
+  public trainingcenter: any = [];
   constructor(
     private formBulider: FormBuilder,
     public userservice: UsersService,
     private correoservice: CorreoService,
     public rolservice: SecurityRolService,
-    //public campusservice: CampusService
+    public campusservice: CampusService,
+    public trainingCenterService: TrainingCenterService
   ) { }
 
   ngOnInit(): void {
     this.Documents()
     this.Rols()
+    this.Trainingcenter()
   }
   
   Documents(){
@@ -50,6 +55,12 @@ export class AddUserComponent implements OnInit {
   Rols(){
     this.rolservice.getAllRoles().subscribe(data => this.rols = data["registros"][0])
   }
+  Trainingcenter(){
+    this.trainingCenterService.GetAllEnabledTraningCenter().subscribe(data => this.trainingcenter = data["registros"])
+  }
+  Campus(trainingCenter: any){
+    this.campusservice.getAllBytrainingCenterCampus(trainingCenter).subscribe(data => this.campus= data["registros"])
+  }
   
   ChangeInputUser(){
     this.AddUsers.patchValue({
@@ -57,8 +68,7 @@ export class AddUserComponent implements OnInit {
     })
   }
   SignUp(data: any){
-    console.log(data)
-    //this.userservice.register(data).subscribe(response => location.href = environment.url)
+    this.userservice.register(data).subscribe(response => this.sendNotificacion())
   }
   sendNotificacion(){
     let text = `${this.AddUsers.get("UserName")?.value}||${moment().locale('es').format()}`
