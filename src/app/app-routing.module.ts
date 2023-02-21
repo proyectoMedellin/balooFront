@@ -28,6 +28,7 @@ import { CampuesCreateComponent } from './campus/campues-create/campues-create.c
 import { DevelopmentRoomsCreateComponent } from './development-rooms/development-rooms-create/development-rooms-create.component';
 import { BeneficiariesCreateComponent } from './beneficiaries/beneficiaries-create/beneficiaries-create.component';
 import { TrainingCenterUpdateComponent } from './training-centers/training-center-update/training-center-update.component';
+import { CampusUpdateComponent } from './campus/campus-update/campus-update.component';
 
 const routes: Routes = 
 [
@@ -64,6 +65,10 @@ const routes: Routes =
   {
     path: 'Campus/CampusCreate',
     component: CampuesCreateComponent,
+  },
+  {
+    path: 'Campus/CampusUpdate/:record',
+    component: CampusUpdateComponent
   },
   {
     path: 'DevelopmentRooms',

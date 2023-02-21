@@ -34,7 +34,7 @@
                 <ng-container matColumnDef="actions">
                   <th mat-header-cell style="text-align: right" *matHeaderCellDef>Acciones</th>
                   <td mat-cell style="text-align: right" *matCellDef="let element">
-                    <button mat-icon-button color="primary" [routerLink]="['/TrainingCenters/TrainingCentersUpdate',element.id]">
+                    <button mat-icon-button color="primary" [routerLink]="['CampusUpdate',element.id]">
                       <mat-icon>edit</mat-icon>
                     </button>
                     <button mat-icon-button color="warn" (click)="onDelete(element.id)">

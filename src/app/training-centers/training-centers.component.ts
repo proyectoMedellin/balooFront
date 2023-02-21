@@ -64,7 +64,7 @@ export class TrainingCentersComponent implements OnInit {
               this.traningCenterService.getAllTrainingCenter(0,this.initPageSize,true).subscribe(
                 data =>
                 {
-                  this.dataSource =new MatTableDataSource( data["registros"]); 
+                  this.dataSource =new MatTableDataSource<TrainingCenterListDto>( data["registros"]); 
                   this.countRegisters = data["totalDbRegistros"];
                   this.dataSource.paginator = this.paginator
                 }

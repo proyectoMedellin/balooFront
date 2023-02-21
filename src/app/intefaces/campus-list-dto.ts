@@ -1,8 +1,8 @@
 export interface CampusListDto {
-    Id: string;
-    TrainigCenterId: string;
-    TrainingCenterCode: string;
-    TrainingCenterName: string;
-    Code: string;
-    Name: string;
+    id: string;
+    trainigCenterId: string;
+    trainingCenterCode: string;
+    trainingCenterName: string;
+    code: string;
+    name: string;
 }

@@ -58,6 +58,7 @@ import { DevelopmentRoomsCreateComponent } from './development-rooms/development
 import { BeneficiariesCreateComponent } from './beneficiaries/beneficiaries-create/beneficiaries-create.component';
 import { TrainingCenterUpdateComponent } from './training-centers/training-center-update/training-center-update.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { CampusUpdateComponent } from './campus/campus-update/campus-update.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     DevelopmentRoomsCreateComponent,
     BeneficiariesCreateComponent,
     TrainingCenterUpdateComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    CampusUpdateComponent
     //aqui se adicionan los componentes creados  
   ],
   imports: [

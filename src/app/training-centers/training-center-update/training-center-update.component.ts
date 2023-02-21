@@ -19,8 +19,6 @@ export class TrainingCenterUpdateComponent implements OnInit {
   ) { }
  
   private recordId = '';
-  private regiterUpdate: any;
-
   private userEncrypt:string = localStorage.getItem("user")!;
   private user =AES.decrypt(this.userEncrypt, environment.Key).toString(enc.Utf8);
 
@@ -38,7 +36,6 @@ export class TrainingCenterUpdateComponent implements OnInit {
       this.TrainingCenterForm.patchValue({ 
         Id: this.recordId 
     })
-      // hacer algo con los parámetros...
     });
     this.trainingCenterService.GetByIdTraningCenter(this.recordId).subscribe(data=> 
       {
@@ -52,6 +49,7 @@ export class TrainingCenterUpdateComponent implements OnInit {
     )
   }
 
+  
   UpdateTrainingCenter(){
     this.trainingCenterService.updateTraningCenter(this.TrainingCenterForm.value).subscribe(response => location.href = environment.url + "TrainingCenters")
   }
