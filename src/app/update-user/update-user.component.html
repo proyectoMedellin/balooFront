@@ -4,7 +4,7 @@
     </div>
 </div>
 <div class="custom-form">
-    <form  [formGroup] = "UpdateUsers">
+    <form (ngSubmit)="UpdateUsers.valid && UpdateRegister(UpdateUsers.value)" [formGroup] = "UpdateUsers">
         <label>Primer Nombre: </label>
         <mat-form-field appearance="outline">
             <input matInput type="text" maxlength="150"  formControlName="FirstName">
@@ -17,9 +17,9 @@
         <br>
         <label>Segundo Nombre: </label>
         <mat-form-field appearance="outline">
-            <input matInput type="text" maxlength="300" formControlName="OtherName">
+            <input matInput type="text" maxlength="300" formControlName="OtherNames">
             <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
-            <mat-hint align="end">{{UpdateUsers.value['OtherName'].length}} / 300</mat-hint>
+            <mat-hint align="end">{{UpdateUsers.value['OtherNames'].length}} / 300</mat-hint>
         </mat-form-field>
         <br>
         <label>Primer Apellido: </label>
@@ -34,16 +34,16 @@
         <br>
         <label>Segundo Apellido: </label>
         <mat-form-field appearance="outline">
-            <input matInput type="text" maxlength="300" formControlName="OtherSurName">
+            <input matInput type="text" maxlength="300" formControlName="OtherLastName">
             <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
-            <mat-hint align="end">{{UpdateUsers.value['OtherSurName'].length}} / 300</mat-hint>
+            <mat-hint align="end">{{UpdateUsers.value['OtherLastName'].length}} / 300</mat-hint>
         </mat-form-field>      
         <br>
         <label>Correo electronico: </label>
         <mat-form-field appearance="outline">
-            <input matInput type="email" maxlength="300" formControlName="Mail"  >
+            <input matInput type="email" maxlength="300" formControlName="Email"  >
             <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
-            <mat-hint align="end">{{UpdateUsers.value['Mail'].length}} / 300</mat-hint>
+            <mat-hint align="end">{{UpdateUsers.value['Email'].length}} / 300</mat-hint>
             <mat-error>
                 Es requerido un <strong>correo electronico</strong>
             </mat-error>
@@ -51,9 +51,9 @@
         <br>
         <label>Usuario: </label>
         <mat-form-field appearance="outline">
-            <input matInput type="text" maxlength="300" formControlName="User" >
+            <input matInput type="text" maxlength="300" formControlName="UserName" >
             <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
-            <mat-hint align="end">{{UpdateUsers.value['User'].length}} / 300</mat-hint>
+            <mat-hint align="end">{{UpdateUsers.value['UserName'].length}} / 300</mat-hint>
             <mat-error>
                 Se requiere un nombre de <strong>Usuario</strong>
             </mat-error>
@@ -66,6 +66,53 @@
             <mat-hint align="end">{{UpdateUsers.value['Phone'].length}} / 150</mat-hint>
         </mat-form-field>
         <br>
+        <label>Tipo de documento: </label>
+        <mat-form-field appearance="outline">
+            <mat-label>Seleccione</mat-label>
+            <mat-select formControlName="DocumentTypeId">
+              <mat-option *ngFor="let tido of documents" [value]="tido.id">
+                {{tido.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        <br>
+        <label>Numero de documento: </label>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" maxlength="150" formControlName="DocumentNo" >
+                <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
+                <mat-hint align="end">{{UpdateUsers.value['DocumentNo'].length}} / 150</mat-hint>
+            </mat-form-field>
+            <br>
+            <label>Centro de formación: </label>
+            <mat-form-field appearance="outline">
+                <mat-label>Seleccione</mat-label>
+                <mat-select formControlName="TrainingCenterId" (selectionChange)="Campus(UpdateUsers.value['TrainingCenterId'])">
+                  <mat-option *ngFor="let tido of trainingcenter" [value]="tido.id">
+                    {{tido.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            <br>
+            <label>Sedes: </label>
+            <mat-form-field appearance="outline">
+                <mat-label >Seleccione</mat-label>
+                <mat-select [disabled]="UpdateUsers.value['TrainingCenterId'].length == 0" multiple formControlName="CampusId">
+                  <mat-option *ngFor="let tido of campus" [value]="tido.id">
+                    {{tido.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            <br>
+            <label>Rol: </label>
+            <mat-form-field appearance="outline">
+                <mat-label>Seleccione</mat-label>
+                <mat-select multiple formControlName="RolsId">
+                  <mat-option *ngFor="let tido of rols" [value]="tido.id">
+                    {{tido.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            <br>
         <input type="hidden"  formControlName="PrimaryKey">
         <button mat-raised-button color="primary" type="submit">Actualizar Usuario</button>
  </form>

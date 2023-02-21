@@ -52,5 +52,8 @@ export class UsersListComponent implements OnInit, AfterViewInit {
   changePageIndex(event: Event) {
     console.log('Page index changed:', event);
   }
+  deletedRegister(userName: string){
+    this.userservices.deletedUser(userName).subscribe(()=> location.reload())
+  }
 }
 
