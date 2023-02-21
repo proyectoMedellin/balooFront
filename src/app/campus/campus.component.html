@@ -20,7 +20,7 @@
         <div class="mat-elevation-z8">
             <table #table mat-table [dataSource]="dataSource" class="mat-e">
                 <ng-container matColumnDef="TrainingCenterCode">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Código de Centro</th>
+                    <th mat-header-cell *matHeaderCellDef> Código de Centro</th>
                     <td mat-cell *matCellDef="let element"> {{element.trainingCenterCode}} </td>
                 </ng-container>
                 <ng-container matColumnDef="TrainingCenterName">

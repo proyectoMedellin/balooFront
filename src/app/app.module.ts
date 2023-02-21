@@ -61,6 +61,8 @@ import { TrainingCenterUpdateComponent } from './training-centers/training-cente
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { CampusUpdateComponent } from './campus/campus-update/campus-update.component';
 import { DevelopmentRoomsUpdateComponent } from './development-rooms/development-rooms-update/development-rooms-update.component';
+import { EducationalAgentsCreateComponent } from './educational-agents/educational-agents-create/educational-agents-create.component';
+import { EducationalAgentsUpdateComponent } from './educational-agents/educational-agents-update/educational-agents-update.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +95,9 @@ import { DevelopmentRoomsUpdateComponent } from './development-rooms/development
     TrainingCenterUpdateComponent,
     ConfirmDialogComponent,
     CampusUpdateComponent,
-    DevelopmentRoomsUpdateComponent
+    DevelopmentRoomsUpdateComponent,
+    EducationalAgentsCreateComponent,
+    EducationalAgentsUpdateComponent
     //aqui se adicionan los componentes creados  
   ],
   imports: [
