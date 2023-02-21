@@ -24,6 +24,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatSortModule } from '@angular/material/sort';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -59,6 +60,7 @@ import { BeneficiariesCreateComponent } from './beneficiaries/beneficiaries-crea
 import { TrainingCenterUpdateComponent } from './training-centers/training-center-update/training-center-update.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { CampusUpdateComponent } from './campus/campus-update/campus-update.component';
+import { DevelopmentRoomsUpdateComponent } from './development-rooms/development-rooms-update/development-rooms-update.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +92,8 @@ import { CampusUpdateComponent } from './campus/campus-update/campus-update.comp
     BeneficiariesCreateComponent,
     TrainingCenterUpdateComponent,
     ConfirmDialogComponent,
-    CampusUpdateComponent
+    CampusUpdateComponent,
+    DevelopmentRoomsUpdateComponent
     //aqui se adicionan los componentes creados  
   ],
   imports: [
@@ -119,6 +122,7 @@ import { CampusUpdateComponent } from './campus/campus-update/campus-update.comp
     MatNativeDateModule,
     MatDialogModule,
     MatProgressSpinnerModule,
+    MatSortModule,
     BrowserAnimationsModule,
     RecaptchaModule
   ],

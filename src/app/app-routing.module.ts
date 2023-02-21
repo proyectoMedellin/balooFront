@@ -29,6 +29,7 @@ import { DevelopmentRoomsCreateComponent } from './development-rooms/development
 import { BeneficiariesCreateComponent } from './beneficiaries/beneficiaries-create/beneficiaries-create.component';
 import { TrainingCenterUpdateComponent } from './training-centers/training-center-update/training-center-update.component';
 import { CampusUpdateComponent } from './campus/campus-update/campus-update.component';
+import { DevelopmentRoomsUpdateComponent } from './development-rooms/development-rooms-update/development-rooms-update.component';
 
 const routes: Routes = 
 [
@@ -61,6 +62,7 @@ const routes: Routes =
   {
     path: 'Campus',
     component: CampusComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Sedes"]}
   },
   {
     path: 'Campus/CampusCreate',
@@ -76,6 +78,10 @@ const routes: Routes =
   },{
     path: 'DevelopmentRooms/DevelopmentRoomsCreate',
     component: DevelopmentRoomsCreateComponent,
+  },
+  {
+    path: 'DevelopmentRooms/DevelopmentRoomsUpdate/:record',
+    component: DevelopmentRoomsUpdateComponent
   },
   {
     path: 'EducationalAgents',
