@@ -1,31 +1,36 @@
 import { Injectable } from '@angular/core';
-import { CanLoad, Route, UrlSegment, Router } from '@angular/router';
-import { MD5 } from 'crypto-js';
+import {  Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+import { LocalService } from './local.service';
+import { SecurityRolService } from './security-rol.service';
 import { UsersService } from './users.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanLoad {
+export class AuthGuard implements CanActivate {
   constructor(
-    private router: Router,
-    private userservice: UsersService
+    private localservice: LocalService,
+    private userservices: UsersService,
+    private securityServices: SecurityRolService,
+    private router: Router
     ) {}
-  canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
-    if (!this.checkIfUserIsAuthenticated()) {
-      this.router.navigate(['/login']);
-      return false;
+    canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree 
+    { 
+      
+      if ( this.checkIfUserIsAuthenticated())
+        {  
+            return true
+        }
+        else{
+            this.router.navigate(['/Login']);
+            return false
+        } 
     }
-    return true;
-  }
-
-  checkIfUserIsAuthenticated() {
-    console.log("hola")
-    var text = MD5("Islogin").toString()
-    if (this.userservice.getToken() == text ) {
-      return true;
-    }else{
-      return false;
+    checkIfUserIsAuthenticated() {
+      if (this.userservices.getToken() != null && this.userservices.getToken().length > 0 ) {
+        return true;
+      }else{
+        return false;
+      }
     }
-  }
 }

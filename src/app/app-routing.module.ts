@@ -36,7 +36,10 @@ import { EducationalAgentsUpdateComponent } from './educational-agents/education
 const routes: Routes = 
 [
   { path: "", redirectTo: "Inicio", pathMatch: "full" },
-  { path: "Inicio", component: IndexComponent, },
+  { path: "Inicio", 
+    component: IndexComponent, 
+    canActivate: [AuthGuard]
+  },
   {
     path: 'Holidays',
     component: HolidaysComponent,
