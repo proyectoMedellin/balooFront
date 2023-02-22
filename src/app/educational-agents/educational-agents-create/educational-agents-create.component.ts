@@ -61,6 +61,7 @@ export class EducationalAgentsCreateComponent implements OnInit {
     console.log(this.trainingCenterSelect,"separacion", this.campusSelect)
     this.trainingCenterSelect = event.value;
     this.devRoomsList = [];
+    this.UsersList = []
     this.campusService.getAllBytrainingCenterCampus(event.value).subscribe(data => this.campusList= data["registros"])
   }
   campusSelected(event: MatSelectChange){
@@ -75,12 +76,13 @@ export class EducationalAgentsCreateComponent implements OnInit {
   educationalAgents(){
     this.UsersService.getByTraininCenterCampusRole(this.trainingCenterSelect, this.campusSelect, "Agente educativo" )
       .subscribe(data =>
-        console.log( data["registros"])
+        this.UsersList = data["registros"][0]
         )
 
   }
   CreateAssignEduAgents(data: any){
-    this.educationalAgentsService.createAssignEduAgents(data)
+    console.log(data)
+    //this.educationalAgentsService.createAssignEduAgents(data)
   }
 
 }
