@@ -20,8 +20,8 @@ export class CorreoService {
     private http: HttpClient
     ) { }
 
-  sendEmail(receptor: string, content: any){
-     return this.http.post(environment.API_Notification, content, { responseType: 'text' }).pipe(
+  sendEmailRecover(receptor: string, content: any){
+     return this.http.post(environment.API_NotificationRecover, content, { responseType: 'text' }).pipe(
       map(
         (response: any) => {
           if (response){

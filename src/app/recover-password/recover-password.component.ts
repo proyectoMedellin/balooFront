@@ -19,7 +19,7 @@ export class RecoverPasswordComponent implements OnInit {
   public RecoveryForm  = new FormGroup({
     Body: new FormControl(''),
     UserName: new FormControl('', [Validators.required]),
-    Subject: new FormControl('Recupercion de contraseña')
+    Subject: new FormControl('Recupercion')
   });
   
   ngOnInit(): void {
@@ -28,7 +28,7 @@ export class RecoverPasswordComponent implements OnInit {
     let text = `${this.RecoveryForm.get("UserName")?.value}||${moment().locale('es').format()}`
     let textEncrypt = AES.encrypt(text, environment.Key).toString()
     Formdata['Body'] = environment.url + "ChangePassword?DateRecover=" + textEncrypt
-    this.ns.sendEmail(this.RecoveryForm.getRawValue()['Email'], Formdata).subscribe(
+    this.ns.sendEmailRecover(this.RecoveryForm.getRawValue()['Email'], Formdata).subscribe(
         response => {
           location.href = environment.url
         }
