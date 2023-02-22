@@ -4,7 +4,7 @@
     </div>
 </div>
 <div class="custom-form">
-    <form  (ngSubmit)="AddUsers.valid && SignUp(AddUsers.value)" [formGroup]="AddUsers">
+    <form  (ngSubmit)="AddUsers.valid && validateDocument(AddUsers.value)" [formGroup]="AddUsers">
             <label>Primer Nombre: </label>
             <mat-form-field appearance="outline">
                 <input matInput type="text" maxlength="150" formControlName="FirstName">

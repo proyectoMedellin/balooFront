@@ -8,6 +8,8 @@ import { CorreoService } from '../services/correo.service';
 import { SecurityRolService } from '../services/security-rol.service';
 import { CampusService } from '../services/campus.service';
 import { TrainingCenterService } from '../services/training-center.service';
+import { ObserversModule } from '@angular/cdk/observers';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
@@ -45,7 +47,8 @@ export class AddUserComponent implements OnInit {
     private correoservice: CorreoService,
     public rolservice: SecurityRolService,
     public campusservice: CampusService,
-    public trainingCenterService: TrainingCenterService
+    public trainingCenterService: TrainingCenterService,
+    private alertMessage: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -73,7 +76,35 @@ export class AddUserComponent implements OnInit {
     })
   }
   SignUp(data: any){
-    this.userservice.register(data).subscribe(response => this.sendNotificacion())
+   this.userservice.register(data).subscribe(response => this.sendNotificacion())
+  }
+  validateDocument(formdata: any){
+  this.userservice.existdocument(this.AddUsers.getRawValue()['DocumentTypeId'], this.AddUsers.getRawValue()['DocumentNo']).subscribe(
+    (data)=> {
+      if (data["registros"][0]==false){
+        this.validateUserName(formdata)
+      }else{
+          this.alertMessage.open("Ya existe este documento por favor valide", "Aceptar", 
+          {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          })
+      }
+    }
+  )
+  }
+  validateUserName(formdata: any){
+    this.userservice.existUserName(this.AddUsers.getRawValue()['UserName']).subscribe((data)=> {
+      if (data["registros"][0]==false){
+        this.SignUp(formdata)
+      }else{
+          this.alertMessage.open("Ya existe este nombre de usuario por favor valide", "Aceptar", 
+          {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          })
+      }
+    })
   }
   sendNotificacion(){
     let text = `${this.AddUsers.get("UserName")?.value}||${moment().locale('es').format()}`

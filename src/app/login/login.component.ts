@@ -41,6 +41,13 @@ export class LoginComponent implements OnInit {
       {
        this.userservice.setToken(data["registros"][0]["token"])
        this.security();
+      },
+      err => {
+        this.alertMessage.open("Datos incorrectos", "Aceptar", 
+        {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        })
       });
   }
   security(){
