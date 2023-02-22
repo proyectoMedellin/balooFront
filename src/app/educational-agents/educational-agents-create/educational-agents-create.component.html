@@ -21,7 +21,7 @@
                     <br>
                     <div class="row">
                         <mat-form-field>
-                            <mat-select placeholder="Sede" (selectionChange)="DevRooms($event)">
+                            <mat-select placeholder="Sede" (selectionChange)="campusSelected($event)">
                               <mat-option *ngFor="let x of campusList" [value]="x.id">
                                 {{x.name}}
                               </mat-option>

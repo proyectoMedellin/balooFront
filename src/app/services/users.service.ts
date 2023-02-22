@@ -68,4 +68,7 @@ export class UsersService {
   getAllUser(pageIndex: number,pageSize: number): Observable<any>{
     return this.http.get(environment.API_SERVICES + "Users/GetAllUsers?pageIndex=" + pageIndex + "&pageSize=" + pageSize, httpOptions)
   }
+  getByTraininCenterCampusRole(traininCenter:string, Campus: string, role:string): Observable<any>{
+    return this.http.get(environment.API_SERVICES + "Users/GetByTrainingCenterIdCapusId?trainingCenterId=" + traininCenter + "&campusId=" + Campus + "&roleName=" + role, httpOptions)
+  }
 }

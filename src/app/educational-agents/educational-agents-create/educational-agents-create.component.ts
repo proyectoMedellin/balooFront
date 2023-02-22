@@ -33,7 +33,9 @@ export class EducationalAgentsCreateComponent implements OnInit {
 
   private userEncrypt:string = localStorage.getItem("user")!;
   private user =AES.decrypt(this.userEncrypt, environment.Key).toString(enc.Utf8);
-
+  
+  private trainingCenterSelect:string = "";
+  private campusSelect:string = "";
   public years: number[] = [];
   public trainingCenterList: TrainingCenterListDto[] = [];
   public campusList: CampusListDto[] = [];
@@ -51,44 +53,31 @@ export class EducationalAgentsCreateComponent implements OnInit {
   ngOnInit(): void {
     this.years = this.listYearsService.getYears();
     this.Trainingcenter();
-    this.UsersList = [
-      {
-        id: "1",
-        organizationId: "1",
-        documentTypeId: "1",
-        documentNo: "123456",
-        userName: "johndoe",
-        email: "johndoe@example.com",
-        firstName: "John",
-        otherNames: "",
-        lastName: "Doe",
-        otherLastName: "",
-        createdBy: "admin"
-      },
-      {
-        id: "2",
-        organizationId: "2",
-        documentTypeId: "2",
-        documentNo: "789012",
-        userName: "janedoe",
-        email: "pepe@example.com",
-        firstName: "Jane",
-        otherNames: "",
-        lastName: "Doe",
-        otherLastName: "",
-        createdBy: "admin"
-      },
-      // Añade tantos usuarios como necesites
-    ];
   }
   Trainingcenter(){
     this.trainingCenterService.GetAllEnabledTraningCenter().subscribe(data => this.trainingCenterList = data["registros"])
   }
   Campus(event: MatSelectChange){
+    console.log(this.trainingCenterSelect,"separacion", this.campusSelect)
+    this.trainingCenterSelect = event.value;
+    this.devRoomsList = [];
     this.campusService.getAllBytrainingCenterCampus(event.value).subscribe(data => this.campusList= data["registros"])
   }
-  DevRooms(event: MatSelectChange){
-    this.developmentRoomsService.getAllByCampusDevRooms(event.value).subscribe(data => this.devRoomsList = data["registros"])
+  campusSelected(event: MatSelectChange){
+    this.campusSelect = event.value;
+    console.log(this.trainingCenterSelect,"separacion", this.campusSelect)
+    this.DevRooms(event.value);
+    this.educationalAgents();
+  }
+  DevRooms(Id: string){
+    this.developmentRoomsService.getAllByCampusDevRooms(Id).subscribe(data => this.devRoomsList = data["registros"])
+  }
+  educationalAgents(){
+    this.UsersService.getByTraininCenterCampusRole(this.trainingCenterSelect, this.campusSelect, "Agente educativo" )
+      .subscribe(data =>
+        console.log( data["registros"])
+        )
+
   }
   CreateAssignEduAgents(data: any){
     this.educationalAgentsService.createAssignEduAgents(data)
