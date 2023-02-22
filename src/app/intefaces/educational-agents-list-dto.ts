@@ -1,12 +1,12 @@
 export interface EducationalAgentsListDto {
-    TrainingCenterId: string;
-    TrainingCenterName: string;
-    CampusId: string;
-    CampusName: string;
-    DevelopmentRoomId: string;
-    DevelopmentRoomName: string;
-    GroupId: string;
-    GroupName: string;
-    Year: string;
-    EducationalAgentName: string;
+    trainingCenterId: string;
+    trainingCenterName: string;
+    campusId: string;
+    campusName: string;
+    developmentRoomId: string;
+    developmentRoomName: string;
+    groupId: string;
+    groupName: string;
+    year: string;
+    educationalAgentName: string;
 }

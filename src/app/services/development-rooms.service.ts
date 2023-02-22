@@ -35,6 +35,6 @@ export class DevelopmentRoomsService {
   deleteByIdDevRooms(Id: string): Observable<any> {
     return this.http.get(environment.API_SERVICES + "DevelopmentRoom/Delete?id=" + Id, httpOptions);
   }
-  getAllBytrainingDevRooms(trainingCenter: string): Observable<any>{
-    return this.http.get(environment.API_SERVICES + "DevelopmentRoom/GetEnableDevRoomsByCampus?campusId=" + trainingCenter, httpOptions) }
+  getAllByCampusDevRooms(campus: string): Observable<any>{
+    return this.http.get(environment.API_SERVICES + "DevelopmentRoom/GetEnableDevRoomsByCampus?campusId=" + campus, httpOptions) }
 }

@@ -30,6 +30,8 @@ import { BeneficiariesCreateComponent } from './beneficiaries/beneficiaries-crea
 import { TrainingCenterUpdateComponent } from './training-centers/training-center-update/training-center-update.component';
 import { CampusUpdateComponent } from './campus/campus-update/campus-update.component';
 import { DevelopmentRoomsUpdateComponent } from './development-rooms/development-rooms-update/development-rooms-update.component';
+import { EducationalAgentsCreateComponent } from './educational-agents/educational-agents-create/educational-agents-create.component';
+import { EducationalAgentsUpdateComponent } from './educational-agents/educational-agents-update/educational-agents-update.component';
 
 const routes: Routes = 
 [
@@ -86,6 +88,14 @@ const routes: Routes =
   {
     path: 'EducationalAgents',
     component: EducationalAgentsComponent,
+  },
+  {
+    path: 'EducationalAgents/EducationalAgentsCreate',
+    component: EducationalAgentsCreateComponent,
+  },
+  {
+    path: 'EducationalAgents/EducationalAgentsUpdate/:record',
+    component: EducationalAgentsUpdateComponent,
   },
   {
     path: 'Beneficiaries',
