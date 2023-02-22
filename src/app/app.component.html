@@ -13,7 +13,7 @@
     <div *ngFor="let item of items">
         <button mat-menu-item routerLink={{item.route}}>{{item.menuLabel}}</button>
     </div>
-    <button mat-menu-item (click)="logOut()">Salir</button>
+    <button *ngIf="login == true" mat-menu-item (click)="logOut()">Salir</button>
 </mat-drawer>
 
 <router-outlet></router-outlet>
