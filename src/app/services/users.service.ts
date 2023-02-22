@@ -68,6 +68,12 @@ export class UsersService {
   getAllUser(pageIndex: number,pageSize: number): Observable<any>{
     return this.http.get(environment.API_SERVICES + "Users/GetAllUsers?pageIndex=" + pageIndex + "&pageSize=" + pageSize, httpOptions)
   }
+  existdocument(id: string, documentNo: string): Observable<any> {
+    return this.http.get(environment.API_SERVICES + "Users/ExistUserByDocument?id=" + id + "&document=" + documentNo, httpOptions)
+  }
+  existUserName(userName: string): Observable<any> {
+    return this.http.get(environment.API_SERVICES + "Users/ExistUserByName?userName=" + userName, httpOptions)
+  }
   getByTraininCenterCampusRole(traininCenter:string, Campus: string, role:string): Observable<any>{
     return this.http.get(environment.API_SERVICES + "Users/GetByTrainingCenterIdCapusId?trainingCenterId=" + traininCenter + "&campusId=" + Campus + "&roleName=" + role, httpOptions)
   }

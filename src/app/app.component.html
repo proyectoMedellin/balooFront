@@ -1,8 +1,10 @@
 <mat-drawer-container class="app-container" autosize>
 <mat-toolbar color="primary" style=" position: sticky; top: 0px; z-index:1">
-    <button mat-button (click)="drawer.toggle()">
-        <mat-icon>menu</mat-icon>
-    </button>
+    <section *ngIf="login == true" >
+        <button mat-button (click)="drawer.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </section>
     <mat-menu #menu="matMenu"> 
     </mat-menu>
     <img width="150" height="70" src="../assets/images/Logo.png">
@@ -13,7 +15,7 @@
     <div *ngFor="let item of items">
         <button mat-menu-item routerLink={{item.route}}>{{item.menuLabel}}</button>
     </div>
-    <button mat-menu-item (click)="logOut()">Salir</button>
+    <button *ngIf="login == true" mat-menu-item (click)="logOut()">Salir</button>
 </mat-drawer>
 
 <router-outlet></router-outlet>
