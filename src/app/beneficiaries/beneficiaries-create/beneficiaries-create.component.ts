@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
+import { BeneficiariesService } from 'src/app/services/beneficiaries.service';
+import { LocationService } from 'src/app/services/location.service';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-beneficiaries-create',
@@ -16,7 +19,7 @@ export class BeneficiariesCreateComponent implements OnInit {
     FirstName: ['', Validators.required],
     OtherNames: ['', ],
     LastName: ['', Validators.required],
-    OtherLastNames: ['', ],
+    OtherLastName: ['', ],
     Gender: ['', Validators.required],
     BirthDate: ['', Validators.required],
     RH: ['',],
@@ -58,7 +61,12 @@ export class BeneficiariesCreateComponent implements OnInit {
   public zoneList: any = [];
   public familyRelationList: any = [];
 
-  constructor(private formBuilder: FormBuilder, public userservice: UsersService,) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    public userservice: UsersService,
+    private beneficiariesService: BeneficiariesService,
+    private locationService: LocationService
+    ) {}
 
   ngOnInit(): void {
     this.GetDocumentTypeList();
@@ -66,8 +74,6 @@ export class BeneficiariesCreateComponent implements OnInit {
     this.GetBloodTypeList();
     this.GetRhList();
     this.GetCountryList();
-    this.GetDeparmentList();
-    this.GetCityList();
     this.GetZoneList();
     this.GetFamilyRelationList();
   }
@@ -77,47 +83,64 @@ export class BeneficiariesCreateComponent implements OnInit {
   }
 
   GetGenderList(){
-    this.genderList[0] = {id: 'H', name: 'Hombre'};
-    this.genderList[1] = {id: 'M', name: 'Mujer'};
+    this.beneficiariesService.getParamDataByType("Gender")
+    .subscribe(data => this.genderList = data["registros"])
   }
+  
 
   GetRhList(){
-    this.rhList[0] = {id: 'P', name: 'Positivo'};
-    this.rhList[1] = {id: 'N', name: 'Negativo'};
+    this.beneficiariesService.getParamDataByType("RH")
+    .subscribe(data => this.rhList = data["registros"])
   }
 
   GetBloodTypeList(){
-    this.bloodTypeList[0] = {id: 'A', name: 'A'};
-    this.bloodTypeList[1] = {id: 'B', name: 'B'};
-    this.bloodTypeList[2] = {id: 'AB', name: 'AB'};
-    this.bloodTypeList[3] = {id: 'O', name: 'O'};
+    this.beneficiariesService.getParamDataByType("BloodType")
+    .subscribe(data => this.bloodTypeList = data["registros"])
   }
 
   GetCountryList(){
-    this.countryList[0] = {id: 'CO', name:'Colombia'}
-    this.countryList[1] = {id: 'OTHER', name:'Otro país'}
+    this.locationService.getCountryList().subscribe(
+      data => this.countryList = data["registros"]
+    )
+  }
+  CountrySelected(event: MatSelectChange){
+    this.GeneralInformationFormGroup.get('BirthDepartmentId')?.reset();
+    this.GeneralInformationFormGroup.get('BirthCityId')?.reset();
+    this.cityList = [];
+    this.GetDeparmentList(event.value);
   }
 
-  GetDeparmentList(){
-    this.departmentList[0] = {id: 'A', name:'Antioquia'}
-    this.departmentList[1] = {id: 'OD', name:'Otro departamento'}
-    this.departmentList[2] = {id: 'OC', name:'Otro país'}
+  GetDeparmentList(id: string){
+    this.locationService.getDepartmentsByCountry(id).subscribe(
+      data => this.departmentList = data["registros"]
+    )
+  }
+  DepartamentSelected(event: MatSelectChange){
+    this.GeneralInformationFormGroup.get('BirthCityId')?.reset();
+    this.GetCityList(event.value)
   }
 
-  GetCityList(){
-    this.cityList[0] = {id: 'M', name:'Medellin'}
-    this.cityList[1] = {id: 'OC', name:'Otra ciudad'}
-    this.cityList[2] = {id: 'OP', name:'Otro país'}
+  GetCityList(id: string){
+    this.locationService.GetCitiesByDeparment(id).subscribe(
+      data => this.cityList = data["registros"]
+    )
   }
 
   GetZoneList(){
-    this.zoneList[0] = {id: 'Rural', name:'Rural'}
-    this.zoneList[1] = {id: 'Urbana', name:'Urbana'}
+    this.beneficiariesService.getParamDataByType("zone")
+    .subscribe(data => this.zoneList = data["registros"])
   }
 
   GetFamilyRelationList(){
-    this.familyRelationList[0] = {id: 'P', name:'Padre'}
-    this.familyRelationList[1] = {id: 'M', name:'Madre'}
-    this.familyRelationList[2] = {id: 'O', name:'Otro'}
+    this.beneficiariesService.getParamDataByType("FamilyRelation")
+    .subscribe(data => this.familyRelationList = data["registros"])
+  }
+  Create(){
+    console.log(
+      this.HomeFormGroup,
+      this.PhotoFormGroup,
+      this.FamilyFormGroup,
+      this.GeneralInformationFormGroup
+    )
   }
 }

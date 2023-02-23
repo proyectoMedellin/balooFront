@@ -51,7 +51,7 @@ export class EducationalAgentsCreateComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.years = this.listYearsService.getYears();
+    this.years = this.listYearsService.getYears(true);
     this.Trainingcenter();
   }
   Trainingcenter(){

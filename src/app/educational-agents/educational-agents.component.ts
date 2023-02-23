@@ -30,7 +30,7 @@ export class EducationalAgentsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.years = this.listYearsService.getYears();
+    this.years = this.listYearsService.getYears(false);
     this.onReloadList()
   }
   onReloadList(){

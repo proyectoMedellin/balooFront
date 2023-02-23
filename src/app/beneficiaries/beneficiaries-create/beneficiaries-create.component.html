@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field class="full-width">
-                                        <input matInput placeholder="Otros apellidos" formControlName="OtherLastNames" name="OtherLastNames">
+                                        <input matInput placeholder="Otros apellidos" formControlName="OtherLastName" name="OtherLastName">
                                         <mat-error>
                                             Este campo es <strong>obligatorio</strong>
                                         </mat-error>
@@ -68,7 +68,7 @@
                                     <mat-form-field class="full-width">
                                         <mat-select placeholder="Sexo" formControlName="Gender">
                                             <mat-option *ngFor="let g of genderList" [value]="g.id">
-                                                {{g.name}}
+                                                {{g.paramValue}}
                                             </mat-option>
                                         </mat-select>
                                         <mat-error>
@@ -91,7 +91,7 @@
                                     <mat-form-field class="full-width">
                                         <mat-select placeholder="Grupo sanguineo" formControlName="BloodType">
                                             <mat-option *ngFor="let bt of bloodTypeList" [value]="bt.id">
-                                                {{bt.name}}
+                                                {{bt.paramValue}}
                                             </mat-option>
                                         </mat-select>
                                         <mat-error>
@@ -103,7 +103,7 @@
                                     <mat-form-field class="full-width">
                                         <mat-select placeholder="RH" formControlName="RH">
                                             <mat-option *ngFor="let rh of rhList" [value]="rh.id">
-                                                {{rh.name}}
+                                                {{rh.paramValue}}
                                             </mat-option>
                                         </mat-select>
                                         <mat-error>
@@ -115,7 +115,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <mat-form-field class="full-width">
-                                        <mat-select placeholder="País de nacimiento" formControlName="BirthCountryId">
+                                        <mat-select placeholder="País de nacimiento" (selectionChange)="CountrySelected($event)" formControlName="BirthCountryId">
                                             <mat-option *ngFor="let c of countryList" [value]="c.id">
                                                 {{c.name}}
                                             </mat-option>
@@ -127,7 +127,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field class="full-width">
-                                        <mat-select placeholder="Departamento de nacimiento" formControlName="BirthDepartmentId">
+                                        <mat-select placeholder="Departamento de nacimiento" (selectionChange)="DepartamentSelected($event)" formControlName="BirthDepartmentId">
                                             <mat-option *ngFor="let d of departmentList" [value]="d.id">
                                                 {{d.name}}
                                             </mat-option>
@@ -168,7 +168,7 @@
                                     <mat-form-field class="full-width">
                                         <mat-select placeholder="Zona" formControlName="Zone">
                                             <mat-option *ngFor="let c of zoneList" [value]="c.id">
-                                                {{c.name}}
+                                                {{c.paramValue}}
                                             </mat-option>
                                         </mat-select>
                                         <mat-error>
@@ -233,7 +233,7 @@
                                 <mat-form-field class="full-width">
                                     <mat-select placeholder="Relación" formControlName="FrelationType">
                                         <mat-option *ngFor="let dt of familyRelationList" [value]="dt.id">
-                                            {{dt.name}}
+                                            {{dt.paramValue}}
                                         </mat-option>
                                     </mat-select>
                                     <mat-error>
@@ -310,7 +310,7 @@
                 </form>
               </mat-step>
               <mat-step  [stepControl]="PhotoFormGroup">
-                <form [formGroup]="PhotoFormGroup">
+                <form [formGroup]="PhotoFormGroup" (ngSubmit)="Create()">
                     <ng-template matStepLabel>Foto</ng-template>
                     <mat-card>
                         <mat-card-header></mat-card-header>
