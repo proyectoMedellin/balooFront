@@ -97,7 +97,7 @@ const routes: Routes =
     component: EducationalAgentsCreateComponent,
   },
   {
-    path: 'EducationalAgents/EducationalAgentsUpdate/:record',
+    path: 'EducationalAgents/EducationalAgentsUpdate/:recordRoom/:recordYear',
     component: EducationalAgentsUpdateComponent,
   },
   {
