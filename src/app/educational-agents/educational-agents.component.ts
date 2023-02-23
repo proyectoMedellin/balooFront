@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { EducationalAgentsListDto } from '../intefaces/educational-agents-list-dto';
 import { EducationalAgentsService } from '../services/educational-agents.service';
 @Component({
@@ -45,6 +46,25 @@ export class EducationalAgentsComponent implements OnInit {
     return agents.join(',\n');
   }
   onDelete(Id: string){
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {type: 'alert-red',title: '¿Está seguro que desea eliminar este registro?', message: 'Esta operación es irreversible', textButton: 'Eliminar' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.confirmed = result;
+      if (this.confirmed) {
+        const dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+          data: {type: 'loading',title: 'Eliminando el registro', message: 'Espere unos minutos'},
+          disableClose: true
+        });
+        this.educationalAgentsService.deleteByIdEduAgent(Id).subscribe(response => 
+          {
+            this.ngOnInit();
+            dialogRefL.close();
+          }
+         )
+      }
+    });
 
   }
 }

@@ -52,15 +52,15 @@ export class CampusComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.confirmed = result;
       if (this.confirmed) {
+        const dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+          data: {type: 'loading',title: 'Eliminando el registro', message: 'Espere unos minutos'},
+          disableClose: true
+        });
         this.campusService.deleteByIdCampus(Id).subscribe(response => 
-          this.campusService.getAllCampus(0,this.initPageSize,true).subscribe(
-            data =>
-            {
-              this.dataSource = new MatTableDataSource<CampusListDto>( data["registros"]);  
-              this.dataSource.paginator = this.paginator;
-            }
-          )
-          )
+          {
+            this.ngOnInit();
+            dialogRefL.close();
+          })
       }
     });
   }
