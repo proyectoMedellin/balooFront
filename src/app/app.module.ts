@@ -97,7 +97,7 @@ import { EducationalAgentsUpdateComponent } from './educational-agents/education
     CampusUpdateComponent,
     DevelopmentRoomsUpdateComponent,
     EducationalAgentsCreateComponent,
-    EducationalAgentsUpdateComponent
+    EducationalAgentsUpdateComponent,
     //aqui se adicionan los componentes creados  
   ],
   imports: [
