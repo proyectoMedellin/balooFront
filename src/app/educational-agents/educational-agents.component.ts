@@ -5,12 +5,15 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { EducationalAgentsListDto } from '../intefaces/educational-agents-list-dto';
 import { EducationalAgentsService } from '../services/educational-agents.service';
+import { ListYearsService } from '../services/list-years.service';
 @Component({
   selector: 'app-educational-agents',
   templateUrl: './educational-agents.component.html',
   styleUrls: ['./educational-agents.component.css']
 })
 export class EducationalAgentsComponent implements OnInit {
+  years: number[] = []
+  selectedYear: number = new Date().getFullYear();
   confirmed = false;
   countRegisters: number = 0
   initPageSize: number = 1000
@@ -22,11 +25,16 @@ export class EducationalAgentsComponent implements OnInit {
   
   constructor(
     private dialog: MatDialog,
-    private educationalAgentsService: EducationalAgentsService
+    private educationalAgentsService: EducationalAgentsService,
+    private listYearsService:ListYearsService
   ) { }
 
   ngOnInit(): void {
-    this.educationalAgentsService.getAllEduAgent(0,this.initPageSize).subscribe(
+    this.years = this.listYearsService.getYears();
+    this.onReloadList()
+  }
+  onReloadList(){
+    this.educationalAgentsService.getAllByYearEduAgent(0,this.initPageSize,this.selectedYear).subscribe(
       data =>
       {
         this.dataSource = new MatTableDataSource<EducationalAgentsListDto>( data["registros"]);  
