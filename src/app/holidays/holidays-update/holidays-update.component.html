@@ -1,0 +1,113 @@
+<div class="container">
+    <div class="row">
+        <form (ngSubmit)="HolidaysForm.valid && Create(HolidaysForm.value)" [formGroup]="HolidaysForm" class="form-container">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Días laborales</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="row">
+                        <label>Año: </label>
+                        <mat-form-field>
+                            <input matInput type="number" min="2000" max="9999" maxlength="4" formControlName="Year" readonly>
+                            <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
+                            <mat-hint align="end">{{HolidaysForm.value['Year'].length}} / 4</mat-hint>
+                            <mat-error>
+                                Ingrese un año valido
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-3">
+                            <label>Lunes: </label>
+                            <br />
+                            <mat-slide-toggle formControlName="Monday">
+                                <span *ngIf="HolidaysForm.value['Monday']; else inactivo">Laboral</span>
+                                <ng-template #inactivo><span>No laboral</span></ng-template>
+                            </mat-slide-toggle>
+                        </div>
+                        <div class="col-3">
+                            <label>Martes: </label>
+                            <br />
+                            <mat-slide-toggle formControlName="Tuesday">
+                                <span *ngIf="HolidaysForm.value['Tuesday']; else inactivo">Laboral</span>
+                                <ng-template #inactivo><span>No laboral</span></ng-template>
+                            </mat-slide-toggle>
+                        </div>
+                        <div class="col-3">
+                            <label>Miércoles: </label>
+                            <br />
+                            <mat-slide-toggle formControlName="Wednesday">
+                                <span *ngIf="HolidaysForm.value['Wednesday']; else inactivo">Laboral</span>
+                                <ng-template #inactivo><span>No laboral</span></ng-template>
+                            </mat-slide-toggle>
+                        </div>
+                        <div class="col-3">
+                            <label>Jueves: </label>
+                            <br />
+                            <mat-slide-toggle formControlName="Thursday">
+                                <span *ngIf="HolidaysForm.value['Thursday']; else inactivo">Laboral</span>
+                                <ng-template #inactivo><span>No laboral</span></ng-template>
+                            </mat-slide-toggle>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            <label>Viernes: </label>
+                            <br />
+                            <mat-slide-toggle formControlName="Friday">
+                                <span *ngIf="HolidaysForm.value['Friday']; else inactivo">Laboral</span>
+                                <ng-template #inactivo><span>No laboral</span></ng-template>
+                            </mat-slide-toggle>
+                        </div>
+                        <div class="col-3">
+                            <label>Sábado: </label>
+                            <br />
+                            <mat-slide-toggle formControlName="Saturday">
+                                <span *ngIf="HolidaysForm.value['Saturday']; else inactivo">Laboral</span>
+                                <ng-template #inactivo><span>No laboral</span></ng-template>
+                            </mat-slide-toggle>
+                        </div>
+                        <div class="col-3">
+                            <label>Domingo: </label>
+                            <br />
+                            <mat-slide-toggle formControlName="Sunday">
+                                <span *ngIf="HolidaysForm.value['Sunday']; else inactivo">Laboral</span>
+                                <ng-template #inactivo><span>No laboral</span></ng-template>
+                            </mat-slide-toggle>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <h2>Festivos</h2>
+                            <hr/>
+                        </div>
+                        <div class="col-sm-4" style="text-align: right;">
+                            <button mat-raised-button color="primary" type="button" (click)="AddHoliday()">Adicionar festivo</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <ng-container formArrayName="Holidays" *ngFor="let h of Holidays.controls; let i = index">
+                            <div class="row" [formGroupName]="i">
+                                <div class="col-sm-1">
+                                    <button mat-icon-button color="warn" (click)="removeTempHoliday(i)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
+                                <div class="col-sm-11">
+                                    <input type="Date" class="form-control" formControlName="day"/>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="primary" type="submit">Guardar</button>
+                    <button mat-raised-button color="accent" [routerLink]="['/Holidays']">Cancelar</button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+    </div>
+</div>

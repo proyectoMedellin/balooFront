@@ -1,3 +1,5 @@
+import { HolidayDto } from "../intefaces/holiday-dto";
+
 export interface WorkingDayDto {
     year:number,
     monday:boolean,
@@ -7,4 +9,6 @@ export interface WorkingDayDto {
     friday:boolean,
     saturday:boolean,
     sunday:boolean,
+    confUser: string,
+    holidays: HolidayDto[]
 }

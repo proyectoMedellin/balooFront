@@ -63,6 +63,7 @@ import { CampusUpdateComponent } from './campus/campus-update/campus-update.comp
 import { DevelopmentRoomsUpdateComponent } from './development-rooms/development-rooms-update/development-rooms-update.component';
 import { EducationalAgentsCreateComponent } from './educational-agents/educational-agents-create/educational-agents-create.component';
 import { EducationalAgentsUpdateComponent } from './educational-agents/educational-agents-update/educational-agents-update.component';
+import { HolidaysUpdateComponent } from './holidays/holidays-update/holidays-update.component';
 
 @NgModule({
   declarations: [
@@ -98,6 +99,7 @@ import { EducationalAgentsUpdateComponent } from './educational-agents/education
     DevelopmentRoomsUpdateComponent,
     EducationalAgentsCreateComponent,
     EducationalAgentsUpdateComponent,
+    HolidaysUpdateComponent,
     //aqui se adicionan los componentes creados  
   ],
   imports: [

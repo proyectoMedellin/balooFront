@@ -26,6 +26,10 @@ export class WorkDaysService {
     return this.http.get(environment.API_SERVICES + "WorkingDays/GetAll", httpOptions);
   }
 
+  getByYear(year: number): Observable<any>{
+    return this.http.get(environment.API_SERVICES + "WorkingDays/GetByYear?year=" + year, httpOptions);
+  }
+
   Configure(DtoWorkingDaysReq: any): Observable<any>{
     return this.http.post(environment.API_SERVICES + "WorkingDays/Configure", DtoWorkingDaysReq, httpOptions);
   }
