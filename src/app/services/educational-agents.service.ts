@@ -31,8 +31,8 @@ export class EducationalAgentsService {
   updateAssignEduAgent(eduAgen: any): Observable<any> {
     return this.http.post(environment.API_SERVICES + "DevelopmentRoom/AssignAgentesByYearToDevRoom", eduAgen, httpOptions);
   }
-  getByIdDevRoomsEduAgent(Id: string): Observable<any> {
-    return this.http.get(environment.API_SERVICES + "DevelopmentRoom/GetGroupsByYear?DevRoomId=" + Id, httpOptions);
+  getByDevRoomIdYearEduAgent(Id: string, year: number): Observable<any> {
+    return this.http.get(environment.API_SERVICES + "DevelopmentRoom/GetGroupsByYear?DevRoomId=" + Id + "&year=" + year, httpOptions);
   }
   deleteByIdEduAgent(Id: string): Observable<any> {
     return this.http.get(environment.API_SERVICES + "DevelopmentRoom/DeleteGroupAssignment?groupAssignmentId=" + Id, httpOptions);

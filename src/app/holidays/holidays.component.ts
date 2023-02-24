@@ -53,12 +53,17 @@ export class HolidaysComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.confirmed = result;
       if (this.confirmed) {
+        const dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+          data: {type: 'loading',title: 'Eliminando el registro', message: 'Espere unos minutos'},
+          disableClose: true
+        });
         this.workDaysServices.Delete(year).subscribe(
           response => this.workDaysServices.getAll().subscribe(
             data => {
               this.dataSource = new MatTableDataSource<WorkingDayDto>(data["registros"]);
               this.countRegisters = data["totalDbRegistros"];
               this.dataSource.paginator = this.paginator;
+              dialogRefL.close();
             }
           )
         )

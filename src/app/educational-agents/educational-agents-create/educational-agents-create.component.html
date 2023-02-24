@@ -1,62 +1,67 @@
 <div class="container">
     <div class="row">
-        <form (ngSubmit)="EducationalAgentsForm.valid && CreateAssignEduAgents(EducationalAgentsForm.value)" [formGroup]="EducationalAgentsForm" class="form-container">
+        <form (ngSubmit)="EducationalAgentsForm.valid && CreateAssignEduAgents(EducationalAgentsForm.value)"
+            [formGroup]="EducationalAgentsForm" class="form-container">
             <mat-card>
                 <mat-card-header>
-                    <mat-card-title>Sede</mat-card-title>
+                    <mat-card-title>Asignar agentes educativos a Sala de desarrollo</mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
                     <div class="row">
-                        <mat-form-field>
-                            <mat-select placeholder="Centro de formación"  (selectionChange)="Campus($event)">
-                              <mat-option *ngFor="let x of trainingCenterList" [value]="x.id">
-                                {{x.name}}
-                              </mat-option>
-                            </mat-select>
-                            <mat-error>
-                                Este campo es <strong>obligatorio</strong>
-                            </mat-error>
-                        </mat-form-field>
+                        <div class="col-md-6">
+                            <mat-form-field class="full-width">
+                                <mat-select placeholder="Centro de formación" (selectionChange)="TraininSelected($event)" formControlName="TrainingcenterF">
+                                    <mat-option *ngFor="let x of trainingCenterList" [value]="x.id">
+                                        {{x.name}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    Este campo es <strong>obligatorio</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="full-width">
+                                <mat-select placeholder="Sede" (selectionChange)="CampusSelected($event)" formControlName="SedeF">
+                                    <mat-option *ngFor="let x of campusList" [value]="x.id">
+                                        {{x.name}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    Este campo es <strong>obligatorio</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field class="full-width">
+                                <mat-select placeholder="Sala de desarrollo" formControlName="DevelopmentRoomId">
+                                    <mat-option *ngFor="let x of devRoomsList" [value]="x.id">
+                                        {{x.name}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    Este campo es <strong>obligatorio,</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="full-width">
+                                <mat-select placeholder="Año" formControlName="Year">
+                                    <mat-option *ngFor="let x of years" [value]="x">
+                                        {{x}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    Este campo es <strong>obligatorio</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
                     </div>
                     <br>
-                    <div class="row">
-                        <mat-form-field>
-                            <mat-select placeholder="Sede" (selectionChange)="campusSelected($event)">
-                              <mat-option *ngFor="let x of campusList" [value]="x.id">
-                                {{x.name}}
-                              </mat-option>
-                            </mat-select>
-                            <mat-error>
-                                Este campo es <strong>obligatorio</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <mat-form-field>
-                            <mat-select placeholder="Sala de desarrollo" formControlName="DevelopmentRoomId">
-                              <mat-option *ngFor="let x of devRoomsList" [value]="x.id">
-                                {{x.name}}
-                              </mat-option>
-                            </mat-select>
-                            <mat-error>
-                                Este campo es <strong>obligatorio</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <mat-form-field>
-                            <mat-select placeholder="Año" formControlName="Year">
-                              <mat-option *ngFor="let x of years" [value]="x">
-                                {{x}}
-                              </mat-option>
-                            </mat-select>
-                            <mat-error>
-                                Este campo es <strong>obligatorio</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
+
                     <div class="row">
                         <label>Código: </label>
                         <mat-form-field>
@@ -68,7 +73,7 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
-                   
+
                     <div class="row">
                         <label>Nombre: </label>
                         <mat-form-field>
@@ -84,9 +89,9 @@
                     <div class="row">
                         <mat-form-field>
                             <mat-select multiple placeholder="Agentes Educativos" formControlName="UsersIds">
-                              <mat-option *ngFor="let x of UsersList" [value]="x.id">
-                                {{x.email}}
-                              </mat-option>
+                                <mat-option *ngFor="let x of UsersList" [value]="x.id">
+                                    {{x.email}}
+                                </mat-option>
                             </mat-select>
                             <mat-error>
                                 Este campo es <strong>obligatorio</strong>
@@ -97,7 +102,7 @@
                 </mat-card-content>
                 <mat-card-actions>
                     <button mat-raised-button color="primary">Guardar</button>
-                    <button mat-raised-button color="accent" [routerLink]="['/Campus']">Cancelar</button>
+                    <button mat-raised-button color="accent" [routerLink]="['/EducationalAgents']">Cancelar</button>
                 </mat-card-actions>
             </mat-card>
         </form>

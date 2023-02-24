@@ -39,5 +39,7 @@ export class CampusService {
     return this.http.get(environment.API_SERVICES + "Campus/Delete?id=" + Id, httpOptions);
   }
   getAllBytrainingCenterCampus(trainingCenter: string): Observable<any>{
-    return this.http.get(environment.API_SERVICES + "Campus/GetEnableCampusesByTrainingCenter?trainingCenterId=" + trainingCenter, httpOptions) }
-}
+    return this.http.get(environment.API_SERVICES + "Campus/GetEnableCampusesByTrainingCenter?trainingCenterId=" + trainingCenter, httpOptions)
+  }
+
+  }

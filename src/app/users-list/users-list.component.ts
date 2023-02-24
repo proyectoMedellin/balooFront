@@ -62,6 +62,10 @@ export class UsersListComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       this.confirmed = result;
       if (this.confirmed) {
+        const dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+          data: {type: 'loading',title: 'Eliminando el registro', message: 'Espere unos minutos'},
+          disableClose: true
+        });
         this.userservices.deletedUser(userName).subscribe(()=> location.reload())
       }
     });

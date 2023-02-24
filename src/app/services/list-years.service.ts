@@ -12,7 +12,18 @@ export class ListYearsService {
       this.years.push(i);
     }
   }
-  getYears() {
+  getYears(isFutureDate?: boolean) {
+    if(isFutureDate == true){
+      this.years = []
+      for(let i = this.currentYear; i <= this.currentYear+6; i++) {
+        this.years.push(i);
+      }
+    } else{
+      this.years = []
+      for(let i = 2021; i <= this.currentYear; i++) {
+        this.years.push(i);
+      }
+    }
     return this.years;
   }
 }

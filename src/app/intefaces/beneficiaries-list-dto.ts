@@ -5,4 +5,15 @@ export interface BeneficiariesListDto {
     Names: string;
     LastNames: string;
 }
+export interface ViewGridOptions {
+    year?: number;
+    TrainingCenterId?: string;
+    CampusId?: string;
+    DevelopmentRoomId?: string;
+    documentNumber?: number;
+    name?: string;
+    fEnabled?: boolean;
+    page: number;
+    pageSize: number;
+  }
 

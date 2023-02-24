@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AES, enc } from 'crypto-js';
@@ -34,39 +34,43 @@ export class EducationalAgentsCreateComponent implements OnInit {
   private userEncrypt:string = localStorage.getItem("user")!;
   private user =AES.decrypt(this.userEncrypt, environment.Key).toString(enc.Utf8);
   
-  private trainingCenterSelect:string = "";
-  private campusSelect:string = "";
   public years: number[] = [];
   public trainingCenterList: TrainingCenterListDto[] = [];
   public campusList: CampusListDto[] = [];
   public devRoomsList: DevelopmentRoomListDto[] = [];
   public UsersList: UsersListDto[] = [];
   EducationalAgentsForm = this.formBuilder.group({
-    DevelopmentRoomId:['', Validators.required],
+    TrainingcenterF: ['', Validators.required],
+    SedeF: ['', Validators.required],
+    DevelopmentRoomId: ['', Validators.required],
     Year:[, Validators.required],
     GroupCode:['', Validators.required],
     GroupName:['', Validators.required],
-    UsersIds:[],
+    UsersIds:[, Validators.required],
     AssignmentUser:[this.user, Validators.required]
   });
 
   ngOnInit(): void {
-    this.years = this.listYearsService.getYears();
+    this.years = this.listYearsService.getYears(true);
     this.Trainingcenter();
   }
   Trainingcenter(){
     this.trainingCenterService.GetAllEnabledTraningCenter().subscribe(data => this.trainingCenterList = data["registros"])
   }
-  Campus(event: MatSelectChange){
-    console.log(this.trainingCenterSelect,"separacion", this.campusSelect)
-    this.trainingCenterSelect = event.value;
+  TraininSelected(event: MatSelectChange){
+    this.EducationalAgentsForm.get('SedeF')?.reset();
+    this.EducationalAgentsForm.get('DevelopmentRoomId')?.reset();
+    this.EducationalAgentsForm.get('UsersIds')?.reset();
     this.devRoomsList = [];
     this.UsersList = []
-    this.campusService.getAllBytrainingCenterCampus(event.value).subscribe(data => this.campusList= data["registros"])
+    this.Campus(event.value)
   }
-  campusSelected(event: MatSelectChange){
-    this.campusSelect = event.value;
-    console.log(this.trainingCenterSelect,"separacion", this.campusSelect)
+  Campus(Id:string){
+    this.campusService.getAllBytrainingCenterCampus(Id).subscribe(data => this.campusList= data["registros"])
+  }
+  CampusSelected(event: MatSelectChange){
+    this.EducationalAgentsForm.get('UsersIds')?.reset();
+    this.EducationalAgentsForm.get('DevelopmentRoomId')?.reset();
     this.DevRooms(event.value);
     this.educationalAgents();
   }
@@ -74,15 +78,16 @@ export class EducationalAgentsCreateComponent implements OnInit {
     this.developmentRoomsService.getAllByCampusDevRooms(Id).subscribe(data => this.devRoomsList = data["registros"])
   }
   educationalAgents(){
-    this.UsersService.getByTraininCenterCampusRole(this.trainingCenterSelect, this.campusSelect, "Agente educativo" )
+    this.UsersService.getByTraininCenterCampusRole(
+      this.EducationalAgentsForm.get('TrainingcenterF')?.value,
+      this.EducationalAgentsForm.get('SedeF')?.value, "Agente educativo" 
+      )
       .subscribe(data =>
         this.UsersList = data["registros"][0]
         )
-
   }
   CreateAssignEduAgents(data: any){
-    console.log(data)
-    //this.educationalAgentsService.createAssignEduAgents(data)
+    this.educationalAgentsService.createAssignEduAgents(data).subscribe(response => location.href = environment.url + "EducationalAgents")
   }
 
 }

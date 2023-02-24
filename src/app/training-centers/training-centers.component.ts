@@ -60,15 +60,15 @@ export class TrainingCentersComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.confirmed = result;
       if (this.confirmed) {
+        const dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+          data: {type: 'loading',title: 'Eliminando el registro', message: 'Espere unos minutos'},
+          disableClose: true
+        });
         this.traningCenterService.DeleteByIdTraningCenter(Id).subscribe(response => 
-              this.traningCenterService.getAllTrainingCenter(0,this.initPageSize,true).subscribe(
-                data =>
-                {
-                  this.dataSource =new MatTableDataSource<TrainingCenterListDto>( data["registros"]); 
-                  this.countRegisters = data["totalDbRegistros"];
-                  this.dataSource.paginator = this.paginator
-                }
-              ))
+          {
+            this.ngOnInit();
+            dialogRefL.close();
+          })
       }
     });
   }

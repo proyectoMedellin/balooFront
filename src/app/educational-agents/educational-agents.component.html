@@ -6,13 +6,23 @@
     </div>
     <br>
     <div class="row">
-      <div class="col-sm">
+      <div class="col-sm-2">
         <mat-form-field>
             <mat-label>Buscar asignación</mat-label>
             <input #tableFilter (keyup)="applyFilter(tableFilter.value)" matInput placeholder="" />
         </mat-form-field>
       </div>
-      <div class="col-sm" style="text-align: right;">
+      <div class="col-sm-2">
+        <mat-form-field>
+          <mat-label>Selecione Año</mat-label>
+          <mat-select [(value)]="selectedYear" (selectionChange)="onReloadList()">
+            <mat-option *ngFor="let option of years" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-8 " style="text-align: right;">
         <button mat-raised-button color="primary" [routerLink]="['/EducationalAgents/EducationalAgentsCreate']">Asignar sala</button>
       </div>
     </div>
@@ -50,7 +60,7 @@
                 <ng-container matColumnDef="actions">
                   <th mat-header-cell style="text-align: right" *matHeaderCellDef>Acciones</th>
                   <td mat-cell style="text-align: right" *matCellDef="let element">
-                    <button mat-icon-button color="primary" [routerLink]="['EducationalAgentsUpdate',element.id]">
+                    <button mat-icon-button color="primary" [routerLink]="['EducationalAgentsUpdate',element.developmentRoomId,element.year]">
                       <mat-icon>edit</mat-icon>
                     </button>
                     <button mat-icon-button color="warn" (click)="onDelete(element.id)">

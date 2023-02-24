@@ -8,7 +8,7 @@
                         <mat-card-header></mat-card-header>
                         <mat-card-content style="padding: 10px;">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <mat-form-field class="full-width">
                                         <mat-select placeholder="Tipo de documento" formControlName="DocumentTypeId">
                                             <mat-option *ngFor="let dt of documentTypeList" [value]="dt.id">
@@ -20,9 +20,19 @@
                                         </mat-error>
                                     </mat-form-field>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <mat-form-field class="full-width">
-                                        <input matInput placeholder="Nro. Documento" name="DocumentNumber" formControlName="DocumentNumber">
+                                        <input matInput placeholder="Nro. Documento" name="DocumentNumber"
+                                            formControlName="DocumentNumber">
+                                        <mat-error>
+                                            Este campo es <strong>obligatorio</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="full-width">
+                                        <input matInput placeholder="Teléfono de Emergencia" name="EmergencyPhoneNumber"
+                                            formControlName="EmergencyPhoneNumber">
                                         <mat-error>
                                             Este campo es <strong>obligatorio</strong>
                                         </mat-error>
@@ -32,7 +42,8 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <mat-form-field class="full-width">
-                                        <input matInput placeholder="Primer nombre" name="FirstName" formControlName="FirstName">
+                                        <input matInput placeholder="Primer nombre" name="FirstName"
+                                            formControlName="FirstName">
                                         <mat-error>
                                             Este campo es <strong>obligatorio</strong>
                                         </mat-error>
@@ -40,7 +51,8 @@
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field class="full-width">
-                                        <input matInput placeholder="Otros nombres" name="OtherNames" formControlName="OtherNames">
+                                        <input matInput placeholder="Otros nombres" name="OtherNames"
+                                            formControlName="OtherNames">
                                         <mat-error>
                                             Este campo es <strong>obligatorio</strong>
                                         </mat-error>
@@ -48,7 +60,8 @@
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field class="full-width">
-                                        <input matInput placeholder="Apellido" formControlName="LastName" name="LastName">
+                                        <input matInput placeholder="Apellido" formControlName="LastName"
+                                            name="LastName">
                                         <mat-error>
                                             Este campo es <strong>obligatorio</strong>
                                         </mat-error>
@@ -56,7 +69,8 @@
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field class="full-width">
-                                        <input matInput placeholder="Otros apellidos" formControlName="OtherLastNames" name="OtherLastNames">
+                                        <input matInput placeholder="Otros apellidos" formControlName="OtherLastName"
+                                            name="OtherLastName">
                                         <mat-error>
                                             Este campo es <strong>obligatorio</strong>
                                         </mat-error>
@@ -66,9 +80,9 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <mat-form-field class="full-width">
-                                        <mat-select placeholder="Sexo" formControlName="Gender">
+                                        <mat-select placeholder="Sexo" formControlName="GenderId">
                                             <mat-option *ngFor="let g of genderList" [value]="g.id">
-                                                {{g.name}}
+                                                {{g.paramValue}}
                                             </mat-option>
                                         </mat-select>
                                         <mat-error>
@@ -78,20 +92,21 @@
                                 </div>
                                 <div class="col-md-5">
                                     <mat-form-field class="full-width">
-                                        <input matInput [matDatepicker]="picker" formControlName="BirthDate" placeholder="Fecha de nacimiento">
+                                        <input matInput [matDatepicker]="picker" formControlName="BirthDate"
+                                            placeholder="Fecha de nacimiento">
                                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                                         <mat-hint>MM/DD/YYYY</mat-hint>
                                         <mat-datepicker #picker></mat-datepicker>
                                         <mat-error>
                                             Este campo es <strong>obligatorio</strong>
                                         </mat-error>
-                                      </mat-form-field>
-                                </div>  
+                                    </mat-form-field>
+                                </div>
                                 <div class="col-md-2">
                                     <mat-form-field class="full-width">
-                                        <mat-select placeholder="Grupo sanguineo" formControlName="BloodType">
+                                        <mat-select placeholder="Grupo sanguineo" formControlName="BloodTypeId">
                                             <mat-option *ngFor="let bt of bloodTypeList" [value]="bt.id">
-                                                {{bt.name}}
+                                                {{bt.paramValue}}
                                             </mat-option>
                                         </mat-select>
                                         <mat-error>
@@ -101,21 +116,23 @@
                                 </div>
                                 <div class="col-md-2">
                                     <mat-form-field class="full-width">
-                                        <mat-select placeholder="RH" formControlName="RH">
+                                        <mat-select placeholder="RH" formControlName="RhId">
                                             <mat-option *ngFor="let rh of rhList" [value]="rh.id">
-                                                {{rh.name}}
+                                                {{rh.paramValue}}
                                             </mat-option>
                                         </mat-select>
                                         <mat-error>
                                             Este campo es <strong>obligatorio</strong>
                                         </mat-error>
                                     </mat-form-field>
-                                </div>  
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <mat-form-field class="full-width">
-                                        <mat-select placeholder="País de nacimiento" formControlName="BirthCountryId">
+                                        <mat-select placeholder="País de nacimiento"
+                                            (selectionChange)="CountrySelected($event)"
+                                            formControlName="BirthCountryId">
                                             <mat-option *ngFor="let c of countryList" [value]="c.id">
                                                 {{c.name}}
                                             </mat-option>
@@ -127,14 +144,16 @@
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field class="full-width">
-                                        <mat-select placeholder="Departamento de nacimiento" formControlName="BirthDepartmentId">
+                                        <mat-select placeholder="Departamento de nacimiento"
+                                            (selectionChange)="DepartamentSelected($event)"
+                                            formControlName="BirthDepartmentId">
                                             <mat-option *ngFor="let d of departmentList" [value]="d.id">
                                                 {{d.name}}
                                             </mat-option>
                                         </mat-select>
                                         <mat-error>
                                             Este campo es <strong>obligatorio</strong>
-                                        </mat-error>    
+                                        </mat-error>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
@@ -152,12 +171,12 @@
                             </div>
                         </mat-card-content>
                         <mat-card-actions>
-                            <button mat-raised-button color="primary" matStepperNext >Siguiente</button>
+                            <button mat-raised-button color="primary" matStepperNext>Siguiente</button>
                         </mat-card-actions>
                     </mat-card>
                 </form>
-              </mat-step>
-              <mat-step [stepControl]="HomeFormGroup">
+            </mat-step>
+            <mat-step [stepControl]="HomeFormGroup">
                 <form [formGroup]="HomeFormGroup">
                     <ng-template matStepLabel>Información de residencia</ng-template>
                     <mat-card>
@@ -166,9 +185,9 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <mat-form-field class="full-width">
-                                        <mat-select placeholder="Zona" formControlName="Zone">
+                                        <mat-select placeholder="Zona" formControlName="AdressZoneId">
                                             <mat-option *ngFor="let c of zoneList" [value]="c.id">
-                                                {{c.name}}
+                                                {{c.paramValue}}
                                             </mat-option>
                                         </mat-select>
                                         <mat-error>
@@ -178,7 +197,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <mat-form-field class="full-width">
-                                        <input matInput placeholder="Dirección" name="Address" formControlName="Address">
+                                        <input matInput placeholder="Dirección" name="Adress" formControlName="Adress">
                                         <mat-error>
                                             Este campo es <strong>obligatorio</strong>
                                         </mat-error>
@@ -188,7 +207,8 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <mat-form-field class="full-width">
-                                        <input matInput placeholder="Barrio" name="Neighborhood" formControlName="Neighborhood">
+                                        <input matInput placeholder="Barrio" name="Neighborhood"
+                                            formControlName="Neighborhood">
                                         <mat-error>
                                             Este campo es <strong>obligatorio</strong>
                                         </mat-error>
@@ -196,8 +216,8 @@
                                 </div>
                                 <div class="col-md-8">
                                     <mat-form-field class="full-width">
-                                        <textarea matInput placeholder="Observaciones" 
-                                            name="Observations" formControlName="Observations"></textarea>
+                                        <textarea matInput placeholder="Observaciones" name="AdressObservations"
+                                            formControlName="AdressObservations"></textarea>
                                         <mat-error>
                                             Este campo es <strong>obligatorio</strong>
                                         </mat-error>
@@ -207,7 +227,8 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <mat-form-field class="full-width">
-                                        <input matInput placeholder="Teléfono" name="PhoneNumber" formControlName="PhoneNumber">
+                                        <input matInput placeholder="Teléfono" name="AdressPhoneNumber"
+                                            formControlName="AdressPhoneNumber">
                                         <mat-error>
                                             Este campo es <strong>obligatorio</strong>
                                         </mat-error>
@@ -221,96 +242,133 @@
                         </mat-card-actions>
                     </mat-card>
                 </form>
-              </mat-step>
-              <mat-step [stepControl]="FamilyFormGroup">
-                <form [formGroup]="FamilyFormGroup">
-                  <ng-template matStepLabel>Familiares</ng-template>
-                  <mat-card>
-                    <mat-card-header></mat-card-header>
-                    <mat-card-content style="padding: 10px;">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <mat-form-field class="full-width">
-                                    <mat-select placeholder="Relación" formControlName="FrelationType">
-                                        <mat-option *ngFor="let dt of familyRelationList" [value]="dt.id">
-                                            {{dt.name}}
-                                        </mat-option>
-                                    </mat-select>
-                                    <mat-error>
-                                        Este campo es <strong>obligatorio</strong>
-                                    </mat-error>
-                                </mat-form-field>
+            </mat-step>
+            <mat-step [stepControl]="family">
+
+                <form [formGroup]="familyForm">
+                    <ng-container formArrayName="family">
+                        <mat-card>
+                            <div
+                                *ngIf="familyForm.get('family')?.invalid && familyForm.get('family')?.errors?.['required']">
+                                <br>
+                                <mat-error>
+                                    Debes agregar al menos un miembro de familia <strong>obligatorio</strong>
+                                </mat-error>
                             </div>
-                            <div class="col-md-4">
-                                <mat-form-field class="full-width">
-                                    <mat-select placeholder="Tipo de documento" formControlName="FdocumentTypeId">
-                                        <mat-option *ngFor="let dt of documentTypeList" [value]="dt.id">
-                                            {{dt.name}}
-                                        </mat-option>
-                                    </mat-select>
-                                    <mat-error>
-                                        Este campo es <strong>obligatorio</strong>
-                                    </mat-error>
-                                </mat-form-field>
+                            <div *ngFor="let familyMember of family.controls; let i=index" [formGroupName]="i">
+                                <ng-template matStepLabel>Familiares</ng-template>
+
+                                <mat-card-header></mat-card-header>
+                                <mat-card-content style="padding: 10px;">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <mat-form-field class="full-width">
+                                                <mat-select placeholder="Relación" formControlName="FamilyRelation" (selectionChange)="onFamilyRelationSelected($event)">
+                                                    <mat-option *ngFor="let dt of familyRelationList" [value]="dt.id">
+                                                        {{dt.paramValue}}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="familyForm.get('family')?.get(i.toString())?.get('FamilyRelation')?.hasError('required')">
+                                                    Este campo es <strong>obligatorio</strong>
+                                                  </mat-error>
+                                                  <mat-error *ngIf="familyForm.get('family')?.get(i.toString())?.get('FamilyRelation')?.hasError('duplicate')">
+                                                    Esta relación ya ha sido seleccionada
+                                                  </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="full-width">
+                                                <mat-select placeholder="Tipo de documento"
+                                                    formControlName="DocumentTypeId">
+                                                    <mat-option *ngFor="let dt of documentTypeList" [value]="dt.id">
+                                                        {{dt.name}}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error>
+                                                    Este campo es <strong>obligatorio</strong>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="full-width">
+                                                <input matInput placeholder="Nro. Documento" name="DocumentNumber"
+                                                    formControlName="DocumentNumber">
+                                                <mat-error>
+                                                    Este campo es <strong>obligatorio</strong>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <mat-form-field class="full-width">
+                                                <input matInput placeholder="Primer nombre" name="FirstName"
+                                                    formControlName="FirstName">
+                                                <mat-error>
+                                                    Este campo es <strong>obligatorio</strong>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="full-width">
+                                                <input matInput placeholder="Otros nombres" name="OtherNames"
+                                                    formControlName="OtherNames">
+                                                <mat-error>
+                                                    Este campo es <strong>obligatorio</strong>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="full-width">
+                                                <input matInput placeholder="Apellido" formControlName="LastName"
+                                                    name="LastName">
+                                                <mat-error>
+                                                    Este campo es <strong>obligatorio</strong>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="full-width">
+                                                <input matInput placeholder="Otros apellidos"
+                                                    formControlName="OtherLastName" name="OtherLastName">
+                                                <mat-error>
+                                                    Este campo es <strong>obligatorio</strong>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <mat-slide-toggle 
+                                            formControlName="Attendant">
+                                            <span *ngIf="familyMember.value['Attendant']; else inactivo">Es acudiente</span>
+                                            <ng-template #inactivo><span>No es acudiente</span></ng-template>
+                                        </mat-slide-toggle>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12" style="text-align: right;"  *ngIf="family.controls.length > 1">
+                                            <button mat-raised-button color="warn"
+                                                (click)="removeFamilyMember(i)">Eliminar</button>
+                                        </div>
+                                    </div>
+                                </mat-card-content>
+
                             </div>
-                            <div class="col-md-4">
-                                <mat-form-field class="full-width">
-                                    <input matInput placeholder="Nro. Documento" name="FdocumentNumber" 
-                                    formControlName="FdocumentNumber">
-                                    <mat-error>
-                                        Este campo es <strong>obligatorio</strong>
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <mat-form-field class="full-width">
-                                    <input matInput placeholder="Primer nombre" name="FfirstName" 
-                                    formControlName="FfirstName">
-                                    <mat-error>
-                                        Este campo es <strong>obligatorio</strong>
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-md-3">
-                                <mat-form-field class="full-width">
-                                    <input matInput placeholder="Otros nombres" name="FotherNames" 
-                                    formControlName="FotherNames">
-                                    <mat-error>
-                                        Este campo es <strong>obligatorio</strong>
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-md-3">
-                                <mat-form-field class="full-width">
-                                    <input matInput placeholder="Apellido" formControlName="FlastName" 
-                                    name="FlastName">
-                                    <mat-error>
-                                        Este campo es <strong>obligatorio</strong>
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-md-3">
-                                <mat-form-field class="full-width">
-                                    <input matInput placeholder="Otros apellidos" formControlName="FotherLastNames" 
-                                    name="FotherLastNames">
-                                    <mat-error>
-                                        Este campo es <strong>obligatorio</strong>
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </mat-card-content>
-                    <mat-card-actions>
-                        <button mat-raised-button color="accent" matStepperPrevious>Anterior</button>
-                        <button mat-raised-button color="primary" matStepperNext>Siguiente</button>
-                    </mat-card-actions>  
-                  </mat-card>
+                            <mat-card-actions>
+                                <div class="col-sm" style="text-align: right;" *ngIf="familyForm.get('family')?.valid && family.controls.length < familyRelationList.length">
+                                    <button mat-raised-button color="primary" (click)="addFamilyMember()">Agregar
+                                        familiar</button>
+                                </div>
+                                <div class="col-sm">
+                                    <button mat-raised-button color="accent" matStepperPrevious>Anterior</button>
+                                    <button mat-raised-button color="primary" matStepperNext>Siguiente</button>
+                                </div>
+                            </mat-card-actions>
+                        </mat-card>
+                    </ng-container>
                 </form>
-              </mat-step>
-              <mat-step  [stepControl]="PhotoFormGroup">
-                <form [formGroup]="PhotoFormGroup">
+            </mat-step>
+            <mat-step [stepControl]="PhotoFormGroup">
+                <form [formGroup]="PhotoFormGroup" (ngSubmit)="Create()">
                     <ng-template matStepLabel>Foto</ng-template>
                     <mat-card>
                         <mat-card-header></mat-card-header>
@@ -318,20 +376,25 @@
                             <div class="row">
                                 <h3>Recomendaciones de la foto a cargar:</h3>
                                 <ul>
-                                    <li>La imagen debe estar en formato JPG y puede tener una relsolución de 300 x 300 a 600 x 600. La resolución preferida es 500 x 500.</li>
+                                    <li>La imagen debe estar en formato JPG y puede tener una relsolución de 300 x 300 a
+                                        600 x 600. La resolución preferida es 500 x 500.</li>
                                     <li>Por favor asegurese que solo exista un rosto en la imagen</li>
-                                    <li>Ambos ojos deben estar abiertos con una expresión natural. La frente y la cara deben estar expuestas, evitando que el cabello las cubra.</li>
-                                    <li>No debe tener elemento que bloqueen el rosto (como a sombreos, mascaras faciales o anteojos).</li>
+                                    <li>Ambos ojos deben estar abiertos con una expresión natural. La frente y la cara
+                                        deben estar expuestas, evitando que el cabello las cubra.</li>
+                                    <li>No debe tener elemento que bloqueen el rosto (como a sombreos, mascaras faciales
+                                        o anteojos).</li>
                                     <li>Use preferiblemente una foto con fondo blanco</li>
                                 </ul>
                             </div>
                             <div class="row">
-                                <!--video carga imagen: https://www.google.com/search?q=image+upload+angular+material&rlz=1C1ONGR_esCO1024CO1024&sxsrf=AJOqlzUan3raRtHV7QJMdFwwWHMhRe0RIA:1676121647295&source=lnms&tbm=vid&sa=X&ved=2ahUKEwjMqozbx439AhUqSzABHSm0BQQQ_AUoAnoECAEQBA&biw=1280&bih=649&dpr=2#fpstate=ive&vld=cid:d5dc1c11,vid:YkvqLNcJz3Y-->  
-                                <input type="file" placeholder="Seleccione una foto" name="FotherLastNames">
+                                <!--video carga imagen: https://www.google.com/search?q=image+upload+angular+material&rlz=1C1ONGR_esCO1024CO1024&sxsrf=AJOqlzUan3raRtHV7QJMdFwwWHMhRe0RIA:1676121647295&source=lnms&tbm=vid&sa=X&ved=2ahUKEwjMqozbx439AhUqSzABHSm0BQQQ_AUoAnoECAEQBA&biw=1280&bih=649&dpr=2#fpstate=ive&vld=cid:d5dc1c11,vid:YkvqLNcJz3Y-->
+                                <input type="file" placeholder="Seleccione una foto" formControlName="PhotoUrl"
+                                    name="PhotoUrl">
                             </div>
                             <div class="row center">
-                                <img src="../assets/images/Face1.jpg" style="width: 150px !important; height: 160px !important;"/>
-                            </div>           
+                                <img src="../assets/images/Face1.jpg"
+                                    style="width: 150px !important; height: 160px !important;" />
+                            </div>
                         </mat-card-content>
                         <mat-card-actions>
                             <button mat-raised-button color="warn" (click)="stepper.reset()">Reiniciar</button>
@@ -339,8 +402,8 @@
                             <button mat-raised-button color="primary">Guardar</button>
                         </mat-card-actions>
                     </mat-card>
-                  </form>
-              </mat-step>
+                </form>
+            </mat-step>
         </mat-stepper>
     </div>
 </div>

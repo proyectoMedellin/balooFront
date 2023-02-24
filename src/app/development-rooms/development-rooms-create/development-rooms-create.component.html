@@ -10,7 +10,7 @@
                         <mat-form-field>
                             <mat-select placeholder="Sede" formControlName="CampusId">
                               <mat-option *ngFor="let sede of sedes" [value]="sede.id">
-                                {{sede.code}}
+                                {{sede.name}}
                               </mat-option>
                             </mat-select>
                             <mat-error>
