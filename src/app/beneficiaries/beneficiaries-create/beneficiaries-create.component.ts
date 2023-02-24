@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
 import { BeneficiariesService } from 'src/app/services/beneficiaries.service';
 import { LocationService } from 'src/app/services/location.service';
 import { MatSelectChange } from '@angular/material/select';
+import { AES, enc } from 'crypto-js';
+import { environment } from 'src/environments/environment';
+import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-beneficiaries-create',
@@ -11,8 +15,11 @@ import { MatSelectChange } from '@angular/material/select';
   styleUrls: ['./beneficiaries-create.component.css']
 })
 export class BeneficiariesCreateComponent implements OnInit {
-
+  
   public isLinear: boolean = true;
+  private userEncrypt:string = localStorage.getItem("user")!;
+  private user =AES.decrypt(this.userEncrypt, environment.Key).toString(enc.Utf8);
+  
   GeneralInformationFormGroup: FormGroup = this.formBuilder.group({
     DocumentTypeId: ['', Validators.required],
     DocumentNumber: ['', Validators.required],
@@ -20,35 +27,32 @@ export class BeneficiariesCreateComponent implements OnInit {
     OtherNames: ['', ],
     LastName: ['', Validators.required],
     OtherLastName: ['', ],
-    Gender: ['', Validators.required],
+    GenderId: ['', Validators.required],
     BirthDate: ['', Validators.required],
-    RH: ['',],
-    BloodType: ['',],
+    RhId: ['', Validators.required],
+    BloodTypeId: ['', Validators.required],
     BirthCountryId:['', Validators.required],
     BirthDepartmentId:['', Validators.required],
     BirthCityId:['', Validators.required],
+    CreationUser: [this.user, Validators.required],
+    Enabled: [true, Validators.required],
+    EmergencyPhoneNumber: ['', Validators.required]
   });
 
   HomeFormGroup: FormGroup = this.formBuilder.group({
-    Zone: ['', Validators.required],
-    Address: ['', Validators.required],
+    AdressZoneId: ['', Validators.required],
+    Adress: ['', Validators.required],
     Neighborhood: ['', ],
-    PhoneNumber: ['', Validators.required],
-    Observations: ['', ],
+    AdressPhoneNumber: ['', Validators.required],
+    AdressObservations: ['', ],
   });
 
-  FamilyFormGroup: FormGroup = this.formBuilder.group({
-    FdocumentTypeId: ['', Validators.required],
-    FdocumentNumber: ['', Validators.required],
-    FfirstName: ['', Validators.required],
-    FotherNames: ['', ],
-    FlastName: ['', Validators.required],
-    FotherLastNames: ['', ],
-    FrelationType: ['', Validators.required]
-  });  
-  
+  familyForm: FormGroup = this.formBuilder.group({
+    family: this.formBuilder.array([this.createFamilyFormGroup()],Validators.required)
+  });
+
   PhotoFormGroup: FormGroup = this.formBuilder.group({
-    Photo: ['']
+    PhotoUrl: ['']
   });  
   
   public documentTypeList: any = [];
@@ -65,7 +69,8 @@ export class BeneficiariesCreateComponent implements OnInit {
     private formBuilder: FormBuilder,
     public userservice: UsersService,
     private beneficiariesService: BeneficiariesService,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private dialog: MatDialog
     ) {}
 
   ngOnInit(): void {
@@ -87,7 +92,6 @@ export class BeneficiariesCreateComponent implements OnInit {
     .subscribe(data => this.genderList = data["registros"])
   }
   
-
   GetRhList(){
     this.beneficiariesService.getParamDataByType("RH")
     .subscribe(data => this.rhList = data["registros"])
@@ -135,12 +139,71 @@ export class BeneficiariesCreateComponent implements OnInit {
     this.beneficiariesService.getParamDataByType("FamilyRelation")
     .subscribe(data => this.familyRelationList = data["registros"])
   }
+
+  createFamilyFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      DocumentTypeId: ['', Validators.required],
+      DocumentNumber: ['', Validators.required],
+      FirstName: ['', Validators.required],
+      OtherNames: [''],
+      LastName: ['', Validators.required],
+      OtherLastName: [''],
+      FamilyRelation: ['', Validators.required],
+      Attendant: ['', Validators.required]
+    });
+  }
+
+  get family(): FormArray {
+    return this.familyForm.get('family') as FormArray;
+  }
+
+  addFamilyMember() {
+    this.family.push(this.createFamilyFormGroup());
+  }
+
+  removeFamilyMember(index: number) {
+    this.family.removeAt(index);
+  }
+  
+  onFamilyRelationSelected(event: MatSelectChange) {
+    const selectedValue = event.value;
+    let count = 0;
+    for (let i = 0; i < this.family.length; i++) {
+      const familyRelation = this.family.at(i).get('FamilyRelation')?.value;
+      if (familyRelation === selectedValue) {
+        count++;
+      }
+    } 
+    if (count > 1) {
+      this.familyForm.get('family')?.get(`${this.family.controls.length - 1}`)?.get('FamilyRelation')?.setErrors({ 'duplicate': true });
+    } 
+  
+  }
+
   Create(){
-    console.log(
-      this.HomeFormGroup,
-      this.PhotoFormGroup,
-      this.FamilyFormGroup,
-      this.GeneralInformationFormGroup
-    )
+    const dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+      data: {type: 'loading',title: 'Guardando el Registro', message: 'Espere unos minutos'},
+      disableClose: true
+    });
+    this.beneficiariesService.create(
+      this.formBuilder.group(Object.assign({},
+      this.GeneralInformationFormGroup.controls,
+      this.HomeFormGroup.controls,
+      this.PhotoFormGroup.controls,
+      this.familyForm.controls
+      )).value
+    ).subscribe({
+      next: response => {
+        location.href = environment.url + "Beneficiaries";
+        dialogRefL.close()
+        console.log(response);
+        //Cerrar modal de carga
+      },
+      error: error => {
+        console.error(error);
+        //Aqui se pone modal de error
+      }
+    })
+
   }
 }

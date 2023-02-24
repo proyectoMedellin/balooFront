@@ -53,5 +53,8 @@ export class BeneficiariesService {
   getParamDataByType(type: string): Observable<any> {
     return this.http.get(`${environment.API_SERVICES}Beneficiaries/GetParmaDataByType?type=${type}`,httpOptions);
   }
+  create(Beneficiaries: any): Observable<any> {
+    return this.http.post(environment.API_SERVICES + "Beneficiaries/Create", Beneficiaries, httpOptions);
+  }
 
 }
