@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { WorkingDayDto } from '../intefaces/working-day-dto';
+import { WorkingDayDto } from '../interfaces/working-day-dto';
 import { WorkDaysService } from '../services/work-days.service';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { BeneficiariesListDto } from '../intefaces/beneficiaries-list-dto';
+import { BeneficiariesListDto } from '../interfaces/beneficiaries-list-dto';
 
 @Component({
   selector: 'app-photo-assignment',

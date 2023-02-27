@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AES, enc } from 'crypto-js';
-import { HolidayDto } from 'src/app/intefaces/holiday-dto';
-import { WorkingDayDto } from 'src/app/intefaces/working-day-dto';
+import { HolidayDto } from 'src/app/interfaces/holiday-dto';
+import { WorkingDayDto } from 'src/app/interfaces/working-day-dto';
 import { WorkDaysService } from 'src/app/services/work-days.service';
 import { environment } from 'src/environments/environment';
 

@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { EducationalAgentsListDto } from '../intefaces/educational-agents-list-dto';
+import { EducationalAgentsListDto } from '../interfaces/educational-agents-list-dto';
 import { EducationalAgentsService } from '../services/educational-agents.service';
 import { ListYearsService } from '../services/list-years.service';
 @Component({

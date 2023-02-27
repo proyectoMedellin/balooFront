@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { BeneficiariesDevRoomListDto } from '../intefaces/beneficiaries-dev-room-list-dto';
+import { BeneficiariesDevRoomListDto } from '../interfaces/beneficiaries-dev-room-list-dto';
 
 @Component({
   selector: 'app-beneficiaries-development-rooms',

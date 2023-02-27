@@ -2,7 +2,7 @@ import { AfterContentInit, AfterViewInit, Component, OnChanges, OnInit, ViewChil
 import { UsersService } from '../services/users.service';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { UsersListDto } from '../intefaces/users-list-dto';
+import { UsersListDto } from '../interfaces/users-list-dto';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 @Component({

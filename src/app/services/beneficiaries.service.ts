@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams  } from '@angular/common/http';
-import { ViewGridOptions } from '../intefaces/beneficiaries-list-dto';
+import { ViewGridOptions } from '../interfaces/beneficiaries-list-dto';
 //configuracion de cabezeras 
 const httpOptions = {
   headers: new HttpHeaders( { 

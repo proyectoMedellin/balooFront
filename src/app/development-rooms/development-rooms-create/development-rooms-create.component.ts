@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AES, enc } from 'crypto-js';
-import { CampusListDto } from 'src/app/intefaces/campus-list-dto';
+import { CampusListDto } from 'src/app/interfaces/campus-list-dto';
 import { CampusService } from 'src/app/services/campus.service';
 import { environment } from 'src/environments/environment';
 import { DevelopmentRoomsService } from 'src/app/services/development-rooms.service';
