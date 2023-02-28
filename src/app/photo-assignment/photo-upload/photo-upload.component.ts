@@ -1,6 +1,8 @@
+import { HttpClient, HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Console } from 'console';
 import { AES, enc } from 'crypto-js';
 import { BeneficiaryBaseInfoDto } from 'src/app/interfaces/beneficiary-base-info-dto';
 import { BeneficiariesService } from 'src/app/services/beneficiaries.service';
@@ -18,13 +20,16 @@ export class PhotoUploadComponent implements OnInit {
   public beneficiryData: BeneficiaryBaseInfoDto | undefined;
   public progress: number = 0;
   public message: string = "";
+  public localFileRoute: string = "";
+  public IsloadedPhoto: boolean = false;
+
   @Output() public onUploadFinished = new EventEmitter();
 
   constructor(
     private route: ActivatedRoute ,
     private formBuilder: FormBuilder,
-    public FilesService: FilesService,
     public BeneficiariesService: BeneficiariesService,
+    private FilesService: FilesService,
   ) { }
 
   private userEncrypt:string = localStorage.getItem("user")!;
@@ -35,32 +40,49 @@ export class PhotoUploadComponent implements OnInit {
       this.recordId =params['record'];
       this.BeneficiariesService.getById(this.recordId).subscribe(b => {
         this.beneficiryData = b['registros'][0];
+        if(this.beneficiryData != undefined && this.beneficiryData.photoUrl != ''){
+          this.IsloadedPhoto = true;
+        }
       });
     })
   }
 
-  uploadFile = (files:any) => {
+  UpdateFileRoute(files: any){
     if (files.length === 0) {
       return;
     }
     let fileToUpload = <File>files[0];
-    const formData = new FormData();
-    formData.append('file', fileToUpload, fileToUpload.name);
-    
-    
-
-    /*this.http.post('https://localhost:5001/api/upload', formData, {reportProgress: true, observe: 'events'})
-      .subscribe({
-        next: (event) => {
-        if (event.type === HttpEventType.UploadProgress)
-          this.progress = Math.round(100 * event.loaded / event.total);
-        else if (event.type === HttpEventType.Response) {
-          this.message = 'Upload success.';
-          this.onUploadFinished.emit(event.body);
-        }
-      },
-      error: (err: HttpErrorResponse) => console.log(err)
-    });*/
+    if(fileToUpload.type.toLowerCase() == 'image/jpeg' || 
+      fileToUpload.type.toLowerCase() == 'image/jpg'){
+      this.localFileRoute = fileToUpload.name;  
+    }else{
+      alert("por favor seleccione un tipo de foto valida");
+      this.localFileRoute = '';
+    }
   }
 
+  uploadFile = (files:any) => {
+    if (files.length === 0 || this.localFileRoute === '') {
+      return;
+    }
+    let fileToUpload = <File>files[0];
+    
+    const formData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+
+    if(this.beneficiryData != undefined){
+      formData.append('beneficiaryId', this.beneficiryData.id);
+    }
+    
+    this.localFileRoute = fileToUpload.name;
+  
+    this.FilesService.UploadBeneficiaryPhoto(formData).subscribe(b => {
+        let photoUrl = b['registros'][0];
+        if(this.beneficiryData != undefined){
+          this.beneficiryData.photoUrl = photoUrl;
+          this.IsloadedPhoto = true;
+        }
+      }
+    );
+  }
 }

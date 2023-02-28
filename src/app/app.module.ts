@@ -68,6 +68,7 @@ import { BeneficiariesDevelopmentRoomsCreateComponent } from './beneficiaries-de
 import { BeneficiariesDevelopmentRoomsUpdateComponent } from './beneficiaries-development-rooms/beneficiaries-development-rooms-update/beneficiaries-development-rooms-update.component';
 import { HolidaysUpdateComponent } from './holidays/holidays-update/holidays-update.component';
 import { PhotoUploadComponent } from './photo-assignment/photo-upload/photo-upload.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -141,6 +142,7 @@ import { PhotoUploadComponent } from './photo-assignment/photo-upload/photo-uplo
     RecaptchaModule
   ],
   providers: [CookieService, 
+    DatePipe,
     AuthGuard,
     AuthPermissionGuard,
     {

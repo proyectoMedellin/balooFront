@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -35,6 +36,7 @@ export class HolidaysUpdateComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute, 
+    private datepipe: DatePipe,
     private formBuilder: FormBuilder,
     public WorkDaysService: WorkDaysService,
   ) {}
@@ -77,9 +79,9 @@ export class HolidaysUpdateComponent implements OnInit {
     });
   }
 
-  holidaysListFormData(dayInput: Date){
+  holidaysListFormData(dayInput: Date){    
     return this.formBuilder.group({
-      day: [dayInput]
+      day: [this.datepipe.transform(dayInput, 'yyyy-MM-dd')]
     });
   }
 
@@ -105,8 +107,6 @@ export class HolidaysUpdateComponent implements OnInit {
     this.Holidays.removeAt(index);
   }
 }
-
-
 
 
 
