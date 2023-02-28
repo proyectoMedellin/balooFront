@@ -5,7 +5,6 @@ import { AES, enc } from 'crypto-js';
 import { BeneficiaryBaseInfoDto } from 'src/app/interfaces/beneficiary-base-info-dto';
 import { BeneficiariesService } from 'src/app/services/beneficiaries.service';
 import { FilesService } from 'src/app/services/files.service';
-import { TrainingCenterService } from 'src/app/services/training-center.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
