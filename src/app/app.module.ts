@@ -67,6 +67,7 @@ import { BeneficiariesUpdateComponent } from './beneficiaries/beneficiaries-upda
 import { BeneficiariesDevelopmentRoomsCreateComponent } from './beneficiaries-development-rooms/beneficiaries-development-rooms-create/beneficiaries-development-rooms-create.component';
 import { BeneficiariesDevelopmentRoomsUpdateComponent } from './beneficiaries-development-rooms/beneficiaries-development-rooms-update/beneficiaries-development-rooms-update.component';
 import { HolidaysUpdateComponent } from './holidays/holidays-update/holidays-update.component';
+import { PhotoUploadComponent } from './photo-assignment/photo-upload/photo-upload.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { HolidaysUpdateComponent } from './holidays/holidays-update/holidays-upd
     EducationalAgentsComponent,
     BeneficiariesComponent,
     PhotoAssignmentComponent,
+    PhotoUploadComponent,
     BeneficiariesDevelopmentRoomsComponent,
     ReportsComponent,
     IntegrationsComponent,

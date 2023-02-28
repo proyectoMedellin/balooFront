@@ -19,9 +19,9 @@
   <div class="row">
     <div class="mat-elevation-z8">
       <table #table mat-table [dataSource]="dataSource" class="mat-e">
-        <ng-container matColumnDef="DocumentType">
+        <ng-container matColumnDef="DocumentTypeName">
           <th mat-header-cell *matHeaderCellDef> Tipo documento </th>
-          <td mat-cell *matCellDef="let element"> {{element.DocumentType}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.documentTypeName}} </td>
         </ng-container>
         <ng-container matColumnDef="DocumentNumber">
           <th mat-header-cell *matHeaderCellDef> Nro. Documento </th>

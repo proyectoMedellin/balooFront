@@ -14,7 +14,7 @@ import { BeneficiariesService } from '../services/beneficiaries.service';
 export class BeneficiariesComponent implements OnInit {
   confirmed = false;
 
-  displayedColumns: string[] = ['DocumentType', 'DocumentNumber', 'Names', 'LastNames', 'actions'];
+  displayedColumns: string[] = ['DocumentTypeName', 'DocumentNumber', 'Names', 'LastNames', 'actions'];
   dataSource = new MatTableDataSource<BeneficiariesListDto>();
   options: ViewGridOptions = {
     page: 0,

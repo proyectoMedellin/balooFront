@@ -33,6 +33,7 @@ import { DevelopmentRoomsUpdateComponent } from './development-rooms/development
 import { EducationalAgentsCreateComponent } from './educational-agents/educational-agents-create/educational-agents-create.component';
 import { EducationalAgentsUpdateComponent } from './educational-agents/educational-agents-update/educational-agents-update.component';
 import { HolidaysUpdateComponent } from './holidays/holidays-update/holidays-update.component';
+import { PhotoUploadComponent } from './photo-assignment/photo-upload/photo-upload.component';
 
 const routes: Routes = 
 [
@@ -116,6 +117,10 @@ const routes: Routes =
   {
     path: 'PhotoAssignment',
     component: PhotoAssignmentComponent,
+  },
+  {
+    path: 'PhotoAssignment/PhotoUpload/:record',
+    component: PhotoUploadComponent
   },
   {
     path: 'BeneficiariesDevelopmentRooms',

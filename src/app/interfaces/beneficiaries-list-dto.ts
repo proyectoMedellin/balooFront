@@ -1,6 +1,7 @@
 export interface BeneficiariesListDto {
     Id: string;
-    DocumentType: string;
+    DocumentTypeId: string;
+    DocumentTypeName: string;
     DocumentNumber: string;
     Names: string;
     LastNames: string;

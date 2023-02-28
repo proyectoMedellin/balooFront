@@ -3,6 +3,8 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams  } from '@angular/common/http';
 import { ViewGridOptions } from '../interfaces/beneficiaries-list-dto';
+import { BeneficiaryBaseInfoDto } from '../interfaces/beneficiary-base-info-dto';
+
 //configuracion de cabezeras 
 const httpOptions = {
   headers: new HttpHeaders( { 
@@ -55,6 +57,10 @@ export class BeneficiariesService {
   }
   create(Beneficiaries: any): Observable<any> {
     return this.http.post(environment.API_SERVICES + "Beneficiaries/Create", Beneficiaries, httpOptions);
+  }
+
+  getById(id: string): Observable<any> {
+    return this.http.get(`${environment.API_SERVICES}Beneficiaries/GetById?id=${id}`,httpOptions);
   }
 
 }
