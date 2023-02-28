@@ -4,3 +4,17 @@
     margin-left: 15px;
     line-height: 36px;
   }
+
+.benPhotoCont{
+  background-color: #ebf1fa;
+  max-width: 180px;
+  max-height: 230px;
+  text-align: center;
+  padding: 10px;
+}
+
+.benPhoto{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
