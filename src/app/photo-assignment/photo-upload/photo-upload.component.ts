@@ -80,6 +80,7 @@ export class PhotoUploadComponent implements OnInit {
         let photoUrl = b['registros'][0];
         if(this.beneficiryData != undefined){
           this.beneficiryData.photoUrl = photoUrl;
+          this.IsloadedPhoto = true;
         }
       }
     );
