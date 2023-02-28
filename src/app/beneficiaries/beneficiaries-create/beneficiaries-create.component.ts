@@ -201,7 +201,11 @@ export class BeneficiariesCreateComponent implements OnInit {
       },
       error: error => {
         console.error(error);
-        //Aqui se pone modal de error
+        //AModal error de prueba
+        const dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+          data: {type: 'error',title: 'Ocurrio un error al guardar el registro', message: ''},
+          
+        });
       }
     })
 
