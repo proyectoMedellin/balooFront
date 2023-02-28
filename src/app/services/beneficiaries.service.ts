@@ -5,10 +5,10 @@ import { HttpClient, HttpHeaders, HttpParams  } from '@angular/common/http';
 import { ViewGridOptions } from '../interfaces/beneficiaries-list-dto';
 import { BeneficiaryBaseInfoDto } from '../interfaces/beneficiary-base-info-dto';
 
-//configuracion de cabezeras 
+//configuracion de cabezeras
 const httpOptions = {
-  headers: new HttpHeaders( { 
-   'Content-Type': 'application/json;odata=nometadata', 
+  headers: new HttpHeaders( {
+   'Content-Type': 'application/json;odata=nometadata',
    'Accept': 'application/json;odata=nometadata',
    'Ocp-Apim-Subscription-Key': environment.subscriptioKey,
   }),
@@ -63,4 +63,11 @@ export class BeneficiariesService {
     return this.http.get(`${environment.API_SERVICES}Beneficiaries/GetById?id=${id}`,httpOptions);
   }
 
+  updateBeneficiaries(Beneficiaries: string){
+    return this.http.post(environment.API_SERVICES + "Beneficiaries/Update", Beneficiaries, httpOptions);
+  }
+
+  delete(id: string){
+    return this.http.get(`${environment.API_SERVICES}Beneficiaries/Delete?id=${id}`,httpOptions);
+  }
 }

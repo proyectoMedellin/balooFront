@@ -17,7 +17,7 @@ export class TrainingCenterUpdateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private trainingCenterService: TrainingCenterService,
   ) { }
- 
+
   private recordId = '';
   private userEncrypt:string = localStorage.getItem("user")!;
   private user =AES.decrypt(this.userEncrypt, environment.Key).toString(enc.Utf8);
@@ -32,12 +32,12 @@ export class TrainingCenterUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.recordId =params['record']
-      this.TrainingCenterForm.patchValue({ 
-        Id: this.recordId 
+      this.recordId = params['record']
+      this.TrainingCenterForm.patchValue({
+        Id: this.recordId
     })
     });
-    this.trainingCenterService.GetByIdTraningCenter(this.recordId).subscribe(data=> 
+    this.trainingCenterService.GetByIdTraningCenter(this.recordId).subscribe(data=>
       {
         let regiter = data["registros"][0]
         this.TrainingCenterForm.patchValue({
@@ -49,7 +49,7 @@ export class TrainingCenterUpdateComponent implements OnInit {
     )
   }
 
-  
+
   UpdateTrainingCenter(){
     this.trainingCenterService.updateTraningCenter(this.TrainingCenterForm.value).subscribe(response => location.href = environment.url + "TrainingCenters")
   }

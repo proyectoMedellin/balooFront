@@ -30,15 +30,15 @@ export class BeneficiariesComponent implements OnInit {
   ngOnInit(): void {
     this.LoadData()
   }
-  
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
   LoadData(){
     this.beneficiariesService.getViewGrid(this.options)
-    .subscribe(data => 
+    .subscribe(data =>
       {
-        this.dataSource = new MatTableDataSource<BeneficiariesListDto>( data["registros"]);  
+        this.dataSource = new MatTableDataSource<BeneficiariesListDto>( data["registros"]);
         this.dataSource.paginator = this.paginator;
       })
   }
@@ -47,6 +47,7 @@ export class BeneficiariesComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
   }
   onDelete(Id: string) {
+    console.log(Id)
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {type: 'alert-red',title: '¿Está seguro que desea eliminar este registro?', message: 'Esta operación es irreversible', textButton: 'Eliminar' }
     });
@@ -58,9 +59,9 @@ export class BeneficiariesComponent implements OnInit {
           data: {type: 'loading',title: 'Eliminando el registro', message: 'Espere unos minutos'},
           disableClose: true
         });
-        this.beneficiariesService.getViewGrid(this.options).subscribe(response => 
+        this.beneficiariesService.delete(Id).subscribe(response =>
           {
-            //this.ngOnInit();
+            this.ngOnInit();
             dialogRefL.close();
           })
       }

@@ -245,7 +245,7 @@
             </mat-step>
             <mat-step [stepControl]="family">
 
-                <form [formGroup]="familyForm">
+                <form [formGroup]="familyForm" (ngSubmit)="Create()">
                     <ng-container formArrayName="family">
                         <mat-card>
                             <div
@@ -338,7 +338,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <mat-slide-toggle 
+                                        <mat-slide-toggle
                                             formControlName="Attendant">
                                             <span *ngIf="familyMember.value['Attendant']; else inactivo">Es acudiente</span>
                                             <ng-template #inactivo><span>No es acudiente</span></ng-template>
@@ -358,16 +358,21 @@
                                     <button mat-raised-button color="primary" (click)="addFamilyMember()">Agregar
                                         familiar</button>
                                 </div>
-                                <div class="col-sm">
+                                <!-- <div class="col-sm">
                                     <button mat-raised-button color="accent" matStepperPrevious>Anterior</button>
                                     <button mat-raised-button color="primary" matStepperNext>Siguiente</button>
-                                </div>
+                                </div> -->
                             </mat-card-actions>
+                            <mat-card-actions>
+                              <button mat-raised-button color="warn" (click)="stepper.reset()">Reiniciar</button>
+                              <button mat-raised-button color="accent" matStepperPrevious>Anterior</button>
+                              <button mat-raised-button color="primary">Guardar</button>
+                          </mat-card-actions>
                         </mat-card>
                     </ng-container>
                 </form>
             </mat-step>
-            <mat-step [stepControl]="PhotoFormGroup">
+            <!-- <mat-step [stepControl]="PhotoFormGroup">
                 <form [formGroup]="PhotoFormGroup" (ngSubmit)="Create()">
                     <ng-template matStepLabel>Foto</ng-template>
                     <mat-card>
@@ -387,7 +392,7 @@
                                 </ul>
                             </div>
                             <div class="row">
-                                <!--video carga imagen: https://www.google.com/search?q=image+upload+angular+material&rlz=1C1ONGR_esCO1024CO1024&sxsrf=AJOqlzUan3raRtHV7QJMdFwwWHMhRe0RIA:1676121647295&source=lnms&tbm=vid&sa=X&ved=2ahUKEwjMqozbx439AhUqSzABHSm0BQQQ_AUoAnoECAEQBA&biw=1280&bih=649&dpr=2#fpstate=ive&vld=cid:d5dc1c11,vid:YkvqLNcJz3Y-->
+                                video carga imagen: https://www.google.com/search?q=image+upload+angular+material&rlz=1C1ONGR_esCO1024CO1024&sxsrf=AJOqlzUan3raRtHV7QJMdFwwWHMhRe0RIA:1676121647295&source=lnms&tbm=vid&sa=X&ved=2ahUKEwjMqozbx439AhUqSzABHSm0BQQQ_AUoAnoECAEQBA&biw=1280&bih=649&dpr=2#fpstate=ive&vld=cid:d5dc1c11,vid:YkvqLNcJz3Y
                                 <input type="file" placeholder="Seleccione una foto" formControlName="PhotoUrl"
                                     name="PhotoUrl">
                             </div>
@@ -403,7 +408,7 @@
                         </mat-card-actions>
                     </mat-card>
                 </form>
-            </mat-step>
+            </mat-step> -->
         </mat-stepper>
     </div>
 </div>

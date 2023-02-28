@@ -34,12 +34,13 @@ import { EducationalAgentsCreateComponent } from './educational-agents/education
 import { EducationalAgentsUpdateComponent } from './educational-agents/educational-agents-update/educational-agents-update.component';
 import { HolidaysUpdateComponent } from './holidays/holidays-update/holidays-update.component';
 import { PhotoUploadComponent } from './photo-assignment/photo-upload/photo-upload.component';
+import { BeneficiariesUpdateComponent } from './beneficiaries/beneficiaries-update/beneficiaries-update.component';
 
-const routes: Routes = 
+const routes: Routes =
 [
   { path: "", redirectTo: "Inicio", pathMatch: "full" },
-  { path: "Inicio", 
-    component: IndexComponent, 
+  { path: "Inicio",
+    component: IndexComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -115,6 +116,10 @@ const routes: Routes =
     component: BeneficiariesCreateComponent,
   },
   {
+    path: 'Beneficiaries/BeneficiariesUpdate/:record',
+    component: BeneficiariesUpdateComponent
+  },
+  {
     path: 'PhotoAssignment',
     component: PhotoAssignmentComponent,
   },
@@ -133,7 +138,7 @@ const routes: Routes =
   {
     //Url
     path: 'AddUser',
-    //Componente al que dirigira la Url 
+    //Componente al que dirigira la Url
     component: AddUserComponent,
     //canActivate:[AuthPermissionGuard], data:{permiso: ["Users"]}
   },

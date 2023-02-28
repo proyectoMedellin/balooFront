@@ -15,11 +15,11 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./beneficiaries-create.component.css']
 })
 export class BeneficiariesCreateComponent implements OnInit {
-  
+
   public isLinear: boolean = true;
   private userEncrypt:string = localStorage.getItem("user")!;
   private user =AES.decrypt(this.userEncrypt, environment.Key).toString(enc.Utf8);
-  
+
   GeneralInformationFormGroup: FormGroup = this.formBuilder.group({
     DocumentTypeId: ['', Validators.required],
     DocumentNumber: ['', Validators.required],
@@ -53,8 +53,8 @@ export class BeneficiariesCreateComponent implements OnInit {
 
   PhotoFormGroup: FormGroup = this.formBuilder.group({
     PhotoUrl: ['']
-  });  
-  
+  });
+
   public documentTypeList: any = [];
   public genderList: any = [];
   public rhList: any = [];
@@ -91,7 +91,7 @@ export class BeneficiariesCreateComponent implements OnInit {
     this.beneficiariesService.getParamDataByType("Gender")
     .subscribe(data => this.genderList = data["registros"])
   }
-  
+
   GetRhList(){
     this.beneficiariesService.getParamDataByType("RH")
     .subscribe(data => this.rhList = data["registros"])
@@ -149,7 +149,7 @@ export class BeneficiariesCreateComponent implements OnInit {
       LastName: ['', Validators.required],
       OtherLastName: [''],
       FamilyRelation: ['', Validators.required],
-      Attendant: ['', Validators.required]
+      Attendant: [false, Validators.required]
     });
   }
 
@@ -164,7 +164,7 @@ export class BeneficiariesCreateComponent implements OnInit {
   removeFamilyMember(index: number) {
     this.family.removeAt(index);
   }
-  
+
   onFamilyRelationSelected(event: MatSelectChange) {
     const selectedValue = event.value;
     let count = 0;
@@ -173,11 +173,11 @@ export class BeneficiariesCreateComponent implements OnInit {
       if (familyRelation === selectedValue) {
         count++;
       }
-    } 
+    }
     if (count > 1) {
       this.familyForm.get('family')?.get(`${this.family.controls.length - 1}`)?.get('FamilyRelation')?.setErrors({ 'duplicate': true });
-    } 
-  
+    }
+
   }
 
   Create(){
