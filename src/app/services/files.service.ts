@@ -1,10 +1,8 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
-import { CookieService } from 'ngx-cookie-service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { environment } from 'src/environments/environment';
 
-//configuracion de cabezeras 
 const httpOptions = {
   headers: new HttpHeaders( { 
    'Content-Type': 'application/json;odata=nometadata', 
@@ -12,29 +10,22 @@ const httpOptions = {
    'Ocp-Apim-Subscription-Key': environment.subscriptioKey,
  })
 }
+
 @Injectable({
   providedIn: 'root'
 })
-export class WorkDaysService {
 
+export class FilesService {
   constructor(
     private http: HttpClient,
     private cookies: CookieService
   ) { }
 
-  getAll(): Observable<any>{
-    return this.http.get(environment.API_SERVICES + "WorkingDays/GetAll", httpOptions);
-  }
-
-  getByYear(year: number): Observable<any>{
+  /*getByYear(year: number): Observable<any>{
     return this.http.get(environment.API_SERVICES + "WorkingDays/GetByYear?year=" + year, httpOptions);
   }
 
   Configure(DtoWorkingDaysReq: any): Observable<any>{
     return this.http.post(environment.API_SERVICES + "WorkingDays/Configure", DtoWorkingDaysReq, httpOptions);
-  }
-  
-  Delete(year: number): Observable<any>{
-    return this.http.get(environment.API_SERVICES + "WorkingDays/Delete?year=" + year, httpOptions);
-  }
+  }*/
 }

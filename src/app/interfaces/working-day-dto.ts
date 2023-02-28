@@ -1,4 +1,4 @@
-import { HolidayDto } from "../interfaces/holiday-dto";
+import { HolidayDto } from "./holiday-dto";
 
 export interface WorkingDayDto {
     year:number,

@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { DevelopmentRoomListDto } from '../intefaces/development-room-list-dto';
+import { DevelopmentRoomListDto } from '../interfaces/development-room-list-dto';
 import { DevelopmentRoomsService } from '../services/development-rooms.service';
 @Component({
   selector: 'app-development-rooms',

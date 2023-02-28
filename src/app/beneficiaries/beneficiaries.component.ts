@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { BeneficiariesListDto, ViewGridOptions } from '../intefaces/beneficiaries-list-dto';
+import { BeneficiariesListDto, ViewGridOptions } from '../interfaces/beneficiaries-list-dto';
 import { BeneficiariesService } from '../services/beneficiaries.service';
 
 @Component({
@@ -14,7 +14,7 @@ import { BeneficiariesService } from '../services/beneficiaries.service';
 export class BeneficiariesComponent implements OnInit {
   confirmed = false;
 
-  displayedColumns: string[] = ['DocumentType', 'DocumentNumber', 'Names', 'LastNames', 'actions'];
+  displayedColumns: string[] = ['DocumentTypeName', 'DocumentNumber', 'Names', 'LastNames', 'actions'];
   dataSource = new MatTableDataSource<BeneficiariesListDto>();
   options: ViewGridOptions = {
     page: 0,

@@ -1,0 +1,102 @@
+<div class="container">
+    <div class="row">
+        <form class="form-container">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Asignación de foto</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col-sm-4" style="padding: 30px;">
+                            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+                        </div>
+                        <div class="col-sm-8">
+                            <h2>Identificación</h2>
+                            <p>
+                                AAAA
+                            </p>
+                            <h2>Nombre</h2>
+                            <p>
+                                nbbb
+                            </p>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row" style="margin-bottom:15px;">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <input type="file" #file placeholder="Choose file" style="display:none;">
+                                <button type="button" class="btn btn-success" (click)="file.click()" style="width: 100%;">Seleccione</button>
+                            </div>
+                            <div class="col-sm-10" style="border: 1px solid gray;">
+                                {{file.value}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span class="upload" *ngIf="progress > 0">
+                                  {{progress}}%
+                                </span>
+                                <span class="upload" *ngIf="message">
+                                  {{message}}
+                                </span>
+                              </div>
+                        </div>
+                      </div>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="primary" (click)="uploadFile(file.files)">Cargar</button>
+                    <button mat-raised-button color="accent" [routerLink]="['/PhotoAssignment']">Cancelar</button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+    </div>
+</div>
+<!--<div class="container">
+    <div class="row">
+        <form (ngSubmit)="TrainingCenterForm.valid && CreateTrainingCenter(TrainingCenterForm.value)" [formGroup]="TrainingCenterForm" class="form-container">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Centro de formación</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="row">
+                        <label>Código: </label>
+                        <mat-form-field>
+                            <input matInput type="text" maxlength="50" formControlName="Code">
+                            <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
+                            <mat-hint align="end">{{TrainingCenterForm.value['Code'].length}} / 50</mat-hint>
+                            <mat-error>
+                                Este campo es <strong>obligatorio</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <label>Nombre: </label>
+                        <mat-form-field>
+                            <input matInput type="text" maxlength="300" formControlName="Name">
+                            <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
+                            <mat-hint align="end">{{TrainingCenterForm.value['Name'].length}} / 300</mat-hint>
+                            <mat-error>
+                                Este campo es <strong>obligatorio</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <mat-slide-toggle 
+                            formControlName="Enabled">
+                            <span *ngIf="TrainingCenterForm.value['Enabled']; else inactivo">Activo</span>
+                            <ng-template #inactivo><span>Inactivo</span></ng-template>
+                        </mat-slide-toggle>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="primary" type="submit">Guardar</button>
+                    <button mat-raised-button color="accent" [routerLink]="['/TrainingCenters']">Cancelar</button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+    </div>
+</div>-->

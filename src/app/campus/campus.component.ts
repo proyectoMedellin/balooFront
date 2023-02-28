@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { CampusListDto } from '../intefaces/campus-list-dto';
-import { TrainingCenterListDto } from '../intefaces/training-center-list-dto';
+import { CampusListDto } from '../interfaces/campus-list-dto';
 import { CampusService } from '../services/campus.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';

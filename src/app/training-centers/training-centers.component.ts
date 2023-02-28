@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { TrainingCenterListDto } from '../intefaces/training-center-list-dto';
+import { TrainingCenterListDto } from '../interfaces/training-center-list-dto';
 import { TrainingCenterService } from '../services/training-center.service';
 
 @Component({

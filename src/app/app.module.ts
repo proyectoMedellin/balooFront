@@ -66,6 +66,8 @@ import { EducationalAgentsUpdateComponent } from './educational-agents/education
 import { BeneficiariesUpdateComponent } from './beneficiaries/beneficiaries-update/beneficiaries-update.component';
 import { BeneficiariesDevelopmentRoomsCreateComponent } from './beneficiaries-development-rooms/beneficiaries-development-rooms-create/beneficiaries-development-rooms-create.component';
 import { BeneficiariesDevelopmentRoomsUpdateComponent } from './beneficiaries-development-rooms/beneficiaries-development-rooms-update/beneficiaries-development-rooms-update.component';
+import { HolidaysUpdateComponent } from './holidays/holidays-update/holidays-update.component';
+import { PhotoUploadComponent } from './photo-assignment/photo-upload/photo-upload.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +89,7 @@ import { BeneficiariesDevelopmentRoomsUpdateComponent } from './beneficiaries-de
     EducationalAgentsComponent,
     BeneficiariesComponent,
     PhotoAssignmentComponent,
+    PhotoUploadComponent,
     BeneficiariesDevelopmentRoomsComponent,
     ReportsComponent,
     IntegrationsComponent,
@@ -104,6 +107,7 @@ import { BeneficiariesDevelopmentRoomsUpdateComponent } from './beneficiaries-de
     BeneficiariesUpdateComponent,
     BeneficiariesDevelopmentRoomsCreateComponent,
     BeneficiariesDevelopmentRoomsUpdateComponent,
+    HolidaysUpdateComponent,
     //aqui se adicionan los componentes creados  
   ],
   imports: [
