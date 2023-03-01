@@ -1,10 +1,9 @@
-
-<div class="container">
+<div class="container pageContainer">
     <div class="row">
-        <form  (ngSubmit)="AddUsers.valid && validateDocument(AddUsers.value)" [formGroup]="AddUsers">
+        <form  (ngSubmit)="UpdateUsers.valid && UpdateRegister(UpdateUsers.value)" [formGroup]="UpdateUsers">
                 <mat-card>
                     <mat-card-header>
-                        <mat-card-title>Registro Usuario</mat-card-title>
+                        <mat-card-title>Actualizar usuario</mat-card-title>
                     </mat-card-header>
                     <mat-card-content>
                         <div class="row">
@@ -12,7 +11,7 @@
                                 <mat-form-field class="full-width">
                                     <input matInput type="text" placeholder="Primer Nombre" maxlength="150" formControlName="FirstName">
                                     <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
-                                    <mat-hint align="end">{{AddUsers.value['FirstName'].length}} / 150</mat-hint>
+                                    <mat-hint align="end">{{UpdateUsers.value['FirstName'].length}} / 150</mat-hint>
                                     <mat-error>
                                         Este campo es <strong>obligatorio</strong>
                                     </mat-error>
@@ -22,7 +21,7 @@
                                 <mat-form-field class="full-width">
                                     <input matInput type="text" placeholder="Segundo Nombre" maxlength="300" formControlName="OtherNames">
                                     <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
-                                    <mat-hint align="end">{{AddUsers.value['OtherNames'].length}} / 300</mat-hint>
+                                    <mat-hint align="end">{{UpdateUsers.value['OtherNames'].length}} / 300</mat-hint>
                                 </mat-form-field>
                             </div>
                         </div>
@@ -31,7 +30,7 @@
                                 <mat-form-field class="full-width">
                                     <input matInput type="text" placeholder="Primer Apellido" maxlength="150" formControlName="LastName">
                                     <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
-                                    <mat-hint align="end">{{AddUsers.value['LastName'].length}} / 150</mat-hint>
+                                    <mat-hint align="end">{{UpdateUsers.value['LastName'].length}} / 150</mat-hint>
                                     <mat-error>
                                         Este campo es <strong>obligatorio</strong>
                                     </mat-error>
@@ -41,16 +40,16 @@
                                 <mat-form-field class="full-width">
                                     <input matInput type="text" placeholder="Segundo Apellido" maxlength="300" formControlName="OtherLastName">
                                     <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
-                                    <mat-hint align="end">{{AddUsers.value['OtherLastName'].length}} / 300</mat-hint>
+                                    <mat-hint align="end">{{UpdateUsers.value['OtherLastName'].length}} / 300</mat-hint>
                                 </mat-form-field>   
                             </div>   
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <mat-form-field class="full-width">
-                                    <input matInput type="email" placeholder="Correo electronico:" maxlength="300" formControlName="Email"  (keyup)="ChangeInputUser()">
+                                    <input matInput type="email" placeholder="Correo electronico:" maxlength="300" formControlName="Email" >
                                     <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
-                                    <mat-hint align="end">{{AddUsers.value['Email'].length}} / 300</mat-hint>
+                                    <mat-hint align="end">{{UpdateUsers.value['Email'].length}} / 300</mat-hint>
                                     <mat-error>
                                         Es requerido un <strong>correo electronico</strong>
                                     </mat-error>
@@ -60,7 +59,7 @@
                                 <mat-form-field class="full-width">
                                     <input matInput type="text" placeholder="Usuario" maxlength="300" formControlName="UserName" >
                                     <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
-                                    <mat-hint align="end">{{AddUsers.value['UserName'].length}} / 300</mat-hint>
+                                    <mat-hint align="end">{{UpdateUsers.value['UserName'].length}} / 300</mat-hint>
                                     <mat-error>
                                         Se requiere un nombre de <strong>Usuario</strong>
                                     </mat-error>
@@ -70,7 +69,7 @@
                                 <mat-form-field class="full-width">
                                     <input matInput type="text" placeholder="Telefono" maxlength="150" formControlName="Phone" >
                                     <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
-                                    <mat-hint align="end">{{AddUsers.value['Phone'].length}} / 150</mat-hint>
+                                    <mat-hint align="end">{{UpdateUsers.value['Phone'].length}} / 150</mat-hint>
                                 </mat-form-field>
                             </div>
                         </div>
@@ -88,14 +87,14 @@
                                 <mat-form-field class="full-width">
                                     <input matInput type="text" placeholder="Numero de documento" maxlength="150" formControlName="DocumentNo" >
                                     <mat-hint align="start"><strong>Caracteres</strong> </mat-hint>
-                                    <mat-hint align="end">{{AddUsers.value['DocumentNo'].length}} / 150</mat-hint>
+                                    <mat-hint align="end">{{UpdateUsers.value['DocumentNo'].length}} / 150</mat-hint>
                                 </mat-form-field>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <mat-form-field class="full-width">
-                                    <mat-select placeholder="Centro de formación" formControlName="TrainingCenterId" (selectionChange)="Campus(AddUsers.value['TrainingCenterId'])">
+                                    <mat-select placeholder="Centro de formación" formControlName="TrainingCenterId" (selectionChange)="Campus(UpdateUsers.value['TrainingCenterId'])">
                                     <mat-option *ngFor="let tido of trainingcenter" [value]="tido.id">
                                         {{tido.name}}
                                     </mat-option>
@@ -104,7 +103,7 @@
                             </div>
                             <div class="col-md-6">
                                 <mat-form-field class="full-width">
-                                    <mat-select placeholder="Sede" [disabled]="AddUsers.value['TrainingCenterId'].length == 0" multiple formControlName="CampusId">
+                                    <mat-select placeholder="Sede" [disabled]="UpdateUsers.value['TrainingCenterId'].length == 0" multiple formControlName="CampusId">
                                     <mat-option *ngFor="let tido of campus" [value]="tido.id">
                                         {{tido.name}}
                                     </mat-option>
@@ -124,7 +123,7 @@
                     </mat-card-content>
                     <mat-card-actions>
                         <button mat-raised-button color="primary" type="submit">Guardar</button>
-                        <button mat-raised-button color="accent" [routerLink]="['/UsersList']">Cancelar</button>
+                        <button mat-raised-button class="lightBlue-bkg" [routerLink]="['/UsersList']">Cancelar</button>
                     </mat-card-actions>
                 </mat-card>
         </form>

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container pageContainer">
   <br>
     <div class="row">
         <h1>Asignación de agentes educativos</h1> 
@@ -23,7 +23,7 @@
         </mat-form-field>
       </div>
       <div class="col-sm-8 " style="text-align: right;">
-        <button mat-raised-button color="primary" [routerLink]="['/EducationalAgents/EducationalAgentsCreate']">Asignar sala</button>
+        <button mat-raised-button color="accent" [routerLink]="['/EducationalAgents/EducationalAgentsCreate']">Asignar sala</button>
       </div>
     </div>
     <div class="row">
@@ -60,7 +60,7 @@
                 <ng-container matColumnDef="actions">
                   <th mat-header-cell style="text-align: right" *matHeaderCellDef>Acciones</th>
                   <td mat-cell style="text-align: right" *matCellDef="let element">
-                    <button mat-icon-button color="primary" [routerLink]="['EducationalAgentsUpdate',element.developmentRoomId,element.year]">
+                    <button mat-icon-button class="gray-color" [routerLink]="['EducationalAgentsUpdate',element.developmentRoomId,element.year]">
                       <mat-icon>edit</mat-icon>
                     </button>
                     <button mat-icon-button color="warn" (click)="onDelete(element.id)">

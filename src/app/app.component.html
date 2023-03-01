@@ -1,4 +1,4 @@
-<mat-drawer-container class="app-container" autosize>
+<mat-drawer-container class="app-container lightBlue-bkg" autosize>
 <mat-toolbar color="primary" style=" position: sticky; top: 0px; z-index:1">
     <section *ngIf="login == true" >
         <button mat-button (click)="drawer.toggle()">
@@ -7,7 +7,7 @@
     </section>
     <mat-menu #menu="matMenu"> 
     </mat-menu>
-    <img width="150" height="70" src="../assets/images/Logo.png">
+    <img width="170" height="50" src="../assets/images/Logo.png">
     <span class="spacer"></span>
 </mat-toolbar>
 <mat-drawer  #drawer class="app-sidenav" mode="side">

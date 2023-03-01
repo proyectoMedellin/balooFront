@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container pageContainer">
     <div class="row">
         <mat-stepper [linear]="isLinear" #stepper>
             <mat-step [stepControl]="GeneralInformationFormGroup">
@@ -237,7 +237,7 @@
                             </div>
                         </mat-card-content>
                         <mat-card-actions>
-                            <button mat-raised-button color="accent" matStepperPrevious>Anterior</button>
+                            <button mat-raised-button class="lightBlue-bkg" matStepperPrevious>Anterior</button>
                             <button mat-raised-button color="primary" matStepperNext>Siguiente</button>
                         </mat-card-actions>
                     </mat-card>
@@ -355,60 +355,19 @@
                             </div>
                             <mat-card-actions>
                                 <div class="col-sm" style="text-align: right;" *ngIf="familyForm.get('family')?.valid && family.controls.length < familyRelationList.length">
-                                    <button mat-raised-button color="primary" (click)="addFamilyMember()">Agregar
+                                    <button mat-raised-button color="accent" (click)="addFamilyMember()">Agregar
                                         familiar</button>
                                 </div>
-                                <!-- <div class="col-sm">
-                                    <button mat-raised-button color="accent" matStepperPrevious>Anterior</button>
-                                    <button mat-raised-button color="primary" matStepperNext>Siguiente</button>
-                                </div> -->
                             </mat-card-actions>
                             <mat-card-actions>
                               <button mat-raised-button color="warn" (click)="stepper.reset()">Reiniciar</button>
-                              <button mat-raised-button color="accent" matStepperPrevious>Anterior</button>
+                              <button mat-raised-button class="lightBlue-bkg" matStepperPrevious>Anterior</button>
                               <button mat-raised-button color="primary">Guardar</button>
                           </mat-card-actions>
                         </mat-card>
                     </ng-container>
                 </form>
             </mat-step>
-            <!-- <mat-step [stepControl]="PhotoFormGroup">
-                <form [formGroup]="PhotoFormGroup" (ngSubmit)="Create()">
-                    <ng-template matStepLabel>Foto</ng-template>
-                    <mat-card>
-                        <mat-card-header></mat-card-header>
-                        <mat-card-content>
-                            <div class="row">
-                                <h3>Recomendaciones de la foto a cargar:</h3>
-                                <ul>
-                                    <li>La imagen debe estar en formato JPG y puede tener una relsolución de 300 x 300 a
-                                        600 x 600. La resolución preferida es 500 x 500.</li>
-                                    <li>Por favor asegurese que solo exista un rosto en la imagen</li>
-                                    <li>Ambos ojos deben estar abiertos con una expresión natural. La frente y la cara
-                                        deben estar expuestas, evitando que el cabello las cubra.</li>
-                                    <li>No debe tener elemento que bloqueen el rosto (como a sombreos, mascaras faciales
-                                        o anteojos).</li>
-                                    <li>Use preferiblemente una foto con fondo blanco</li>
-                                </ul>
-                            </div>
-                            <div class="row">
-                                video carga imagen: https://www.google.com/search?q=image+upload+angular+material&rlz=1C1ONGR_esCO1024CO1024&sxsrf=AJOqlzUan3raRtHV7QJMdFwwWHMhRe0RIA:1676121647295&source=lnms&tbm=vid&sa=X&ved=2ahUKEwjMqozbx439AhUqSzABHSm0BQQQ_AUoAnoECAEQBA&biw=1280&bih=649&dpr=2#fpstate=ive&vld=cid:d5dc1c11,vid:YkvqLNcJz3Y
-                                <input type="file" placeholder="Seleccione una foto" formControlName="PhotoUrl"
-                                    name="PhotoUrl">
-                            </div>
-                            <div class="row center">
-                                <img src="../assets/images/Face1.jpg"
-                                    style="width: 150px !important; height: 160px !important;" />
-                            </div>
-                        </mat-card-content>
-                        <mat-card-actions>
-                            <button mat-raised-button color="warn" (click)="stepper.reset()">Reiniciar</button>
-                            <button mat-raised-button color="accent" matStepperPrevious>Anterior</button>
-                            <button mat-raised-button color="primary">Guardar</button>
-                        </mat-card-actions>
-                    </mat-card>
-                </form>
-            </mat-step> -->
         </mat-stepper>
     </div>
 </div>

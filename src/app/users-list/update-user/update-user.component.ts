@@ -1,10 +1,11 @@
 import { Component, OnInit, AfterContentInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, Form } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CampusService } from '../services/campus.service';
-import { SecurityRolService } from '../services/security-rol.service';
-import { TrainingCenterService } from '../services/training-center.service';
-import { UsersService } from '../services/users.service';
+import { environment } from 'src/environments/environment';
+import { CampusService } from '../../services/campus.service';
+import { SecurityRolService } from '../../services/security-rol.service';
+import { TrainingCenterService } from '../../services/training-center.service';
+import { UsersService } from '../../services/users.service';
 @Component({
   selector: 'app-update-user',
   templateUrl: './update-user.component.html',
@@ -88,6 +89,6 @@ export class UpdateUserComponent implements OnInit, AfterContentInit{
     }
   }
   UpdateRegister(Formdata: any){
-    this.userservices.updateUser(Formdata).subscribe((data)=> location.reload())
+    this.userservices.updateUser(Formdata).subscribe((data)=> location.href = environment.url + "UsersList")
   }
 }

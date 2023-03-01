@@ -1,8 +1,10 @@
-<div class="container">
+<div class="container pageContainer">
+  <br />
     <div class="row">
         <h1>Días laborales y festivos</h1> 
         <div class="line"></div>
     </div>
+    <br />
     <div class="row">
       <div class="col-sm">
         <mat-form-field>
@@ -11,7 +13,7 @@
         </mat-form-field>
       </div>
       <div class="col-sm" style="text-align: right;">
-        <button mat-raised-button color="primary" [routerLink]="['/HolidaysCreate']">Configurar año</button>
+        <button mat-raised-button color="accent" [routerLink]="['/HolidaysCreate']">Configurar año</button>
       </div>
     </div>
     <div class="row">
@@ -66,7 +68,7 @@
                 <ng-container matColumnDef="actions">
                   <th mat-header-cell style="text-align: right" *matHeaderCellDef>Acciones</th>
                   <td mat-cell style="text-align: right" *matCellDef="let element">
-                    <button mat-icon-button color="primary" [routerLink]="['HolidaysUpdate/',element.year]">
+                    <button mat-icon-button class="gray-color" [routerLink]="['HolidaysUpdate/',element.year]">
                       <mat-icon>edit</mat-icon>
                     </button>
                     <button mat-icon-button color="warn" (click)="onDelete(element.year)">

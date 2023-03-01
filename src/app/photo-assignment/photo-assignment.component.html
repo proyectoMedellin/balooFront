@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container pageContainer">
   <br>
   <div class="row">
     <h1>Asignación de foto</h1>
@@ -35,7 +35,7 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell style="text-align: right" *matHeaderCellDef>Acciones</th>
           <td mat-cell style="text-align: right" *matCellDef="let element">
-            <button mat-icon-button color="primary" [routerLink]="['/PhotoAssignment/PhotoUpload',element.id]">
+            <button mat-icon-button class="gray-color" [routerLink]="['/PhotoAssignment/PhotoUpload',element.id]">
               <mat-icon>camera_alt</mat-icon>
             </button>
           </td>

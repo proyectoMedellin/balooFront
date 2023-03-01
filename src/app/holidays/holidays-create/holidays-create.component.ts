@@ -25,7 +25,7 @@ export class HolidaysCreateComponent implements OnInit {
     Saturday:[false, Validators.required],
     Sunday:[false, Validators.required],
     CreatedBy:[this.user, Validators.required],
-    Holidays: this.formBuilder.array([this.holidaysListForm()])
+    Holidays: this.formBuilder.array([])
   });
 
   constructor(

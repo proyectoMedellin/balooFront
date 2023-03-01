@@ -4,16 +4,16 @@
 
 // GAMA COLORES
 $my-primary-color: (
-    50: #ECEFF1,
-    100: #CFD8DC,
-    200: #B0BEC5,
-    300: #90A4AE,
-    400: #78909C,
-    500: #607D8B,
-    600: #546E7A,
-    700: #455A64,
-    800: #37474F,
-    900: #263238,
+    50: #99bdff,
+    100: #669cff,
+    200: #337aff,
+    300: #0059ff,
+    400: #0047cc,
+    500: #002f87,
+    600: #002d80,
+    700: #002466,
+    800: #001b4d,
+    900: #001233,
     contrast: (
         50: rgba(black, 0.87),
         100: rgba(black, 0.87),
@@ -29,16 +29,16 @@ $my-primary-color: (
    );
 
 $my-accent-color: (
-    50: #edf6e8,
-    100: #D2F8CA,
-    200: #B3F3DA,
-    300: #8FEE75,
-    400: #6DE950,
-    500: #47E324,
-    600: #30D210,
-    700: #00BC00,
-    800: #00A800,
-    900: #008500,
+    50: #fef6e7,
+    100: #fdedce,
+    200: #fadb9e,
+    300: #f8ca6d,
+    400: #f6b83c,
+    500: #f5b333,
+    600: #f4a60b,
+    700: #c38509,
+    800: #926407,
+    900: #614205,
     contrast: (
       50: rgba(black, 0.87),
       100: rgba(black, 0.87),
@@ -54,16 +54,16 @@ $my-accent-color: (
 );
 
 $my-warn-color: (
-    50: #edf6e8,
-    100: #D2F8CA,
-    200: #B3F3DA,
-    300: #8FEE75,
-    400: #6DE950,
-    500: #47E324,
-    600: #30D210,
-    700: #00BC00,
-    800: #00A800,
-    900: #008500,
+    50: #fceae8,
+    100: #f9d4d2,
+    200: #f3aaa5,
+    300: #ed7f78,
+    400: #e8554a,
+    500: #e43d30,
+    600: #b52217,
+    700: #871912,
+    800: #5a110c,
+    900: #2d0806,
     contrast: (
    50: rgba(black, 0.87),
       100: rgba(black, 0.87),
@@ -78,10 +78,11 @@ $my-warn-color: (
     )
 );
 
+
 // PALETA DE COLORES
 $my-primary: mat.define-palette($my-primary-color);
-$my-accent: mat.define-palette(mat.$indigo-palette, A200, A100, A400);
-$my-warn: mat.define-palette(mat.$red-palette);
+$my-accent: mat.define-palette($my-accent-color);
+$my-warn: mat.define-palette($my-warn-color);
 // TEMA PROPIO
 $my-theme: mat.define-light-theme((
  color: (

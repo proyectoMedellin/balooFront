@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddUserComponent } from './add-user/add-user.component';
+import { AddUserComponent } from './users-list/add-user/add-user.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { LoginComponent } from './login/login.component';
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
-import { UpdateUserComponent } from './update-user/update-user.component';
+import { UpdateUserComponent } from './users-list/update-user/update-user.component';
 import { IndexComponent } from './index/index.component';
 import { AuthGuard } from './services/auth.guard';
 import { LoginCaptchatComponent } from './login-captchat/login-captchat.component';
@@ -46,14 +46,17 @@ const routes: Routes =
   {
     path: 'Holidays',
     component: HolidaysComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Configuración de días laborales y festivos"]}
   },
   {
     path: 'HolidaysCreate',
     component: HolidaysCreateComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Configuración de días laborales y festivos"]}
   },
   {
     path: 'Holidays/HolidaysUpdate/:record',
     component: HolidaysUpdateComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Configuración de días laborales y festivos"]}
   },
   {
     path: 'Integrations',
@@ -62,14 +65,17 @@ const routes: Routes =
   {
     path: 'TrainingCenters',
     component: TrainingCentersComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Centros de formación"]}
   },
   {
     path: 'TrainingCenters/TrainingCentersCreate',
     component: TrainingCenterCreateComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Centros de formación"]}
   },
   {
     path: 'TrainingCenters/TrainingCentersUpdate/:record',
-    component: TrainingCenterUpdateComponent
+    component: TrainingCenterUpdateComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Centros de formación"]}
   },
   {
     path: 'Campus',
@@ -79,57 +85,71 @@ const routes: Routes =
   {
     path: 'Campus/CampusCreate',
     component: CampuesCreateComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Sedes"]}
   },
   {
     path: 'Campus/CampusUpdate/:record',
-    component: CampusUpdateComponent
+    component: CampusUpdateComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Sedes"]}
   },
   {
     path: 'DevelopmentRooms',
     component: DevelopmentRoomsComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Salas de desarrollo"]}
   },{
     path: 'DevelopmentRooms/DevelopmentRoomsCreate',
     component: DevelopmentRoomsCreateComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Salas de desarrollo"]}
   },
   {
     path: 'DevelopmentRooms/DevelopmentRoomsUpdate/:record',
-    component: DevelopmentRoomsUpdateComponent
+    component: DevelopmentRoomsUpdateComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Salas de desarrollo"]}
   },
   {
     path: 'EducationalAgents',
     component: EducationalAgentsComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Asignación agentes educativos"]}
   },
   {
     path: 'EducationalAgents/EducationalAgentsCreate',
     component: EducationalAgentsCreateComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Asignación agentes educativos"]}
   },
   {
     path: 'EducationalAgents/EducationalAgentsUpdate/:recordRoom/:recordYear',
     component: EducationalAgentsUpdateComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Asignación agentes educativos"]}
   },
   {
     path: 'Beneficiaries',
     component: BeneficiariesComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Gestión niños y niñas"]}
   },
   {
     path: 'Beneficiaries/BeneficiariesCreate',
     component: BeneficiariesCreateComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Gestión niños y niñas"]}
   },
   {
     path: 'Beneficiaries/BeneficiariesUpdate/:record',
-    component: BeneficiariesUpdateComponent
+    component: BeneficiariesUpdateComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Gestión niños y niñas"]}
   },
   {
     path: 'PhotoAssignment',
     component: PhotoAssignmentComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Asignación de fotos"]}
   },
   {
     path: 'PhotoAssignment/PhotoUpload/:record',
-    component: PhotoUploadComponent
+    component: PhotoUploadComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Asignación de fotos"]}
   },
   {
     path: 'BeneficiariesDevelopmentRooms',
     component: BeneficiariesDevelopmentRoomsComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Asignación salas a niños y niñas"]}
   },
   {
     path: 'Reports',
@@ -140,12 +160,12 @@ const routes: Routes =
     path: 'AddUser',
     //Componente al que dirigira la Url
     component: AddUserComponent,
-    //canActivate:[AuthPermissionGuard], data:{permiso: ["Users"]}
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Usuarios"]}
   },
   {
     path: 'UsersList',
     component: UsersListComponent,
-    /*canActivate:[AuthPermissionGuard], data:{permiso: ["Permiso, Prueba"]}*/
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Usuarios"]}
   },
   {
     path: 'ChangePassword',
@@ -154,7 +174,7 @@ const routes: Routes =
   {
     path: 'UpdateUser',
     component: UpdateUserComponent,
-    //canActivate: [AuthPermissionGuard], data:{permiso: ["Prueba"]}
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Usuarios"]}
   },
   {
     path: 'Login',
@@ -167,16 +187,6 @@ const routes: Routes =
   {
     path: 'Recover',
     component: RecoverPasswordComponent,
-  },
-  {
-    path: 'RolesList',
-    component: RolesListComponent,
-    //canActivate: [AuthPermissionGuard], data:{permiso: ["Prueba"]}
-  },
-  {
-    path: 'UpdateRolesPermisos',
-    component: UpdateRolPermisosComponent,
-    //canActivate: [AuthPermissionGuard], data:{permiso: ["Prueba"]}
   },
   {
     path: "*",

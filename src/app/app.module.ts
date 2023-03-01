@@ -29,12 +29,12 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 //aqui se importan los componentes creados
-import { AddUserComponent } from './add-user/add-user.component'; 
+import { AddUserComponent } from './users-list/add-user/add-user.component'; 
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { LoginComponent } from './login/login.component';
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
-import { UpdateUserComponent } from './update-user/update-user.component';
+import { UpdateUserComponent } from './users-list/update-user/update-user.component';
 import { AuthGuard } from './services/auth.guard';
 import { AuthPermissionGuard } from './auth/auth-permission.guard';
 import { IndexComponent } from './index/index.component';

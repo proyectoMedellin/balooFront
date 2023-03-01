@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container pageContainer">
     <div class="row">
         <form (ngSubmit)="DevelopmentRoomForm.valid && UpdateDevRooms()"  [formGroup]="DevelopmentRoomForm" class="form-container">
             <mat-card>
@@ -10,7 +10,7 @@
                         <mat-form-field>
                             <mat-select placeholder="Sede" formControlName="CampusId">
                               <mat-option *ngFor="let sede of sedes" [value]="sede.id">
-                                {{sede.code}}
+                                {{sede.code}} - {{sede.name}}
                               </mat-option>
                             </mat-select>
                             <mat-error>
@@ -64,7 +64,7 @@
                 </mat-card-content>
                 <mat-card-actions>
                     <button mat-raised-button color="primary">Guardar</button>
-                    <button mat-raised-button color="accent" [routerLink]="['/DevelopmentRooms']">Cancelar</button>
+                    <button mat-raised-button class="lightBlue-bkg" [routerLink]="['/DevelopmentRooms']">Cancelar</button>
                 </mat-card-actions>
             </mat-card>
         </form>

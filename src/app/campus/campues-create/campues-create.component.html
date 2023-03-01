@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container pageContainer">
     <div class="row">
         <form (ngSubmit)="CampusForm.valid && CreateCampus(CampusForm.value)" [formGroup]="CampusForm" class="form-container">
             <mat-card>
@@ -10,7 +10,7 @@
                         <mat-form-field>
                             <mat-select placeholder="Centro de formación" formControlName="TrainingCenterId">
                               <mat-option *ngFor="let centro of listaCentros" [value]="centro.id">
-                                {{centro.name}}
+                                {{centro.code}} - {{centro.name}}
                               </mat-option>
                             </mat-select>
                             <mat-error>
@@ -53,7 +53,7 @@
                 </mat-card-content>
                 <mat-card-actions>
                     <button mat-raised-button color="primary">Guardar</button>
-                    <button mat-raised-button color="accent" [routerLink]="['/Campus']">Cancelar</button>
+                    <button mat-raised-button class="lightBlue-bkg"  [routerLink]="['/Campus']">Cancelar</button>
                 </mat-card-actions>
             </mat-card>
         </form>

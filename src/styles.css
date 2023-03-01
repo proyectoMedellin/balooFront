@@ -1,4 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
+.pageContainer{
+  margin-top: 20px !important;
+  background-color: white !important;
+  color: #545454 !important;
+}
+
+.darkBlue-color{
+  color: #002F87 !important;
+}
+
+.lightBlue-color{
+  color: #79A3DC !important;
+}
+
+.yellow-color{
+  color: #F5B333 !important;
+}
+
+.gray-color{
+  color: #545454 !important;
+}
+
+.darkBlue-bkg{
+  background-color: #002F87 !important;
+  color: white !important;
+}
+
+.lightBlue-bkg{
+  background-color: #79A3DC !important;
+  color: white !important;
+}
+
+.yellow-bkg{
+  background-color: #F5B333 !important;
+  color: #545454;
+}
+
+.gray-bkg{
+  background-color: #545454 !important;
+  color: white;
+}
+
 .custom-form {
     position: relative;
     left: 30%;
@@ -67,7 +109,7 @@
 }
 
 
-html, body { height: 100%; }
+html, body { height: 100%;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 table {
   width: 100%;

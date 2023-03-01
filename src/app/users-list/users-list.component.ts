@@ -66,7 +66,13 @@ export class UsersListComponent implements OnInit, AfterViewInit {
           data: {type: 'loading',title: 'Eliminando el registro', message: 'Espere unos minutos'},
           disableClose: true
         });
-        this.userservices.deletedUser(userName).subscribe(()=> location.reload())
+        this.userservices.deletedUser(userName).subscribe(response => {
+          let rData = response['registros'][0];
+          if(!rData){
+            alert("EL usuario a eliminar tiene datos asociados, por favor elimine sus relaciones o inactivelo");
+          }
+          location.reload()
+        })
       }
     });
   }

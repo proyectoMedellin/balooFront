@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
-import { UsersService } from '../services/users.service';
+import { UsersService } from '../../services/users.service';
 import { AES } from 'crypto-js';
-import { CorreoService } from '../services/correo.service';
-import { SecurityRolService } from '../services/security-rol.service';
-import { CampusService } from '../services/campus.service';
-import { TrainingCenterService } from '../services/training-center.service';
+import { CorreoService } from '../../services/correo.service';
+import { SecurityRolService } from '../../services/security-rol.service';
+import { CampusService } from '../../services/campus.service';
+import { TrainingCenterService } from '../../services/training-center.service';
 import { ObserversModule } from '@angular/cdk/observers';
 import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
