@@ -1,13 +1,25 @@
-<div class="container">
+<div class="container pageContainer">
+  <br>
     <div class="row">
-        <h1>Asignación de salas a niñas y niños</h1> 
+        <h1>Asignación de niños y niñas a grupos</h1> 
         <div class="line"></div>
     </div>
+    <br>
     <div class="row">
-      <div class="col-sm">
+      <div class="col-sm-2">
         <mat-form-field>
             <mat-label>Buscar asignación</mat-label>
             <input #tableFilter (keyup)="applyFilter(tableFilter.value)" matInput placeholder="" />
+        </mat-form-field>
+      </div>
+      <div class="col-sm-2">
+        <mat-form-field>
+          <mat-label>Selecione Año</mat-label>
+          <mat-select [(value)]="selectedYear" (selectionChange)="onReloadList()">
+            <mat-option *ngFor="let option of years" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
     </div>
@@ -16,43 +28,48 @@
             <table #table mat-table [dataSource]="dataSource" class="mat-e">
                 <ng-container matColumnDef="TrainingCenterName">
                   <th mat-header-cell *matHeaderCellDef> Centro </th>
-                  <td mat-cell *matCellDef="let element"> {{element.TrainingCenterName}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.trainingCenterName}} </td>
                 </ng-container>
                 <ng-container matColumnDef="CampusName">
                     <th mat-header-cell *matHeaderCellDef> Sede </th>
-                    <td mat-cell *matCellDef="let element"> {{element.CampusName}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.campusName}} </td>
                 </ng-container>
                 <ng-container matColumnDef="DevelopmentRoomName">
                     <th mat-header-cell *matHeaderCellDef> Sala </th>
-                    <td mat-cell *matCellDef="let element"> {{element.DevelopmentRoomName}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.developmentRoomName}} </td>
                   </ng-container>
-                  <ng-container matColumnDef="GroupId">
+                  <ng-container matColumnDef="GroupCode">
                       <th mat-header-cell *matHeaderCellDef> Código </th>
-                      <td mat-cell *matCellDef="let element"> {{element.GroupId}} </td>
+                      <td mat-cell *matCellDef="let element"> {{element.groupCode}} </td>
                   </ng-container>
                   <ng-container matColumnDef="GroupName">
                     <th mat-header-cell *matHeaderCellDef> Grupo </th>
-                    <td mat-cell *matCellDef="let element"> {{element.GroupName}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.groupName}} </td>
                   </ng-container>
                   <ng-container matColumnDef="Year">
                       <th mat-header-cell *matHeaderCellDef> Año </th>
-                      <td mat-cell *matCellDef="let element"> {{element.Year}} </td>
+                      <td mat-cell *matCellDef="let element"> {{element.year}} </td>
                   </ng-container>
-                  <ng-container matColumnDef="Beneficiary">
-                    <th mat-header-cell *matHeaderCellDef> Niña o Niño </th>
-                    <td mat-cell *matCellDef="let element"> {{element.EducationalAgentName}} </td>
+                  <ng-container matColumnDef="EducationalAgentName">
+                    <th mat-header-cell *matHeaderCellDef > Agente asignado </th>
+                    <td mat-cell *matCellDef="let element" style="white-space: pre-line">{{formatAgents(element.agents)}}</td>
                 </ng-container>
-
-                <ng-container matColumnDef="Update">
-                  <th mat-header-cell *matHeaderCellDef> </th>
-                  <td mat-cell *matCellDef="let element">
-                    <a href="/UpdateUser?user={{element.Id}}">Actualizar</a>
+                <ng-container matColumnDef="actions">
+                  <th mat-header-cell style="text-align: right" *matHeaderCellDef>Acciones</th>
+                  <td mat-cell style="text-align: right" *matCellDef="let element">
+                    <button mat-icon-button class="gray-color" [routerLink]="['BeneficiariesDevelopmentRoomsUpdate',element.id]">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="onDelete(element.id)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
                   </td>
-                </ng-container> 
+                </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
+            <br>
             <mat-paginator #paginator
                          [pageSize]="5"
                          [pageSizeOptions]="[5, 10, 15, 20]"

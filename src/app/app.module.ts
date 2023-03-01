@@ -64,7 +64,6 @@ import { DevelopmentRoomsUpdateComponent } from './development-rooms/development
 import { EducationalAgentsCreateComponent } from './educational-agents/educational-agents-create/educational-agents-create.component';
 import { EducationalAgentsUpdateComponent } from './educational-agents/educational-agents-update/educational-agents-update.component';
 import { BeneficiariesUpdateComponent } from './beneficiaries/beneficiaries-update/beneficiaries-update.component';
-import { BeneficiariesDevelopmentRoomsCreateComponent } from './beneficiaries-development-rooms/beneficiaries-development-rooms-create/beneficiaries-development-rooms-create.component';
 import { BeneficiariesDevelopmentRoomsUpdateComponent } from './beneficiaries-development-rooms/beneficiaries-development-rooms-update/beneficiaries-development-rooms-update.component';
 import { HolidaysUpdateComponent } from './holidays/holidays-update/holidays-update.component';
 import { PhotoUploadComponent } from './photo-assignment/photo-upload/photo-upload.component';
@@ -106,7 +105,6 @@ import { DatePipe } from '@angular/common';
     EducationalAgentsCreateComponent,
     EducationalAgentsUpdateComponent,
     BeneficiariesUpdateComponent,
-    BeneficiariesDevelopmentRoomsCreateComponent,
     BeneficiariesDevelopmentRoomsUpdateComponent,
     HolidaysUpdateComponent,
     //aqui se adicionan los componentes creados  

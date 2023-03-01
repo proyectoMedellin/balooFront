@@ -35,6 +35,7 @@ import { EducationalAgentsUpdateComponent } from './educational-agents/education
 import { HolidaysUpdateComponent } from './holidays/holidays-update/holidays-update.component';
 import { PhotoUploadComponent } from './photo-assignment/photo-upload/photo-upload.component';
 import { BeneficiariesUpdateComponent } from './beneficiaries/beneficiaries-update/beneficiaries-update.component';
+import { BeneficiariesDevelopmentRoomsUpdateComponent } from './beneficiaries-development-rooms/beneficiaries-development-rooms-update/beneficiaries-development-rooms-update.component';
 
 const routes: Routes =
 [
@@ -151,6 +152,12 @@ const routes: Routes =
     component: BeneficiariesDevelopmentRoomsComponent,
     canActivate:[AuthPermissionGuard], data:{permiso: ["Asignación salas a niños y niñas"]}
   },
+  {
+    path: 'BeneficiariesDevelopmentRooms/BeneficiariesDevelopmentRoomsUpdate/:record',
+    component: BeneficiariesDevelopmentRoomsUpdateComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Asignación salas a niños y niñas"]}
+  },
+
   {
     path: 'Reports',
     component: ReportsComponent,
