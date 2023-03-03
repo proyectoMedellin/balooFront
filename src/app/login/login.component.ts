@@ -61,6 +61,13 @@ export class LoginComponent implements OnInit {
      let userEncrypt = AES.encrypt(this.LoginForm.getRawValue()['User'], environment.Key).toString()
      this.localservice.saveData("user", userEncrypt)
      location.href = environment.url + "Inicio"
+    },
+    err => {
+      this.alertMessage.open("Error al consultar permisos", "Aceptar", 
+      {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      })
     })
   }
 
