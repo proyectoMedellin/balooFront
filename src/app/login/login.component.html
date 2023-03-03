@@ -1,36 +1,61 @@
-<div class="center">
-    <h1>Sistema de identificación de emociones y control de asistencia SIECA</h1>
-    <hr />
-</div>
-<div class="custom-form">
-    <form  (ngSubmit)="LoginForm.valid && login()" [formGroup]="LoginForm">
-            <label>Usuario: </label>
-            <mat-form-field appearance="outline">
-                    <input matInput type="text" placeholder="Username" maxlength="150"  maxlength="150" formControlName="User">
-                    <button mat-icon-button matSuffix >
-                        <mat-icon></mat-icon>
-                    </button>
-                    <mat-error>
-                        Este campo es <strong>obligatorio</strong>
-                    </mat-error>
-            </mat-form-field>
-            <br>
-            <label>Contraseña: </label>
-            <mat-form-field appearance="outline">
-                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Abc+90de" maxlength="150"  formControlName="UserPassword">
-                <button mat-icon-button matSuffix (click)="hide = !hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-                <mat-error>
-                    Este campo es <strong>obligatorio</strong>
-                </mat-error>
-            </mat-form-field>  
-            <br>
-            <a style="position: relative" routerLink="/Recover">Recuperar contraseña</a>
-            <br>
-            <br>
-            <button mat-raised-button color="primary" type="submit">Login</button>
-            
+<div class="container pageContainer">
+    <br />
+    <div class="row">
+        <form  (ngSubmit)="LoginForm.valid && login()" [formGroup]="LoginForm">
+        <mat-card>
+            <mat-card-content>
+                <div class="row" style="text-align: center !important;">
+                    <div class="col-sm-12">
+                        <h1>
+                            Sistema de identificación de emociones y control de asistencia SIECA
+                        </h1>
+                        <hr />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="text-align: center;">
+                        <label>Usuario: </label>
+                        <br />
+                        <mat-form-field appearance="outline">
+                            <input matInput type="text" placeholder="Username" maxlength="150"  maxlength="150" formControlName="User">
+                            <button mat-icon-button matSuffix >
+                                <mat-icon></mat-icon>
+                            </button>
+                            <mat-error>
+                                Este campo es <strong>obligatorio</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="text-align: center;">
+                        <label>Contraseña: </label>
+                        <br />
+                        <mat-form-field appearance="outline">
+                            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Abc+90de" maxlength="150"  formControlName="UserPassword">
+                            <button mat-icon-button matSuffix (click)="hide = !hide">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            <mat-error>
+                                Este campo es <strong>obligatorio</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="text-align: center !important;">
+                        <a routerLink="/Recover">Recuperar contraseña</a>
+                    </div>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <div class="row">
+                    <div class="col-sm-12" style="text-align: center !important;">
+                        <button style="width: 100px;" mat-raised-button color="primary" type="submit">Login</button>
+                    </div>
+                </div>
+            </mat-card-actions>
+        </mat-card>
     </form>  
-  
+    </div>    
 </div>

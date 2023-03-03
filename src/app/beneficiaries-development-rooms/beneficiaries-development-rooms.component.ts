@@ -75,6 +75,5 @@ export class BeneficiariesDevelopmentRoomsComponent implements OnInit {
          )
       }
     });
-
   }
 }

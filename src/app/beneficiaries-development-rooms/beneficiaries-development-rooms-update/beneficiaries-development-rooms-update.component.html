@@ -1,1 +1,79 @@
-<p>beneficiaries-development-rooms-update works!</p>
+<div class="container pageContainer">
+    <div class="row">
+        <h1>Asignación de niñas y niños a grupos</h1>
+    </div>
+    <div class="row">
+        <div class="col-sm-1">
+            año
+        </div>
+        <div class="col-md-4">
+            centro
+        </div>
+        <div class="col-md-4">
+            sede
+        </div>
+        <div class="col-md-3">
+            aula        
+        </div>
+    </div>
+    <br >
+    <div class="row">
+        <form>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2>Niñas y niños a adicionar</h2>
+                    <hr />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <mat-form-field>
+                        <mat-select placeholder="Tipo de documento" formControlName="DocumentTypeId">
+                            <!--<mat-option *ngFor="let dt of documentTypeList" [value]="dt.id">
+                                {{dt.name}}
+                            </mat-option>-->
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-2">
+                    <mat-form-field>
+                        <input matInput placeholder="Nro. Documento" name="DocumentNumber"
+                            formControlName="DocumentNumber" />
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-7">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Nombres y apellidos" name="Names"
+                            formControlName="Names" />
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-1">
+                    <button mat-icon-button class="gray-color" >
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-sm-12">
+                resultados busqueda    
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <form>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2>Niñas y niños del grupo</h2>
+                    <hr />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    asignados
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
