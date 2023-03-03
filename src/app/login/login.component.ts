@@ -68,6 +68,7 @@ export class LoginComponent implements OnInit {
         horizontalPosition: 'center',
         verticalPosition: 'top',
       })
+      location.href = environment.url + "Inicio"
     })
   }
 
