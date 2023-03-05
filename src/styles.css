@@ -41,6 +41,11 @@
   color: white;
 }
 
+.lightGary-bkg{
+  background-color: #F5F2F1;
+  color: black;
+}
+
 .custom-form {
     position: relative;
     left: 30%;
