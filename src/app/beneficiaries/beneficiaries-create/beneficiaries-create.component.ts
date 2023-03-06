@@ -8,6 +8,7 @@ import { AES, enc } from 'crypto-js';
 import { environment } from 'src/environments/environment';
 import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { WITHOUTDOC, WITHOUTID } from 'src/constants/app.constants';
 
 @Component({
   selector: 'app-beneficiaries-create',
@@ -81,6 +82,16 @@ export class BeneficiariesCreateComponent implements OnInit {
     this.GetCountryList();
     this.GetZoneList();
     this.GetFamilyRelationList();
+  }
+
+  validateDoc(event: any){
+    if(this.GeneralInformationFormGroup.value.DocumentTypeId == WITHOUTDOC){
+      this.GeneralInformationFormGroup.get('DocumentNumber')?.setValue(WITHOUTID)
+      this.GeneralInformationFormGroup.controls['DocumentNumber'].disable()
+    }else{
+      this.GeneralInformationFormGroup.get('DocumentNumber')?.setValue('')
+      this.GeneralInformationFormGroup.controls['DocumentNumber'].enable()
+    }
   }
 
   GetDocumentTypeList(){
@@ -204,7 +215,7 @@ export class BeneficiariesCreateComponent implements OnInit {
         //AModal error de prueba
         const dialogRefL = this.dialog.open(ConfirmDialogComponent, {
           data: {type: 'error',title: 'Ocurrio un error al guardar el registro', message: ''},
-          
+
         });
       }
     })
