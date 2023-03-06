@@ -3,20 +3,23 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
 import { UsersService } from '../../services/users.service';
-import { AES } from 'crypto-js';
+import { AES, enc } from 'crypto-js';
 import { CorreoService } from '../../services/correo.service';
 import { SecurityRolService } from '../../services/security-rol.service';
 import { CampusService } from '../../services/campus.service';
 import { TrainingCenterService } from '../../services/training-center.service';
 import { ObserversModule } from '@angular/cdk/observers';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { isNullOrUndef } from 'chart.js/dist/helpers/helpers.core';
+import { LocalService } from 'src/app/services/local.service';
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent implements OnInit {
-
+  public userEncrypt = this.localstorageservice.getData('user')!
+  public user = AES.decrypt(this.userEncrypt, environment.Key).toString(enc.Utf8)
   public AddUsers = new FormGroup({
     FirstName: new FormControl('', [Validators.required]),
     OtherNames: new FormControl(''),
@@ -27,10 +30,11 @@ export class AddUserComponent implements OnInit {
     Phone: new FormControl(''),
     DocumentTypeId: new FormControl('', [Validators.required]),
     DocumentNo: new FormControl('', ),
-    CreatedBy: new FormControl('SuperAdminTest', [Validators.required]),
+    CreatedBy: new FormControl(this.user, [Validators.required]),
     RolsId: new FormControl('', [Validators.required]),
-    TrainingCenterId: new FormControl('', [Validators.required]),
-    CampusId: new FormControl('', [Validators.required])
+    TrainingCenterId: new FormControl('00000000-0000-0000-0000-000000000000'),
+    CampusId: new FormControl([]),
+    GlobalUser: new FormControl(false)
   });
   public RecoveryForm  = new FormGroup({
     Body: new FormControl(''),
@@ -41,6 +45,7 @@ export class AddUserComponent implements OnInit {
   public campus: any = [];
   public rols: any = [];
   public trainingcenter: any = [];
+  public admin: boolean = false;
   constructor(
     private formBulider: FormBuilder,
     public userservice: UsersService,
@@ -49,14 +54,18 @@ export class AddUserComponent implements OnInit {
     public campusservice: CampusService,
     public trainingCenterService: TrainingCenterService,
     private alertMessage: MatSnackBar,
+    public localstorageservice: LocalService
   ) { }
 
   ngOnInit(): void {
     this.Documents()
     this.Rols()
     this.Trainingcenter()
+    this.Admin()
   }
-  
+  Admin(){
+    this.rolservice.getIsAdmin(this.user).subscribe(data => this.Admin = data["registros"][0])
+  }
   Documents(){
     this.userservice.getAllDocuments().subscribe(data => this.documents = data["registros"][0])
   }

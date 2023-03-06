@@ -47,7 +47,6 @@ export class BeneficiariesComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
   }
   onDelete(Id: string) {
-    console.log(Id)
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {type: 'alert-red',title: '¿Está seguro que desea eliminar este registro?', message: 'Esta operación es irreversible', textButton: 'Eliminar' }
     });
