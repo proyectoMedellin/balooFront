@@ -36,6 +36,7 @@ import { HolidaysUpdateComponent } from './holidays/holidays-update/holidays-upd
 import { PhotoUploadComponent } from './photo-assignment/photo-upload/photo-upload.component';
 import { BeneficiariesUpdateComponent } from './beneficiaries/beneficiaries-update/beneficiaries-update.component';
 import { BeneficiariesDevelopmentRoomsUpdateComponent } from './beneficiaries-development-rooms/beneficiaries-development-rooms-update/beneficiaries-development-rooms-update.component';
+import { StudentInformationComponent } from './reports/student-information/student-information.component';
 
 const routes: Routes =
 [
@@ -161,6 +162,13 @@ const routes: Routes =
   {
     path: 'Reports',
     component: ReportsComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Reportes"]}
+  },
+  {
+    //Url
+    path: 'student-information/:id',
+    component: StudentInformationComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Reportes"]}
   },
   {
     //Url
