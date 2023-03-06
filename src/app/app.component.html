@@ -11,9 +11,9 @@
     <span class="spacer"></span>
 </mat-toolbar>
 <mat-drawer  #drawer class="app-sidenav" mode="side">
-    <button  mat-menu-item routerLink="Inicio">Inicio</button>
+    <button  mat-menu-item routerLink="Inicio" (click)="drawer.toggle()">Inicio</button>
     <div *ngFor="let item of items">
-        <button mat-menu-item routerLink={{item.route}}>{{item.menuLabel}}</button>
+        <button mat-menu-item routerLink={{item.route}} (click)="drawer.toggle()">{{item.menuLabel}}</button>
     </div>
     <button *ngIf="login == true" mat-menu-item (click)="logOut()">Salir</button>
 </mat-drawer>
