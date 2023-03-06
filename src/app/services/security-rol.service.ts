@@ -33,6 +33,6 @@ export class SecurityRolService {
     return this.http.get(environment.API_SERVICES + "Permission/GetAllPermissionByUserName?userName=" + user, httpOptions)
   }
   getIsAdmin(user: string): Observable<any>{
-    return this.http.get(environment.API_SERVICES + "Rol/ExistUserByName?userName=" + user, httpOptions)
+    return this.http.get(environment.API_SERVICES + "Rol/IsUserAdmin?userName=" + user, httpOptions)
   }
 }

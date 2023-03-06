@@ -64,7 +64,7 @@ export class AddUserComponent implements OnInit {
     this.Admin()
   }
   Admin(){
-    this.rolservice.getIsAdmin(this.user).subscribe(data => this.Admin = data["registros"][0])
+    this.rolservice.getIsAdmin(this.user).subscribe(data => this.admin = data["registros"][0])
   }
   Documents(){
     this.userservice.getAllDocuments().subscribe(data => this.documents = data["registros"][0])
@@ -126,5 +126,10 @@ export class AddUserComponent implements OnInit {
         console.log(response)}
 
       )
+  }
+  change(){
+    this.AddUsers.patchValue({
+      TrainingCenterId: '00000000-0000-0000-0000-000000000000',
+    })
   }
 }
