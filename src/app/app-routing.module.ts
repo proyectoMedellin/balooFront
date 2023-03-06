@@ -37,6 +37,7 @@ import { PhotoUploadComponent } from './photo-assignment/photo-upload/photo-uplo
 import { BeneficiariesUpdateComponent } from './beneficiaries/beneficiaries-update/beneficiaries-update.component';
 import { BeneficiariesDevelopmentRoomsUpdateComponent } from './beneficiaries-development-rooms/beneficiaries-development-rooms-update/beneficiaries-development-rooms-update.component';
 import { StudentInformationComponent } from './reports/student-information/student-information.component';
+import { UsersLoadFilesComponent } from './users-list/users-load-files/users-load-files.component';
 
 const routes: Routes =
 [
@@ -175,6 +176,13 @@ const routes: Routes =
     path: 'AddUser',
     //Componente al que dirigira la Url
     component: AddUserComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Usuarios"]}
+  },
+  {
+    //Url
+    path: 'LoadFiles',
+    //Componente al que dirigira la Url
+    component: UsersLoadFilesComponent,
     canActivate:[AuthPermissionGuard], data:{permiso: ["Usuarios"]}
   },
   {

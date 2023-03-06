@@ -7,7 +7,7 @@ import { HttpClientModule, HttpHeaders, HTTP_INTERCEPTORS } from '@angular/commo
 import { RecaptchaModule } from 'ng-recaptcha';
 //componentes de angular material
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input'; 
+import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
@@ -29,7 +29,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 //aqui se importan los componentes creados
-import { AddUserComponent } from './users-list/add-user/add-user.component'; 
+import { AddUserComponent } from './users-list/add-user/add-user.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { LoginComponent } from './login/login.component';
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
@@ -71,11 +71,13 @@ import { DatePipe } from '@angular/common';
 import { StudentInformationComponent } from './reports/student-information/student-information.component';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { NgChartsModule } from 'ng2-charts';
+import { UsersLoadFilesComponent } from './users-list/users-load-files/users-load-files.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddUserComponent,
+    UsersLoadFilesComponent,
     ChangePasswordComponent,
     LoginComponent,
     RecoverPasswordComponent,
@@ -111,12 +113,13 @@ import { NgChartsModule } from 'ng2-charts';
     BeneficiariesDevelopmentRoomsUpdateComponent,
     HolidaysUpdateComponent,
     StudentInformationComponent,
-    //aqui se adicionan los componentes creados  
+    UsersLoadFilesComponent,
+    //aqui se adicionan los componentes creados
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -145,7 +148,7 @@ import { NgChartsModule } from 'ng2-charts';
     MatTableExporterModule,
     NgChartsModule
   ],
-  providers: [CookieService, 
+  providers: [CookieService,
     DatePipe,
     AuthGuard,
     AuthPermissionGuard,

@@ -1,0 +1,59 @@
+<div class="container pageContainer">
+  <br />
+  <div class="row">
+    <h1>Carga de archivos</h1>
+    <div class="line"></div>
+  </div>
+  <div class="row">
+    <p></p>
+    <div class="col-sm-2">
+      <button mat-raised-button color="accent" (click)="exportTable()">Descargar archivo</button>
+    </div>
+    <p></p>
+    <p></p>
+    <div class="col-sm-2">
+      <input type="file" (change)="loadExcelFile($event)" #fileInput hidden>
+      <button mat-raised-button color="accent" (click)="fileInput.click()">Cargar archivo</button>
+    </div>
+    <p></p>
+    <table mat-table style="display:none" [dataSource]="dataSource" matTableExporter>
+      <ng-container matColumnDef="UserName">
+          <th mat-header-cell *matHeaderCellDef> Nombre de usuario </th>
+      </ng-container>
+      <ng-container matColumnDef="UserEmail">
+          <th mat-header-cell *matHeaderCellDef> Correo </th>
+      </ng-container>
+      <ng-container matColumnDef="DocumentTypeCode">
+          <th mat-header-cell *matHeaderCellDef> Tipo de documento </th>
+      </ng-container>
+      <ng-container matColumnDef="DocumentNumber">
+          <th mat-header-cell *matHeaderCellDef> Nro. de documento </th>
+      </ng-container>
+      <ng-container matColumnDef="FirstName">
+        <th mat-header-cell *matHeaderCellDef> Primer nombre </th>
+      </ng-container>
+      <ng-container matColumnDef="OtherNames">
+        <th mat-header-cell *matHeaderCellDef> Otros nombres </th>
+      </ng-container>
+      <ng-container matColumnDef="LastName">
+        <th mat-header-cell *matHeaderCellDef> Apellido </th>
+      </ng-container>
+      <ng-container matColumnDef="OtherLastNames">
+        <th mat-header-cell *matHeaderCellDef> Otros Apellidos</th>
+      </ng-container>
+      <ng-container matColumnDef="Phone">
+        <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+      </ng-container>
+      <ng-container matColumnDef="SecurityRol">
+        <th mat-header-cell *matHeaderCellDef> Rol </th>
+      </ng-container>
+      <ng-container matColumnDef="TrainingCenterCode">
+        <th mat-header-cell *matHeaderCellDef> Centro de formación </th>
+      </ng-container>
+      <ng-container matColumnDef="CampusCode">
+        <th mat-header-cell *matHeaderCellDef> Sede </th>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
