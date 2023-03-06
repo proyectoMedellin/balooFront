@@ -9,6 +9,7 @@ import { BeneficiariesService } from 'src/app/services/beneficiaries.service';
 import { LocationService } from 'src/app/services/location.service';
 import { UsersService } from 'src/app/services/users.service';
 import { environment } from 'src/environments/environment';
+import { WITHOUTDOC, WITHOUTID } from 'src/constants/app.constants';
 
 @Component({
   selector: 'app-beneficiaries-update',
@@ -17,7 +18,6 @@ import { environment } from 'src/environments/environment';
 })
 export class BeneficiariesUpdateComponent implements OnInit {
 
-  public auxFamilyForm: any;
   private recordId = '';
   public isLinear: boolean = true;
   private userEncrypt:string = localStorage.getItem("user")!;
@@ -100,7 +100,6 @@ export class BeneficiariesUpdateComponent implements OnInit {
   this.beneficiariesService.getById(this.recordId).subscribe(data=>
     {
       let register = data["registros"][0]
-      console.log(register)
       this.GetDeparmentList(register['birthCountryId'])
       this.GetCityList(register['birthDepartmentId'])
       this.GeneralInformationFormGroup.patchValue({
@@ -121,7 +120,6 @@ export class BeneficiariesUpdateComponent implements OnInit {
         Enabled: register["enabled"],
         EmergencyPhoneNumber: register['emergencyPhoneNumber'],
       })
-      console.log(this.GeneralInformationFormGroup)
       this.HomeFormGroup.patchValue({
         AdressZoneId: register['adressZoneId'],
         Adress: register['adress'],
@@ -131,15 +129,20 @@ export class BeneficiariesUpdateComponent implements OnInit {
       })
 
       for(let i = 0; i < register.familyMembers.length; i++){
-        console.log(register.familyMembers[i])
         this.family.push(this.updateFamilyFormGroup(register.familyMembers[i]));
       }
     }
   )
 }
 
-checkAttendant(){
-  console.log(this.family.controls)
+validateDoc(event: any){
+  if(this.GeneralInformationFormGroup.value.DocumentTypeId == WITHOUTDOC){
+    this.GeneralInformationFormGroup.get('DocumentNumber')?.setValue(WITHOUTID)
+    this.GeneralInformationFormGroup.controls['DocumentNumber'].disable()
+  }else{
+    this.GeneralInformationFormGroup.get('DocumentNumber')?.setValue('')
+    this.GeneralInformationFormGroup.controls['DocumentNumber'].enable()
+  }
 }
 
   GetDocumentTypeList(){
@@ -221,7 +224,6 @@ checkAttendant(){
   }
 
   updateFamilyFormGroup(familyMember: any): FormGroup {
-    console.log(familyMember)
     return this.formBuilder.group({
       Id: [familyMember.id, Validators.required],
       BeneficiaryId: [familyMember.beneficiaryId, Validators.required],
@@ -259,7 +261,6 @@ checkAttendant(){
       }
     }
     if (count > 1) {
-      console.log(this.family.controls)
       this.familyForm.get('family')?.get(`${this.family.controls.length - 1}`)?.get('FamilyRelation')?.setErrors({ 'duplicate': true });
     }
 
@@ -270,7 +271,6 @@ checkAttendant(){
       data: {type: 'loading',title: 'Guardando el Registro', message: 'Espere unos minutos'},
       disableClose: true
     });
-    console.log(this.familyForm.controls)
     this.beneficiariesService.updateBeneficiaries(
       this.formBuilder.group(Object.assign({},
       this.GeneralInformationFormGroup.controls,
