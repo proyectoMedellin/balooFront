@@ -119,7 +119,8 @@ export class AddUserComponent implements OnInit {
     let text = `${this.AddUsers.get("UserName")?.value}||${moment().locale('es').format()}`
     let textEncrypt = AES.encrypt(text, environment.Key).toString()
     let urlpassword = environment.url + "ChangePassword?DateRecover=" + textEncrypt
-    let dataUser = {Body:urlpassword, UserName:this.AddUsers.get("UserName")?.value, Subject:"Asignar clave"}
+    let message ='<!DOCTYPE html><html><body><p>Debe establecer una contraseña para SIECA.</p> <p>Por favor de clic en la siguiente liga: <a href="'+urlpassword +'">proporcione una contraseña</a></p></body></html>'
+    let dataUser = {Body:message, UserName:this.AddUsers.get("UserName")?.value, Subject:"Asignar clave"}
 
     this.correoservice.sendEmailRecover(this.AddUsers.getRawValue()['Email'], dataUser).subscribe(
         response => {location.href = environment.url + "UsersList"
