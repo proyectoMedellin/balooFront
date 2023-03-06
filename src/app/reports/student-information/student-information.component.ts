@@ -157,6 +157,9 @@ export class StudentInformationComponent implements OnInit {
   private getStudentInformationById(): void {
     this.reportsService.getStudentDataById(this.id).subscribe((data) => {
       this.studentInfo = data['registros'][0];
+      if(this.studentInfo.photoUrl != ''){
+        this.IsloadedPhoto = true;
+      }
       this.familyMembers = this.studentInfo.familyMembers.filter(
         (m: any) => m.attendant
       );

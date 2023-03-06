@@ -37,4 +37,7 @@ export class EducationalAgentsService {
   deleteByIdEduAgent(Id: string): Observable<any> {
     return this.http.get(environment.API_SERVICES + "DevelopmentRoom/DeleteGroupAssignment?groupAssignmentId=" + Id, httpOptions);
   }
+  GetGroupsYearAssignmentById(Id: string): Observable<any> {
+    return this.http.get(environment.API_SERVICES + "DevelopmentRoom/GetGroupsYearAssignmentById?id=" + Id, httpOptions);
+  }
 }

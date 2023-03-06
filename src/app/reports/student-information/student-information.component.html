@@ -1,7 +1,7 @@
 <div class="container pageContainer">
     <br>
     <div class="row d-flex ">
-        <div class="col-md-8">
+        <div class="col-md-7">
             <h1>Información Estudiante</h1>
         </div>
 
@@ -16,12 +16,14 @@
                 <mat-date-range-picker #picker></mat-date-range-picker>
             </mat-form-field>
         </div>
-
+        <div class="col-md-1">
+            <button mat-raised-button class="lightBlue-bkg"  [routerLink]="['/Reports']">Regresar</button>
+        </div>
     </div>
     <div class="line"></div>
     <div class="row" *ngIf="this.studentInfo != undefined">
         <div class="col-sm-2 benPhotoCont" *ngIf="IsloadedPhoto; else loadedImage">
-            <img class="benPhoto" src="assets/images/Face1.jpg" />
+            <img class="benPhoto" src="{{this.studentInfo.photoUrl}}" />
         </div>
         <ng-template #loadedImage>
             <div class="col-sm-2 benPhotoCont">
