@@ -25,9 +25,10 @@ export class UpdateUserComponent implements OnInit, AfterContentInit{
     PrimaryKey: new FormControl('', ),
     DocumentTypeId: new FormControl('', [Validators.required]),
     DocumentNo: new FormControl('', [Validators.required]),
-    TrainingCenterId: new FormControl('', [Validators.required]),
-    CampusId: new FormControl('', [Validators.required]),
-    RolsId: new FormControl('', [Validators.required])
+    TrainingCenterId: new FormControl('00000000-0000-0000-0000-000000000000'),
+    CampusId: new FormControl([]),
+    RolsId: new FormControl('', [Validators.required]),
+    GlobalUser: new FormControl(false)
    });
    
   constructor(
@@ -65,10 +66,11 @@ export class UpdateUserComponent implements OnInit, AfterContentInit{
         Email: user["email"],
         DocumentTypeId: user["documentTypeId"],
         DocumentNo: user["documentNo"],
-        TrainingCenterId: user["trainingCenterId"],
+        TrainingCenterId: user["trainingCenterId"] != null ? user["trainingCenterId"] : '00000000-0000-0000-0000-000000000000',
         CampusId: user["campusId"],
         RolsId: user["rolsId"],
-        Phone: user["phone"]
+        Phone: user["phone"],
+        GlobalUser: user["globalUser"]
       })
       this.Campus(user["trainingCenterId"])
     })
