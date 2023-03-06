@@ -91,9 +91,9 @@
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div *ngIf="admin" class="row">
+                        <div  class="row">
                             <div class="col-md-6">
-                                <mat-slide-toggle placeholder="Es usuario global" formControlName="GlobalUser">
+                                <mat-slide-toggle *ngIf="admin" placeholder="Es usuario global" formControlName="GlobalUser">
                                     <span *ngIf="UpdateUsers.value['GlobalUser']; else inactivo">Usuario global Activo</span>
                                     <ng-template #inactivo><span>Usuario global Inactivo</span></ng-template>
                                 </mat-slide-toggle>
