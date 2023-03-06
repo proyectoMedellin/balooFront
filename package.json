@@ -21,12 +21,16 @@
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
     "bootstrap": "^5.2.3",
+    "chart.js": "^4.2.1",
     "crypto-js": "^4.1.1",
+    "mat-table-exporter": "^10.2.4",
     "moment": "^2.29.4",
     "ng-recaptcha": "^9.0.0",
+    "ng2-charts": "^3.1.2",
     "ngx-cookie-service": "^13.2.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

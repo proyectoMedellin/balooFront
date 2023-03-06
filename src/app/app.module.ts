@@ -68,6 +68,9 @@ import { BeneficiariesDevelopmentRoomsUpdateComponent } from './beneficiaries-de
 import { HolidaysUpdateComponent } from './holidays/holidays-update/holidays-update.component';
 import { PhotoUploadComponent } from './photo-assignment/photo-upload/photo-upload.component';
 import { DatePipe } from '@angular/common';
+import { StudentInformationComponent } from './reports/student-information/student-information.component';
+import { MatTableExporterModule } from 'mat-table-exporter';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -107,6 +110,7 @@ import { DatePipe } from '@angular/common';
     BeneficiariesUpdateComponent,
     BeneficiariesDevelopmentRoomsUpdateComponent,
     HolidaysUpdateComponent,
+    StudentInformationComponent,
     //aqui se adicionan los componentes creados  
   ],
   imports: [
@@ -137,7 +141,9 @@ import { DatePipe } from '@angular/common';
     MatProgressSpinnerModule,
     MatSortModule,
     BrowserAnimationsModule,
-    RecaptchaModule
+    RecaptchaModule,
+    MatTableExporterModule,
+    NgChartsModule
   ],
   providers: [CookieService, 
     DatePipe,

@@ -81,6 +81,15 @@
     margin: 0;
     background: rgb(185, 184, 184)
   }
+
+.thick-line {
+    border-top: 5px solid #002f87;
+    max-width: 89%; 
+    height: 2px;
+    padding: 0;
+    margin: 0;
+    background: #002f87;
+  }
 .app-container {
   width: 100%;
   height: 100%;
@@ -133,4 +142,10 @@ table {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.mat-form-field-type-mat-date-range-input .mat-form-field-infix{
+  width: 220px !important;
+  display: flex;
+  align-items: center;
 }
