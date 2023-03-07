@@ -3,81 +3,149 @@
         <h1>Asignación de niñas y niños a grupos</h1>
     </div>
     <div class="row">
-        <div class="col-sm-1">
-            {{this.EaAssignment.year}}
+        <div class="col-md-6">
+            <span style="font-weight: bold;">Centro de formación (Ciudad): </span>{{this.EaAssignment.trainingCenterName}}
+        </div>
+        <div class="col-md-6">
+            <span style="font-weight: bold;">Sede: </span>{{this.EaAssignment.campusName}}
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4">
+            <span style="font-weight: bold;">Año: </span>{{this.EaAssignment.year}}
         </div>
         <div class="col-md-4">
-            {{this.EaAssignment.trainingCenterName}}
+            <span style="font-weight: bold;">Sala: </span>{{this.EaAssignment.developmentRoomName}}       
         </div>
         <div class="col-md-4">
-            {{this.EaAssignment.campusName}}
+            <span style="font-weight: bold;">Grupo: </span>{{this.EaAssignment.groupName}}
         </div>
-        <div class="col-md-3">
-            {{this.EaAssignment.developmentRoomName}}       
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <span style="font-weight: bold;">Agentes educativos asignados: </span>
+            <ul>
+                <ng-container *ngFor="let agent of this.EaAssignment.agents; let i = index">
+                    <li>{{agent}}</li>
+                </ng-container>           
+            </ul>
         </div>
     </div>
     <br >
     <div class="row">
-        <form (ngSubmit)="BenAssignmentsForm.valid && Create(BenAssignmentsForm.value)" [formGroup]="BenAssignmentsForm" class="form-container">
+        <form (ngSubmit)="Search(BenSearchForm.value)" [formGroup]="BenSearchForm" class="form-container">
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-md-12">
                     <h2>Niñas y niños a adicionar</h2>
-                    <hr />
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2">
+                <div class="col-md-2">
                     <mat-form-field>
                         <mat-select placeholder="Tipo de documento" formControlName="DocumentTypeId">
-                            <!--<mat-option *ngFor="let dt of documentTypeList" [value]="dt.id">
+                            <mat-option *ngFor="let dt of documentTypeList" [value]="dt.id">
                                 {{dt.name}}
-                            </mat-option>-->
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-md-2">
                     <mat-form-field>
                         <input matInput placeholder="Nro. Documento" name="DocumentNumber"
                             formControlName="DocumentNumber" />
                     </mat-form-field>
                 </div>
-                <div class="col-sm-7">
+                <div class="col-md-7">
                     <mat-form-field class="full-width">
                         <input matInput placeholder="Nombres y apellidos" name="Names"
                             formControlName="Names" />
                     </mat-form-field>
                 </div>
-                <div class="col-sm-1">
-                    <button mat-icon-button class="gray-color" >
+                <div class="col-md-1">
+                    <button mat-icon-button class="gray-color" alt="Adicionar">
                         <mat-icon>search</mat-icon>
                     </button>
                 </div>
             </div>
-        </form>
-        <div class="row">
-            <div class="col-sm-12">
-                resultados busqueda    
+            <div class="row lightGary-bkg">
+                <div class="col-md-12">
+                    <div class="row">
+                        <ng-container formArrayName="BeneficiariesToAssign" *ngFor="let h of BeneficiariesToAssign.controls; let i = index">
+                            <div class="row" [formGroupName]="i">
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput formControlName="Id" hidden/>
+                                        <input matInput formControlName="DocumentType" readonly/>    
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput formControlName="DocumentNumber" readonly/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-7">
+                                    <mat-form-field class="full-width">
+                                        <input matInput formControlName="Names" readonly/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-1">
+                                    <button mat-icon-button color="primary" (click)="AddBeneficiaryToAssign(i)">
+                                        <mat-icon>add_circle</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
     <br />
     <div class="row">
         <form (ngSubmit)="BenAssignmentsForm.valid && Create(BenAssignmentsForm.value)" [formGroup]="BenAssignmentsForm" class="form-container">
             <div class="row">
-                <div class="col-sm-10">
+                <div class="col-md-10">
                     <h2>Niñas y niños del grupo</h2>
                     <hr />
                 </div>
-                <div class="col-sm-1">
+                <div class="col-md-1">
                     <button mat-raised-button color="primary" type="submit">Guardar</button>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-md-1">
                     <button mat-raised-button class="lightBlue-bkg" [routerLink]="['/BeneficiariesDevelopmentRooms']">Cancelar</button>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    asignados
+            <div class="row lightGary-bkg">
+                <div class="col-md-12">
+                    <div class="row">
+                        <ng-container formArrayName="Beneficiaries" *ngFor="let h of Beneficiaries.controls; let i = index">
+                            <div class="row" [formGroupName]="i">
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput formControlName="Id" hidden/>
+                                        <input matInput formControlName="DocumentType" readonly/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field>
+                                        <input matInput formControlName="DocumentNumber" readonly/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-7">
+                                    <mat-form-field class="full-width">
+                                        <input matInput formControlName="Names" readonly/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-1">
+                                    <button mat-icon-button color="warn" (click)="removeTempBeneficiaries(i)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
                 </div>
             </div>
         </form>

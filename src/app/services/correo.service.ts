@@ -25,7 +25,6 @@ export class CorreoService {
       map(
         (response: any) => {
           if (response){
-            console.log(response)
             return response
           }
         }

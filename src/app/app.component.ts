@@ -15,6 +15,7 @@ import { environment } from 'src/environments/environment';
 export class AppComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   title = 'Sieca';
+  public user = "";
   public items: any[] = [] ;
   public login: boolean= false;
   constructor(
@@ -30,6 +31,7 @@ export class AppComponent implements OnInit {
       this.login = true
       let userEncrypt:string = localStorage.getItem("user")!
       let userDecrypt = AES.decrypt(userEncrypt, environment.Key).toString(enc.Utf8)
+      this.user = userDecrypt
       this.rolservice.getMenuItems(userDecrypt).subscribe(data => {
         this.items = data["registros"][0]
       },
@@ -48,5 +50,6 @@ export class AppComponent implements OnInit {
     location.reload()
     this.localservice.clearData()
     location.href = environment.url + 'Login'
+    this.user=""
   }
 }

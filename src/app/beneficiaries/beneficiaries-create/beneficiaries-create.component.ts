@@ -207,7 +207,6 @@ export class BeneficiariesCreateComponent implements OnInit {
       next: response => {
         location.href = environment.url + "Beneficiaries";
         dialogRefL.close()
-        console.log(response);
         //Cerrar modal de carga
       },
       error: error => {

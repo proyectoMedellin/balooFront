@@ -1,6 +1,8 @@
 import { Component, OnInit, AfterContentInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, Form } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AES, enc } from 'crypto-js';
+import { LocalService } from 'src/app/services/local.service';
 import { environment } from 'src/environments/environment';
 import { CampusService } from '../../services/campus.service';
 import { SecurityRolService } from '../../services/security-rol.service';
@@ -12,7 +14,8 @@ import { UsersService } from '../../services/users.service';
   styleUrls: ['./update-user.component.css']
 })
 export class UpdateUserComponent implements OnInit, AfterContentInit{
-
+  public userEncrypt = this.localstorageservice.getData('user')!
+  public user = AES.decrypt(this.userEncrypt, environment.Key).toString(enc.Utf8)
   public UpdateUsers = new FormGroup({
     OldUserName: new FormControl('', [Validators.required]),
     FirstName: new FormControl('', [Validators.required]),
@@ -37,7 +40,8 @@ export class UpdateUserComponent implements OnInit, AfterContentInit{
     private userservices: UsersService,
     public rolservice: SecurityRolService,
     public campusservice: CampusService,
-    public trainingCenterService: TrainingCenterService
+    public trainingCenterService: TrainingCenterService,
+    public localstorageservice: LocalService
   ) { }
 
   public urlTree = this.route.parseUrl(this.route.url);
@@ -47,11 +51,12 @@ export class UpdateUserComponent implements OnInit, AfterContentInit{
   public campus: any = [];
   public rols: any = [];
   public trainingcenter: any = [];
+  public admin: boolean = false;
   ngOnInit(): void {
     this.Documents()
     this.Rols()
     this.Trainingcenter()
-   
+    this.Admin()
   }
   ngAfterContentInit(): void {
     this.userservices.getUser(this.userName).subscribe(data=> {
@@ -59,23 +64,25 @@ export class UpdateUserComponent implements OnInit, AfterContentInit{
       this.UpdateUsers.patchValue({
         OldUserName:user["userName"],
         FirstName: user["firstName"],
-        OtherNames: user["otherNames"],
+        OtherNames: user["otherNames"] != null ? user["otherNames"] : '',
         LastName: user["lastName"],
-        OtherLastName: user["otherLastName"],
+        OtherLastName: user["otherLastName"] != null ? user["otherLastName"] : '',
         UserName: user["userName"],
         Email: user["email"],
         DocumentTypeId: user["documentTypeId"],
         DocumentNo: user["documentNo"],
         TrainingCenterId: user["trainingCenterId"] != null ? user["trainingCenterId"] : '00000000-0000-0000-0000-000000000000',
-        CampusId: user["campusId"],
+        CampusId: user["campusId"] != null ? user["campusId"] : [],
         RolsId: user["rolsId"],
-        Phone: user["phone"],
+        Phone: user["phone"] != null ?  user["phone"] : '',
         GlobalUser: user["globalUser"]
       })
       this.Campus(user["trainingCenterId"])
     })
   }
-  
+  Admin(){
+    this.rolservice.getIsAdmin(this.user).subscribe(data => this.admin = data["registros"][0])
+  }
   Documents(){
     this.userservices.getAllDocuments().subscribe(data => this.documents = data["registros"][0])
   }
@@ -92,5 +99,7 @@ export class UpdateUserComponent implements OnInit, AfterContentInit{
   }
   UpdateRegister(Formdata: any){
     this.userservices.updateUser(Formdata).subscribe((data)=> location.href = environment.url + "UsersList")
+  }
+  prueba(){
   }
 }

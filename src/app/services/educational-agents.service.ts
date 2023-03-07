@@ -40,4 +40,10 @@ export class EducationalAgentsService {
   GetGroupsYearAssignmentById(Id: string): Observable<any> {
     return this.http.get(environment.API_SERVICES + "DevelopmentRoom/GetGroupsYearAssignmentById?id=" + Id, httpOptions);
   }
+  assignBeneficiariesToDevRoom(devRoomBen: any): Observable<any> {
+    return this.http.post(environment.API_SERVICES + "DevelopmentRoom/AssignBeneficiariesByYearToDevRoom", devRoomBen, httpOptions);
+  }
+  GetBeneficiariesByGroupsYearAssignment(groupAssignmentId: string): Observable<any> {
+    return this.http.get(environment.API_SERVICES + "DevelopmentRoom/GetBeneficiariesByRoom?groupAssignmentId=" + groupAssignmentId, httpOptions);
+  }
 }
