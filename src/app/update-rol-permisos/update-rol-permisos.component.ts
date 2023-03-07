@@ -23,7 +23,6 @@ export class UpdateRolPermisosComponent implements OnInit {
   public rolUpdate: any;
 
   ngOnInit(): void {
-    console.log(this.rolName)
   }
 
 }

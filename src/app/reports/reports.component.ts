@@ -82,7 +82,7 @@ export class ReportsComponent implements OnInit {
       CampusId: formValue.campusId,
       documentNo: formValue.documentNo,
       name: formValue.name,
-      group: formValue.group,
+      group: formValue.groupName,
       DevelopmentRoomId: formValue.developmentRoomId,
       documentType: formValue.documentTypeId,
       pageSize: 100,
@@ -103,7 +103,6 @@ export class ReportsComponent implements OnInit {
     this.trainingCenterService
       .GetAllEnabledTraningCenter()
       .subscribe((data) => {
-        console.log(data);
         this.trainingcenter = data['registros'];
       });
   }

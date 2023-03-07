@@ -31,7 +31,6 @@ export class UsersListComponent implements OnInit, AfterViewInit {
     this.userservices.getAllUser(0,this.initPageSize).subscribe(data=>
       {
         this.users = data["registros"][0];  
-        //console.log(this.users)
         this.countUsers = data["totalDbRegistros"];
       });
   }
@@ -53,7 +52,7 @@ export class UsersListComponent implements OnInit, AfterViewInit {
       })*/
   }
   changePageIndex(event: Event) {
-    console.log('Page index changed:', event);
+    
   }
   deletedRegister(userName: string){
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {

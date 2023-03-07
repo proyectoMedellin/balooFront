@@ -60,9 +60,6 @@ export class ChangePasswordComponent implements OnInit, AfterContentInit {
   }
   prueba(){
     if(this.PasswordForm.get('PasswordUser')?.value == this.PasswordForm.get('ConfirmPass')?.value){
-     console.log(this.PasswordForm)
-    }else{
-      console.log('Contraseña Invalida')
     }
   }
   changePassword(){

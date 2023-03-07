@@ -123,9 +123,7 @@ export class AddUserComponent implements OnInit {
     let dataUser = {Body:message, UserName:this.AddUsers.get("UserName")?.value, Subject:"Asignar clave"}
 
     this.correoservice.sendEmailRecover(this.AddUsers.getRawValue()['Email'], dataUser).subscribe(
-        response => {location.href = environment.url + "UsersList"
-        console.log(response)}
-
+        response => {location.href = environment.url + "UsersList"}
       )
   }
   change(){

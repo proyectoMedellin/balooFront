@@ -101,6 +101,5 @@ export class UpdateUserComponent implements OnInit, AfterContentInit{
     this.userservices.updateUser(Formdata).subscribe((data)=> location.href = environment.url + "UsersList")
   }
   prueba(){
-    console.log(this.UpdateUsers)
   }
 }
