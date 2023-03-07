@@ -4,29 +4,43 @@
     <h1>Carga de archivos</h1>
     <div class="line"></div>
   </div>
+  <br />
+  <div class="row">
+      <h2>Recomendaciones del archivo a cargar:</h2>
+      <ul>
+          <li>Descargue previamente el archivo predeterminado.</li>
+          <li>No afecte de ninguna manera la estructura del archivo, de lo contrario provocará un error.</li>
+          <li>Suba el archivo con la información diligenciada.</li>
+          <li>Seleccione el boton "Cargar".</li>
+      </ul>
+  </div>
+  <br />
   <div class="row">
     <p></p>
-    <div class="col-sm-2">
-      <button mat-raised-button color="accent" (click)="exportTable()">Descargar archivo</button>
-    </div>
-    <p></p>
-    <p></p>
-    <div class="col-sm-2">
-      <input type="file" (change)="loadExcelFile($event)" #fileInput hidden>
+    <mat-card-actions style="display: flex; align-items: center;">
+      <button mat-raised-button color="accent" style="margin-right: 0.5rem;" (click)="exportTable()">Descargar archivo</button>
+      <input type="file" (change)="loadFile($event)" #fileInput hidden>
       <button mat-raised-button color="accent" (click)="fileInput.click()">Cargar archivo</button>
-    </div>
+      <div style="border: 1px solid gray; margin-left: 0.5rem; width: 20rem; height: 1.5rem;">
+        {{ fileName }}
+      </div>
+    </mat-card-actions>
     <p></p>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" style="margin-right: 0.5rem;" (click)="loadExcelFile()">Cargar</button>
+        <button mat-raised-button class="lightBlue-bkg" [routerLink]="['/UsersList']">Cancelar</button>
+    </mat-card-actions>
     <table mat-table style="display:none" [dataSource]="dataSource" matTableExporter>
       <ng-container matColumnDef="UserName">
           <th mat-header-cell *matHeaderCellDef> Nombre de usuario </th>
       </ng-container>
-      <ng-container matColumnDef="UserEmail">
+      <ng-container matColumnDef="Email">
           <th mat-header-cell *matHeaderCellDef> Correo </th>
       </ng-container>
-      <ng-container matColumnDef="DocumentTypeCode">
+      <ng-container matColumnDef="DocumentTypeId">
           <th mat-header-cell *matHeaderCellDef> Tipo de documento </th>
       </ng-container>
-      <ng-container matColumnDef="DocumentNumber">
+      <ng-container matColumnDef="DocumentNo">
           <th mat-header-cell *matHeaderCellDef> Nro. de documento </th>
       </ng-container>
       <ng-container matColumnDef="FirstName">
@@ -38,22 +52,26 @@
       <ng-container matColumnDef="LastName">
         <th mat-header-cell *matHeaderCellDef> Apellido </th>
       </ng-container>
-      <ng-container matColumnDef="OtherLastNames">
+      <ng-container matColumnDef="OtherLastName">
         <th mat-header-cell *matHeaderCellDef> Otros Apellidos</th>
       </ng-container>
+      <!-- <ng-container matColumnDef="GlobalUser">
+        <th mat-header-cell *matHeaderCellDef> Usuario global</th>
+      </ng-container> -->
       <ng-container matColumnDef="Phone">
         <th mat-header-cell *matHeaderCellDef> Teléfono </th>
       </ng-container>
-      <ng-container matColumnDef="SecurityRol">
+      <ng-container matColumnDef="RolsId">
         <th mat-header-cell *matHeaderCellDef> Rol </th>
       </ng-container>
-      <ng-container matColumnDef="TrainingCenterCode">
+      <ng-container matColumnDef="TrainingCenterId">
         <th mat-header-cell *matHeaderCellDef> Centro de formación </th>
       </ng-container>
-      <ng-container matColumnDef="CampusCode">
+      <ng-container matColumnDef="CampusId">
         <th mat-header-cell *matHeaderCellDef> Sede </th>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+</div>
 </div>
