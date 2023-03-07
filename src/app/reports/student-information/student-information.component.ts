@@ -16,6 +16,7 @@ export class StudentInformationComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
   public dataSource = new MatTableDataSource<any>();
   public id!: string;
+  public type: string = 'reports';
   public IsloadedPhoto: boolean = false;
   public studentInfo: any;
   public familyMembers: any;
@@ -57,8 +58,8 @@ export class StudentInformationComponent implements OnInit {
   });
   fromDate = moment(new Date())
     .subtract(1, 'months')
-    .format('yyyy-MM-DDThh:mm:ss');
-  toDate = moment(new Date()).format('yyyy-MM-DDThh:mm:ss');
+    .format('yyyy-MM-DD');
+  toDate = moment(new Date()).format('yyyy-MM-DD');
 
   // Chart Columns and charts Data
   displayedColumns: string[] = ['date', 'weight', 'bmi', 'size'];
@@ -106,11 +107,12 @@ export class StudentInformationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.type = history.state.type ?? 'reports';
     this.route.params.subscribe((params) => {
       this.id = params['id'];
-      if (this.id) {
+      this.getStudentInformationById();
+      if (this.id && this.type === 'reports') {
         this.getAnthropometricDataById();
-        this.getStudentInformationById();
       }
     });
   }
@@ -141,15 +143,20 @@ export class StudentInformationComponent implements OnInit {
   }
 
   // On date change - method
-  public onChangeUpdated(): void {
+   public onChangeUpdated(): void {
     this.lineChartData.labels = [];
     this.lineChartData.datasets[0].data = [];
     this.lineChartData.datasets[1].data = [];
     this.lineChartData.datasets[2].data = [];
-    this.fromDate = moment(this.range.value.from).format('yyyy-MM-DDThh:mm:ss');
-    this.toDate = moment(this.range.value.to).format('yyyy-MM-DDThh:mm:ss');
+    this.fromDate = moment(this.range.value.from).format('yyyy-MM-DD');
+    this.toDate = moment(this.range.value.to).format('yyyy-MM-DD');
     if (this.fromDate && this.toDate !== 'Invalid date') {
-      this.getAnthropometricDataById();
+      if (this.type === 'reports') {
+        this.getAnthropometricDataById();
+      }
+      setTimeout(() => {
+        this.reportsService.dateUpdated.next(true);
+      }, 1500);
     }
   }
 
@@ -157,7 +164,7 @@ export class StudentInformationComponent implements OnInit {
   private getStudentInformationById(): void {
     this.reportsService.getStudentDataById(this.id).subscribe((data) => {
       this.studentInfo = data['registros'][0];
-      if(this.studentInfo.photoUrl != ''){
+      if (this.studentInfo.photoUrl != '') {
         this.IsloadedPhoto = true;
       }
       this.familyMembers = this.studentInfo.familyMembers.filter(

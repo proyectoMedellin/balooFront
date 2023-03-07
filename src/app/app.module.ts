@@ -71,6 +71,7 @@ import { DatePipe } from '@angular/common';
 import { StudentInformationComponent } from './reports/student-information/student-information.component';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { NgChartsModule } from 'ng2-charts';
+import { StudentEmotionsComponent } from './reports/student-information/student-emotions/student-emotions.component';
 
 @NgModule({
   declarations: [
@@ -111,6 +112,7 @@ import { NgChartsModule } from 'ng2-charts';
     BeneficiariesDevelopmentRoomsUpdateComponent,
     HolidaysUpdateComponent,
     StudentInformationComponent,
+    StudentEmotionsComponent,
     //aqui se adicionan los componentes creados  
   ],
   imports: [

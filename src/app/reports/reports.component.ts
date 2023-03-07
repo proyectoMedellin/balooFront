@@ -25,6 +25,7 @@ export class ReportsComponent implements OnInit {
     'Name and Last Name',
     'Nutritional Information',
     'Emotions',
+    'Attendance'
   ];
   public trainingcenter: any = [];
   public documents: any = [];

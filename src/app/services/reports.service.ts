@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 //configuracion de cabezeras
@@ -15,6 +15,7 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class ReportsService {
+  public dateUpdated = new BehaviorSubject<boolean>(false);
   constructor(private http: HttpClient) {}
 
   getAllTrainingCenter(
@@ -38,6 +39,8 @@ export class ReportsService {
       httpOptions
     );
   }
+
+
 
   // search filters and get data
   getEnabledBeneficiaries(data: any): Observable<any> {
@@ -71,10 +74,22 @@ export class ReportsService {
     );
   }
 
-  // get students by Id - API
+  // get students by Id
   getStudentDataById(id: string): Observable<any> {
     return this.http.get(
       `${environment.API_SERVICES}Beneficiaries/GetById?id=${id}
+      `
+    );
+  }
+
+  //  Get students emotions Data by Id
+  GetEmotionsDataById(id: string,
+    from: string,
+    to: string) : Observable<any>{
+    return this.http.get(
+      `${environment.API_SERVICES}Beneficiaries/GetEmotionsDataById?id=${id}&from=${from ?? ''}&to=${
+        to ?? ''
+      }
       `
     );
   }
