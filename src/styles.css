@@ -71,7 +71,7 @@
   left: 5%;
 }
 .spacer {
-    flex: 1 1 initial;
+    flex: 1 1 auto;
   }
 .line {
     border-top: 1px solid rgb(185, 184, 184);
