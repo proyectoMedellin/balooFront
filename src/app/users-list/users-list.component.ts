@@ -68,7 +68,10 @@ export class UsersListComponent implements OnInit, AfterViewInit {
         this.userservices.deletedUser(userName).subscribe(response => {
           let rData = response['registros'][0];
           if(!rData){
-            alert("EL usuario a eliminar tiene datos asociados, por favor elimine sus relaciones o inactivelo");
+            const auxDialogRefL = this.dialog.open(ConfirmDialogComponent, {
+              data: {type: 'alert',title: 'No se puede eliminar el registro', message: 'El usuario a eliminar tiene datos asociados, por favor elimine sus relaciones o inactivelo"'},
+              disableClose: true
+            });
           }
           location.reload()
         })

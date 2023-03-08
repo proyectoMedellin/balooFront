@@ -10,7 +10,7 @@
 .mat-dialog-title {
     flex-direction: column;
   }
-  
+
 
   .mat-icon{
     font-size: 74px;
@@ -33,7 +33,7 @@
     height: 100%;
     width: 100%;
   }
-  
+
   mat-progress-spinner {
     width: 100px;
     height: 100px;
@@ -55,4 +55,4 @@
     color: #FFAB00;
   }
 
-  
+

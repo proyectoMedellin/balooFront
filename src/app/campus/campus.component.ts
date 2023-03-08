@@ -29,7 +29,7 @@ export class CampusComponent implements OnInit {
     this.campusService.getAllCampus(0,this.initPageSize,true).subscribe(
       data =>
       {
-        this.dataSource = new MatTableDataSource<CampusListDto>( data["registros"]);  
+        this.dataSource = new MatTableDataSource<CampusListDto>( data["registros"]);
         this.dataSource.paginator = this.paginator;
       }
     )
@@ -55,8 +55,15 @@ export class CampusComponent implements OnInit {
           data: {type: 'loading',title: 'Eliminando el registro', message: 'Espere unos minutos'},
           disableClose: true
         });
-        this.campusService.deleteByIdCampus(Id).subscribe(response => 
+        this.campusService.deleteByIdCampus(Id).subscribe(response =>
           {
+            let rData = response['registros'][0];
+            if(!rData){
+              const auxDialogRefL = this.dialog.open(ConfirmDialogComponent, {
+                data: {type: 'alert',title: 'No se puede eliminar el registro', message: 'La sede a eliminar tiene datos asociados, por favor elimine sus relaciones o inactivelo"'},
+                disableClose: true
+              });
+            }
             this.ngOnInit();
             dialogRefL.close();
           })

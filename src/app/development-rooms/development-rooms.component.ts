@@ -28,7 +28,7 @@ export class DevelopmentRoomsComponent implements OnInit {
     this.developmentRoomsService.getAllDevRooms(0,this.initPageSize,true).subscribe(
       data =>
       {
-        this.dataSource = new MatTableDataSource<DevelopmentRoomListDto>( data["registros"]);  
+        this.dataSource = new MatTableDataSource<DevelopmentRoomListDto>( data["registros"]);
         this.dataSource.paginator = this.paginator;
       }
     )
@@ -53,8 +53,15 @@ export class DevelopmentRoomsComponent implements OnInit {
           data: {type: 'loading',title: 'Eliminando el registro', message: 'Espere unos minutos'},
           disableClose: true
         });
-        this.developmentRoomsService.deleteByIdDevRooms(Id).subscribe(response => 
+        this.developmentRoomsService.deleteByIdDevRooms(Id).subscribe(response =>
           {
+            let rData = response['registros'][0];
+            if(!rData){
+              const auxDialogRefL = this.dialog.open(ConfirmDialogComponent, {
+                data: {type: 'alert',title: 'No se puede eliminar el registro', message: 'La sala a eliminar tiene datos asociados, por favor elimine sus relaciones o inactivelo"'},
+                disableClose: true
+              });
+            }
             this.ngOnInit();
             dialogRefL.close();
           })
