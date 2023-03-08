@@ -43,7 +43,7 @@ export class ReportsComponent implements OnInit {
     groupName: new FormControl(''),
     documentTypeId: new FormControl(''),
   });
- 
+
   constructor(
     private userservice: UsersService,
     public trainingCenterService: TrainingCenterService,
@@ -121,5 +121,17 @@ export class ReportsComponent implements OnInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  cleanForm(){
+    this.reports.setValue({
+      campusId: "",
+      developmentRoomId: "",
+      documentNo: "",
+      documentTypeId: "",
+      groupName: "",
+      name: "",
+      trainingCenterId: ""
+    })
   }
 }
