@@ -1,8 +1,10 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { AES, enc } from 'crypto-js';
+import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
 import { HolidayDto } from 'src/app/interfaces/holiday-dto';
 import { WorkingDayDto } from 'src/app/interfaces/working-day-dto';
 import { WorkDaysService } from 'src/app/services/work-days.service';
@@ -15,12 +17,12 @@ import { environment } from 'src/environments/environment';
 })
 
 export class HolidaysUpdateComponent implements OnInit {
-  
+
   private yearUpd: number = 0;
   private yearCurrentInfo: WorkingDayDto | undefined;
   private userEncrypt:string = localStorage.getItem("user")!;
   private user =AES.decrypt(this.userEncrypt, environment.Key).toString(enc.Utf8);
-  
+
   public HolidaysForm:FormGroup = this.formBuilder.group({
     Year:[new Date().getFullYear(), Validators.required],
     Monday:[true, Validators.required],
@@ -35,10 +37,11 @@ export class HolidaysUpdateComponent implements OnInit {
   });
 
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private datepipe: DatePipe,
     private formBuilder: FormBuilder,
     public WorkDaysService: WorkDaysService,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -79,16 +82,24 @@ export class HolidaysUpdateComponent implements OnInit {
     });
   }
 
-  holidaysListFormData(dayInput: Date){    
+  holidaysListFormData(dayInput: Date){
     return this.formBuilder.group({
       day: [this.datepipe.transform(dayInput, 'yyyy-MM-dd')]
     });
   }
 
   Create(data: any){
-    this.WorkDaysService.Configure(data).subscribe(
-      response => location.href = environment.url + "Holidays"
-    );
+    let dialogRefL: any
+    setTimeout(() => {
+      dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+        data: {type: 'loading',title: 'Guardando el Registro', message: 'Espere unos minutos'},
+        disableClose: true
+      });
+      this.WorkDaysService.Configure(data).subscribe(
+        response => location.href = environment.url + "Holidays"
+      );
+    }, 100)
+    dialogRefL.close()
   }
 
   get Holidays(){

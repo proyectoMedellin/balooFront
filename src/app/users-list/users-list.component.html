@@ -11,19 +11,11 @@
         <input #tableFilter (keyup)="applyFilter(tableFilter.value)" matInput placeholder="" />
       </mat-form-field>
     </div>
+    <mat-card-actions style="display: flex; align-items: center;">
+      <button mat-raised-button color="accent" style="margin-right: 0.5rem;" routerLink="/AddUser">Crear usuario</button>
+      <button mat-raised-button color="accent" style="margin-right: 0.5rem;" routerLink="/LoadFiles">Cargar archivo</button>
+    </mat-card-actions>
     <p></p>
-    <div class="col-sm-2">
-      <button mat-raised-button color="accent" routerLink="/AddUser">Crear usuario</button>
-    </div>
-    <p></p>
-    <p></p>
-    <div class="col-sm-2">
-      <button mat-raised-button color="accent" routerLink="/LoadFiles">Cargar archivo</button>
-    </div>
-    <p></p>
-    <div class="col-sm-2">
-      <!-- <button mat-raised-button color="primary">Cargar usuarios</button> -->
-    </div>
   </div>
   <div class="row">
     <div class="mat-elevation-z8">

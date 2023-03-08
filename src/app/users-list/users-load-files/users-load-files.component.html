@@ -27,7 +27,7 @@
     </mat-card-actions>
     <p></p>
     <mat-card-actions>
-        <button mat-raised-button color="primary" style="margin-right: 0.5rem;" (click)="loadExcelFile()">Cargar</button>
+        <button mat-raised-button color="primary" style="margin-right: 0.5rem;" (click)="uploadFile()">Cargar</button>
         <button mat-raised-button class="lightBlue-bkg" [routerLink]="['/UsersList']">Cancelar</button>
     </mat-card-actions>
     <table mat-table style="display:none" [dataSource]="dataSource" matTableExporter>

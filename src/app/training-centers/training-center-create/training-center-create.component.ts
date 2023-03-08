@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { AES, enc } from 'crypto-js';
+import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
 import { TrainingCenterService } from 'src/app/services/training-center.service';
 import { environment } from 'src/environments/environment';
 
@@ -15,6 +17,7 @@ export class TrainingCenterCreateComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public trainingCenterService: TrainingCenterService,
+    private dialog: MatDialog,
   ) { }
 
   private userEncrypt:string = localStorage.getItem("user")!;
@@ -31,6 +34,14 @@ export class TrainingCenterCreateComponent implements OnInit {
   ngOnInit(): void {
   }
   CreateTrainingCenter(data: any){
-    this.trainingCenterService.createTraningCenter(data).subscribe(response => location.href = environment.url + "TrainingCenters")
+    let dialogRefL: any
+    setTimeout(() => {
+      dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+        data: {type: 'loading',title: 'Guardando el Registro', message: 'Espere unos minutos'},
+        disableClose: true
+      });
+      this.trainingCenterService.createTraningCenter(data).subscribe(response => location.href = environment.url + "TrainingCenters")
+    }, 100)
+    dialogRefL.close()
   }
 }

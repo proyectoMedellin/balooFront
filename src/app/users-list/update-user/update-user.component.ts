@@ -1,7 +1,9 @@
 import { Component, OnInit, AfterContentInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, Form } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AES, enc } from 'crypto-js';
+import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
 import { LocalService } from 'src/app/services/local.service';
 import { environment } from 'src/environments/environment';
 import { CampusService } from '../../services/campus.service';
@@ -33,7 +35,7 @@ export class UpdateUserComponent implements OnInit, AfterContentInit{
     RolsId: new FormControl('', [Validators.required]),
     GlobalUser: new FormControl(false)
    });
-   
+
   constructor(
     private route: Router,
     private formBulider: FormBuilder,
@@ -41,7 +43,8 @@ export class UpdateUserComponent implements OnInit, AfterContentInit{
     public rolservice: SecurityRolService,
     public campusservice: CampusService,
     public trainingCenterService: TrainingCenterService,
-    public localstorageservice: LocalService
+    public localstorageservice: LocalService,
+    private dialog: MatDialog,
   ) { }
 
   public urlTree = this.route.parseUrl(this.route.url);
@@ -98,8 +101,14 @@ export class UpdateUserComponent implements OnInit, AfterContentInit{
     }
   }
   UpdateRegister(Formdata: any){
+    let dialogRefL: any
+    setTimeout(() => {
+      dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+        data: {type: 'loading',title: 'Guardando el Registro', message: 'Espere unos minutos'},
+        disableClose: true
+      });
     this.userservices.updateUser(Formdata).subscribe((data)=> location.href = environment.url + "UsersList")
-  }
-  prueba(){
+    }, 100)
+    dialogRefL.close()
   }
 }

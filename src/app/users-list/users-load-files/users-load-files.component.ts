@@ -93,11 +93,19 @@ export class UsersLoadFilesComponent implements OnInit {
     this.selectedFile = event.target.files[0]
   }
 
+  uploadFile(){
+    let dialogRefL: any
+    setTimeout(() => {
+      dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+        data: {type: 'loading',title: 'Guardando el Registro', message: 'Espere unos minutos'},
+        disableClose: true
+      });
+      this.loadExcelFile()
+    }, 1000)
+    dialogRefL.close()
+  }
+
   loadExcelFile(): void {
-    const dialogRefL = this.dialog.open(ConfirmDialogComponent, {
-      data: {type: 'loading',title: 'Guardando el Registro', message: 'Espere unos minutos'},
-      disableClose: true
-    });
     const file = this.selectedFile;
     if (file.type !== this.isExcelFile) {
       this.alertMessage.open("Por favor ingrese el archivo de excel", "Aceptar",
@@ -128,7 +136,7 @@ export class UsersLoadFilesComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
 
       let registerCount = 0; // variable to keep track of the number of registers added to the form
-      const maxRegisters = 5;
+      const maxRegisters = 500;
 
       // Set form values
       for (let i = 0; i < values.length; i++) {
@@ -163,7 +171,6 @@ export class UsersLoadFilesComponent implements OnInit {
       }
     };
     reader.readAsBinaryString(file);
-    dialogRefL.close()
   }
 
   GetDocumentTypeList(item: any){
@@ -204,22 +211,30 @@ export class UsersLoadFilesComponent implements OnInit {
   }
 
   SignUp(data: any){
+    let dialogRefL;
     this.userservice.register(data).subscribe(response => {
       if(response['codigoRespuesta'] == "PreconditionFailed"){
-        this.alertMessage.open("Carga con errores identificados", "Aceptar",
-        {
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        })
+        setTimeout(() => {
+          dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+            data: {type: 'alert',title: 'Carga con errores identificados', message: 'Espere unos minutos'},
+            disableClose: true
+          });
+        },100)
       }else{
+        dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+          data: {type: 'alert',title: 'Guardando el Registro', message: 'Espere unos minutos'},
+          disableClose: true
+        });
         this.sendNotificacion()
+        dialogRefL.close()
       }
     },err => {
-      this.alertMessage.open("Carga con errores identificados", "Aceptar",
-      {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-      })
+      setTimeout(() => {
+        dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+          data: {type: 'alert',title: 'Carga con errores identificados', message: 'Espere unos minutos'},
+          disableClose: true
+        });
+      }, 100)
     });
    }
 
@@ -236,22 +251,30 @@ export class UsersLoadFilesComponent implements OnInit {
       )
   }
   UpdateRegister(Formdata: any){
+    let dialogRefL;
     this.userservice.updateUser(Formdata).subscribe((data) => {
       if(data['codigoRespuesta'] == "PreconditionFailed"){
-        this.alertMessage.open("Carga con errores identificados", "Aceptar",
-        {
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        })
+        setTimeout(() => {
+          dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+            data: {type: 'alert',title: 'Carga con errores identificados', message: 'Espere unos minutos'},
+            disableClose: true
+          });
+        }, 100)
       }else{
+        dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+          data: {type: 'loading',title: 'Guardando el Registro', message: 'Espere unos minutos'},
+          disableClose: true
+        });
+        dialogRefL.close()
         location.href = environment.url + "UsersList"
       }
     },err => {
-      this.alertMessage.open("Carga con errores identificados", "Aceptar",
-      {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-      })
+      setTimeout(() => {
+        dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+          data: {type: 'alert',title: 'Carga con errores identificados', message: 'Espere unos minutos'},
+          disableClose: true
+        });
+      }, 100)
     });
   }
 }

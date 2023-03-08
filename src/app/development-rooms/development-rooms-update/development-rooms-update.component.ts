@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { AES, enc } from 'crypto-js';
+import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
 import { CampusListDto } from 'src/app/interfaces/campus-list-dto';
 import { CampusService } from 'src/app/services/campus.service';
 import { DevelopmentRoomsService } from 'src/app/services/development-rooms.service';
@@ -18,7 +20,8 @@ export class DevelopmentRoomsUpdateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private campusService: CampusService,
     private developmentRoomsService: DevelopmentRoomsService,
-    private route: ActivatedRoute ,
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
   ) { }
   private recordId = '';
   private userEncrypt:string = localStorage.getItem("user")!;
@@ -38,11 +41,11 @@ export class DevelopmentRoomsUpdateComponent implements OnInit {
     this.Campus()
     this.route.params.subscribe(params => {
       this.recordId =params['record']
-      this.DevelopmentRoomForm.patchValue({ 
-        Id: this.recordId 
+      this.DevelopmentRoomForm.patchValue({
+        Id: this.recordId
     })
     });
-    this.developmentRoomsService.getByIdDevRooms(this.recordId).subscribe(data=> 
+    this.developmentRoomsService.getByIdDevRooms(this.recordId).subscribe(data=>
       {
         let regiter = data["registros"][0]
         this.DevelopmentRoomForm.patchValue({
@@ -59,7 +62,14 @@ export class DevelopmentRoomsUpdateComponent implements OnInit {
     this.campusService.getAllCampusEnabled(0,1000,true).subscribe(data => this.sedes = data["registros"])
   }
   UpdateDevRooms(){
-    this.developmentRoomsService.updateDevRooms(this.DevelopmentRoomForm.value)
-      .subscribe(response => location.href = environment.url + "DevelopmentRooms")
+    let dialogRefL: any
+    setTimeout(() => {
+      dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+        data: {type: 'loading',title: 'Guardando el Registro', message: 'Espere unos minutos'},
+        disableClose: true
+      });
+      this.developmentRoomsService.updateDevRooms(this.DevelopmentRoomForm.value)
+      .subscribe(response => location.href = environment.url + "DevelopmentRooms")    }, 100)
+    dialogRefL.close()
   }
 }
