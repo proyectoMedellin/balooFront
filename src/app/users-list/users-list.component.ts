@@ -31,7 +31,6 @@ export class UsersListComponent implements OnInit, AfterViewInit {
     this.userservices.getAllUser(0,this.initPageSize).subscribe(data=>
       {
         this.users = data["registros"][0];  
-        //console.log(this.users)
         this.countUsers = data["totalDbRegistros"];
       });
   }
@@ -53,7 +52,7 @@ export class UsersListComponent implements OnInit, AfterViewInit {
       })*/
   }
   changePageIndex(event: Event) {
-    console.log('Page index changed:', event);
+    
   }
   deletedRegister(userName: string){
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
@@ -69,7 +68,10 @@ export class UsersListComponent implements OnInit, AfterViewInit {
         this.userservices.deletedUser(userName).subscribe(response => {
           let rData = response['registros'][0];
           if(!rData){
-            alert("EL usuario a eliminar tiene datos asociados, por favor elimine sus relaciones o inactivelo");
+            const auxDialogRefL = this.dialog.open(ConfirmDialogComponent, {
+              data: {type: 'alert',title: 'No se puede eliminar el registro', message: 'El usuario a eliminar tiene datos asociados, por favor elimine sus relaciones o inactivelo"'},
+              disableClose: true
+            });
           }
           location.reload()
         })

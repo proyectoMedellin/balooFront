@@ -20,7 +20,7 @@ export class TrainingCentersComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator! : MatPaginator;
 
-  constructor( 
+  constructor(
     private traningCenterService : TrainingCenterService,
     private dialog: MatDialog
     ) { }
@@ -29,7 +29,7 @@ export class TrainingCentersComponent implements OnInit {
     this.traningCenterService.getAllTrainingCenter(0,this.initPageSize,true).subscribe(
       data =>
       {
-        this.dataSource =new MatTableDataSource<TrainingCenterListDto>( data["registros"]);  
+        this.dataSource =new MatTableDataSource<TrainingCenterListDto>( data["registros"]);
         this.countRegisters = data["totalDbRegistros"];
         this.dataSource.paginator = this.paginator;
       }
@@ -47,7 +47,7 @@ export class TrainingCentersComponent implements OnInit {
   changePage(event: PageEvent) {
     /*this.traningCenterService.getAllTrainingCenter(event.pageIndex,event.pageSize,true).subscribe(data=>
       {
-        this.ELEMENT_DATA = new MatTableDataSource(data["registros"])  
+        this.ELEMENT_DATA = new MatTableDataSource(data["registros"])
         this.countRegisters = data["totalDbRegistros"]
       })*/
   }
@@ -64,8 +64,15 @@ export class TrainingCentersComponent implements OnInit {
           data: {type: 'loading',title: 'Eliminando el registro', message: 'Espere unos minutos'},
           disableClose: true
         });
-        this.traningCenterService.DeleteByIdTraningCenter(Id).subscribe(response => 
+        this.traningCenterService.DeleteByIdTraningCenter(Id).subscribe(response =>
           {
+            let rData = response['registros'][0];
+            if(!rData){
+              const auxDialogRefL = this.dialog.open(ConfirmDialogComponent, {
+                data: {type: 'alert',title: 'No se puede eliminar el registro', message: 'El centro de formación a eliminar tiene datos asociados, por favor elimine sus relaciones o inactivelo"'},
+                disableClose: true
+              });
+            }
             this.ngOnInit();
             dialogRefL.close();
           })
@@ -74,4 +81,4 @@ export class TrainingCentersComponent implements OnInit {
   }
 }
 
- 
+

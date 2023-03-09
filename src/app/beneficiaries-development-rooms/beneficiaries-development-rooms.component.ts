@@ -19,12 +19,12 @@ export class BeneficiariesDevelopmentRoomsComponent implements OnInit {
   confirmed = false;
   countRegisters: number = 0
   initPageSize: number = 1000
-  displayedColumns: string[] = ['TrainingCenterName', 'CampusName', 'DevelopmentRoomName', 
+  displayedColumns: string[] = ['TrainingCenterName', 'CampusName', 'DevelopmentRoomName',
   'GroupCode', 'GroupName', 'Year', 'EducationalAgentName', 'actions'];
   dataSource = new MatTableDataSource<EducationalAgentsListDto>();
 
   @ViewChild(MatPaginator) paginator! : MatPaginator;
-  
+
   constructor(
     private dialog: MatDialog,
     private educationalAgentsService: EducationalAgentsService,
@@ -39,7 +39,7 @@ export class BeneficiariesDevelopmentRoomsComponent implements OnInit {
     this.educationalAgentsService.getAllByYearEduAgent(0,this.initPageSize,this.selectedYear).subscribe(
       data =>
       {
-        this.dataSource = new MatTableDataSource<EducationalAgentsListDto>( data["registros"]);  
+        this.dataSource = new MatTableDataSource<EducationalAgentsListDto>( data["registros"]);
         this.dataSource.paginator = this.paginator;
       }
     )
@@ -67,8 +67,15 @@ export class BeneficiariesDevelopmentRoomsComponent implements OnInit {
           data: {type: 'loading',title: 'Eliminando el registro', message: 'Espere unos minutos'},
           disableClose: true
         });
-        this.educationalAgentsService.deleteByIdEduAgent(Id).subscribe(response => 
+        this.educationalAgentsService.deleteByIdEduAgent(Id).subscribe(response =>
           {
+            let rData = response['registros'][0];
+            if(!rData){
+              const auxDialogRefL = this.dialog.open(ConfirmDialogComponent, {
+                data: {type: 'alert',title: 'No se puede eliminar el registro', message: 'El registro a eliminar tiene datos asociados, por favor elimine sus relaciones o inactivelo"'},
+                disableClose: true
+              });
+            }
             this.ngOnInit();
             dialogRefL.close();
           }

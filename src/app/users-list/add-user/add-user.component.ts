@@ -12,6 +12,8 @@ import { ObserversModule } from '@angular/cdk/observers';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { isNullOrUndef } from 'chart.js/dist/helpers/helpers.core';
 import { LocalService } from 'src/app/services/local.service';
+import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
@@ -54,7 +56,8 @@ export class AddUserComponent implements OnInit {
     public campusservice: CampusService,
     public trainingCenterService: TrainingCenterService,
     private alertMessage: MatSnackBar,
-    public localstorageservice: LocalService
+    public localstorageservice: LocalService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -78,14 +81,22 @@ export class AddUserComponent implements OnInit {
   Campus(trainingCenter: any){
     this.campusservice.getAllBytrainingCenterCampus(trainingCenter).subscribe(data => this.campus= data["registros"])
   }
-  
+
   ChangeInputUser(){
     this.AddUsers.patchValue({
       UserName: this.AddUsers.get('Email')?.value
     })
   }
   SignUp(data: any){
+    let dialogRefL: any
+    setTimeout(() => {
+      dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+        data: {type: 'loading',title: 'Guardando el Registro', message: 'Espere unos minutos'},
+        disableClose: true
+      });
    this.userservice.register(data).subscribe(response => this.sendNotificacion())
+    }, 100)
+    dialogRefL.close()
   }
   validateDocument(formdata: any){
   this.userservice.existdocument(this.AddUsers.getRawValue()['DocumentTypeId'], this.AddUsers.getRawValue()['DocumentNo']).subscribe(
@@ -93,7 +104,7 @@ export class AddUserComponent implements OnInit {
       if (data["registros"][0]==false){
         this.validateUserName(formdata)
       }else{
-          this.alertMessage.open("Ya existe este documento por favor valide", "Aceptar", 
+          this.alertMessage.open("Ya existe este documento por favor valide", "Aceptar",
           {
             horizontalPosition: 'center',
             verticalPosition: 'top',
@@ -107,7 +118,7 @@ export class AddUserComponent implements OnInit {
       if (data["registros"][0]==false){
         this.SignUp(formdata)
       }else{
-          this.alertMessage.open("Ya existe este nombre de usuario por favor valide", "Aceptar", 
+          this.alertMessage.open("Ya existe este nombre de usuario por favor valide", "Aceptar",
           {
             horizontalPosition: 'center',
             verticalPosition: 'top',
@@ -123,9 +134,7 @@ export class AddUserComponent implements OnInit {
     let dataUser = {Body:message, UserName:this.AddUsers.get("UserName")?.value, Subject:"Asignar clave"}
 
     this.correoservice.sendEmailRecover(this.AddUsers.getRawValue()['Email'], dataUser).subscribe(
-        response => {location.href = environment.url + "UsersList"
-        console.log(response)}
-
+        response => {location.href = environment.url + "UsersList"}
       )
   }
   change(){

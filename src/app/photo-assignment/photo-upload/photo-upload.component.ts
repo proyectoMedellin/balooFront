@@ -1,9 +1,11 @@
 import { HttpClient, HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Console } from 'console';
 import { AES, enc } from 'crypto-js';
+import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
 import { BeneficiaryBaseInfoDto } from 'src/app/interfaces/beneficiary-base-info-dto';
 import { BeneficiariesService } from 'src/app/services/beneficiaries.service';
 import { FilesService } from 'src/app/services/files.service';
@@ -30,10 +32,11 @@ export class PhotoUploadComponent implements OnInit {
     private formBuilder: FormBuilder,
     public BeneficiariesService: BeneficiariesService,
     private FilesService: FilesService,
+    private dialog: MatDialog,
   ) { }
 
   private userEncrypt:string = localStorage.getItem("user")!;
-  private user =AES.decrypt(this.userEncrypt, environment.Key).toString(enc.Utf8);  
+  private user =AES.decrypt(this.userEncrypt, environment.Key).toString(enc.Utf8);
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -52,9 +55,9 @@ export class PhotoUploadComponent implements OnInit {
       return;
     }
     let fileToUpload = <File>files[0];
-    if(fileToUpload.type.toLowerCase() == 'image/jpeg' || 
+    if(fileToUpload.type.toLowerCase() == 'image/jpeg' ||
       fileToUpload.type.toLowerCase() == 'image/jpg'){
-      this.localFileRoute = fileToUpload.name;  
+      this.localFileRoute = fileToUpload.name;
     }else{
       alert("por favor seleccione un tipo de foto valida");
       this.localFileRoute = '';
@@ -62,27 +65,34 @@ export class PhotoUploadComponent implements OnInit {
   }
 
   uploadFile = (files:any) => {
-    if (files.length === 0 || this.localFileRoute === '') {
-      return;
-    }
-    let fileToUpload = <File>files[0];
-    
-    const formData = new FormData();
-    formData.append('file', fileToUpload, fileToUpload.name);
-
-    if(this.beneficiryData != undefined){
-      formData.append('beneficiaryId', this.beneficiryData.id);
-    }
-    
-    this.localFileRoute = fileToUpload.name;
-  
-    this.FilesService.UploadBeneficiaryPhoto(formData).subscribe(b => {
-        let photoUrl = b['registros'][0];
-        if(this.beneficiryData != undefined){
-          this.beneficiryData.photoUrl = photoUrl;
-          this.IsloadedPhoto = true;
-        }
+    let dialogRefL: any
+    setTimeout(() => {
+      dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+        data: {type: 'loading',title: 'Guardando el Registro', message: 'Espere unos minutos'},
+        disableClose: true
+      });
+      if (files.length === 0 || this.localFileRoute === '') {
+        return;
       }
-    );
+      let fileToUpload = <File>files[0];
+
+      const formData = new FormData();
+      formData.append('file', fileToUpload, fileToUpload.name);
+
+      if(this.beneficiryData != undefined){
+        formData.append('beneficiaryId', this.beneficiryData.id);
+      }
+
+      this.localFileRoute = fileToUpload.name;
+
+      this.FilesService.UploadBeneficiaryPhoto(formData).subscribe(b => {
+          let photoUrl = b['registros'][0];
+          if(this.beneficiryData != undefined){
+            this.beneficiryData.photoUrl = photoUrl;
+            this.IsloadedPhoto = true;
+          }
+        }
+      );}, 100)
+    dialogRefL.close()
   }
 }

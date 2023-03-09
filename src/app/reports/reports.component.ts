@@ -44,7 +44,7 @@ export class ReportsComponent implements OnInit {
     groupName: new FormControl(''),
     documentTypeId: new FormControl(''),
   });
- 
+
   constructor(
     private userservice: UsersService,
     public trainingCenterService: TrainingCenterService,
@@ -83,7 +83,7 @@ export class ReportsComponent implements OnInit {
       CampusId: formValue.campusId,
       documentNo: formValue.documentNo,
       name: formValue.name,
-      group: formValue.group,
+      group: formValue.groupName,
       DevelopmentRoomId: formValue.developmentRoomId,
       documentType: formValue.documentTypeId,
       pageSize: 100,
@@ -104,7 +104,6 @@ export class ReportsComponent implements OnInit {
     this.trainingCenterService
       .GetAllEnabledTraningCenter()
       .subscribe((data) => {
-        console.log(data);
         this.trainingcenter = data['registros'];
       });
   }
@@ -123,5 +122,17 @@ export class ReportsComponent implements OnInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  cleanForm(){
+    this.reports.setValue({
+      campusId: "",
+      developmentRoomId: "",
+      documentNo: "",
+      documentTypeId: "",
+      groupName: "",
+      name: "",
+      trainingCenterId: ""
+    })
   }
 }

@@ -14,6 +14,7 @@ import { TrainingCenterListDto } from 'src/app/interfaces/training-center-list-d
 import { TrainingCenterService } from 'src/app/services/training-center.service';
 import { MatSelectChange } from '@angular/material/select';
 import { ListYearsService } from 'src/app/services/list-years.service';
+import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
 @Component({
   selector: 'app-educational-agents-create',
   templateUrl: './educational-agents-create.component.html',
@@ -28,12 +29,13 @@ export class EducationalAgentsCreateComponent implements OnInit {
     private developmentRoomsService: DevelopmentRoomsService,
     private campusService:CampusService,
     private trainingCenterService: TrainingCenterService,
-    private listYearsService:ListYearsService
+    private listYearsService:ListYearsService,
+    private dialog: MatDialog,
   ) { }
 
   private userEncrypt:string = localStorage.getItem("user")!;
   private user =AES.decrypt(this.userEncrypt, environment.Key).toString(enc.Utf8);
-  
+
   public years: number[] = [];
   public trainingCenterList: TrainingCenterListDto[] = [];
   public campusList: CampusListDto[] = [];
@@ -80,14 +82,22 @@ export class EducationalAgentsCreateComponent implements OnInit {
   educationalAgents(){
     this.UsersService.getByTraininCenterCampusRole(
       this.EducationalAgentsForm.get('TrainingcenterF')?.value,
-      this.EducationalAgentsForm.get('SedeF')?.value, "Agente educativo" 
+      this.EducationalAgentsForm.get('SedeF')?.value, "Agente educativo"
       )
       .subscribe(data =>
         this.UsersList = data["registros"][0]
         )
   }
   CreateAssignEduAgents(data: any){
-    this.educationalAgentsService.createAssignEduAgents(data).subscribe(response => location.href = environment.url + "EducationalAgents")
+    let dialogRefL: any
+    setTimeout(() => {
+      dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+        data: {type: 'loading',title: 'Guardando el Registro', message: 'Espere unos minutos'},
+        disableClose: true
+      });
+      this.educationalAgentsService.createAssignEduAgents(data).subscribe(response => location.href = environment.url + "EducationalAgents")
+    }, 100)
+    dialogRefL.close()
   }
 
 }

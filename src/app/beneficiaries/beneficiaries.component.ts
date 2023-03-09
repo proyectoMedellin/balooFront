@@ -52,14 +52,22 @@ export class BeneficiariesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result)
       this.confirmed = result;
       if (this.confirmed) {
         const dialogRefL = this.dialog.open(ConfirmDialogComponent, {
           data: {type: 'loading',title: 'Eliminando el registro', message: 'Espere unos minutos'},
           disableClose: true
         });
-        this.beneficiariesService.delete(Id).subscribe(response =>
+        this.beneficiariesService.delete(Id).subscribe((response: any) =>
           {
+            let rData = response['registros'][0];
+            if(!rData){
+              const auxDialogRefL = this.dialog.open(ConfirmDialogComponent, {
+                data: {type: 'alert',title: 'No se puede eliminar el registro', message: 'El niño(a) a eliminar tiene datos asociados, por favor elimine sus relaciones o inactivelo"'},
+                disableClose: true
+              });
+            }
             this.ngOnInit();
             dialogRefL.close();
           })

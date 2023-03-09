@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { AES, enc } from 'crypto-js';
+import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
 import { TrainingCenterListDto } from 'src/app/interfaces/training-center-list-dto';
 import { CampusService } from 'src/app/services/campus.service';
 import { TrainingCenterService } from 'src/app/services/training-center.service';
@@ -16,7 +18,8 @@ export class CampuesCreateComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private campusService: CampusService,
-    public trainingCenterService: TrainingCenterService
+    public trainingCenterService: TrainingCenterService,
+    private dialog: MatDialog,
     ) { }
 
   private userEncrypt:string = localStorage.getItem("user")!;
@@ -38,7 +41,14 @@ export class CampuesCreateComponent implements OnInit {
     this.trainingCenterService.GetAllEnabledTraningCenter().subscribe(data => this.listaCentros = data["registros"])
   }
   CreateCampus(data: any){
-    this.campusService.createCampus(data).subscribe(response => location.href = environment.url + "Campus")
+    let dialogRefL: any
+    setTimeout(() => {
+      dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+        data: {type: 'loading',title: 'Guardando el Registro', message: 'Espere unos minutos'},
+        disableClose: true
+      });
+      this.campusService.createCampus(data).subscribe(response => location.href = environment.url + "Campus")
+    }, 100)
+    dialogRefL.close()
   }
-
 }

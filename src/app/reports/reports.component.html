@@ -84,7 +84,7 @@
                 </mat-card-content>
                 <mat-card-actions>
                     <button mat-raised-button color="primary" type="submit">Buscar</button>
-                    <button mat-raised-button class="lightBlue-bkg" [routerLink]="['/reports']">Cancelar</button>
+                    <button mat-raised-button class="lightBlue-bkg" (click)="cleanForm()">Limpiar</button>
                 </mat-card-actions>
             </mat-card>
         </form>

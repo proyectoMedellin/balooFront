@@ -26,7 +26,7 @@ export class RolesListComponent implements OnInit, AfterContentInit {
     
   }
   ngAfterContentInit(): void {
-    console.log(this.roles)
+    
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -35,6 +35,6 @@ export class RolesListComponent implements OnInit, AfterContentInit {
 
   changePage(event: PageEvent) {
     //this.roles.paginator = this.paginator
-    console.log('Page changed:', event);
+    
   }
 }

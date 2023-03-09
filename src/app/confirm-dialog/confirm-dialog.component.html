@@ -13,9 +13,12 @@
 <div class="modal-title"> {{data.title}}</div>
 </h2>
 <mat-dialog-content>{{data.message}}</mat-dialog-content>
-<mat-dialog-actions [ngClass]="{'display-none': data.type === 'loading'}">
-  <button mat-button (click)="onNoClick()">Cancelar</button>
+<mat-dialog-actions *ngIf="data.type != 'loading';">
+  <button mat-button *ngIf="data.type != 'alert'" (click)="onNoClick()">Cancelar</button>
   <button mat-raised-button  color="primary" [mat-dialog-close]="true">{{data.textButton}}</button>
+</mat-dialog-actions>
+<mat-dialog-actions *ngIf="data.type == 'alert'">
+  <button mat-button (click)="onNoClick()">Aceptar</button>
 </mat-dialog-actions>
 <br>
 <div  [ngClass]="{'display-none': data.type !== 'loading', '  modal-container': data.type === 'loading'}">

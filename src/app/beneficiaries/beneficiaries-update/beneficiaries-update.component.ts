@@ -211,7 +211,8 @@ validateDoc(event: any){
 
   createFamilyFormGroup(): FormGroup {
     return this.formBuilder.group({
-      Id: ['', Validators.required],
+      BeneficiaryId: [this.GeneralInformationFormGroup.get("Id")?.value, Validators.required],
+      OrganizationId: [this.GeneralInformationFormGroup.get("OrganizationId")?.value, Validators.required],
       DocumentTypeId: ['', Validators.required],
       DocumentNumber: ['', Validators.required],
       FirstName: ['', Validators.required],
@@ -282,7 +283,6 @@ validateDoc(event: any){
       next: response => {
         location.href = environment.url + "Beneficiaries";
         dialogRefL.close()
-        console.log(response);
         //Cerrar modal de carga
       },
       error: error => {

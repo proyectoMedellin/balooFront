@@ -15,6 +15,7 @@ import { TrainingCenterService } from 'src/app/services/training-center.service'
 import { MatSelectChange } from '@angular/material/select';
 import { ListYearsService } from 'src/app/services/list-years.service';
 import { ActivatedRoute } from '@angular/router';
+import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-educational-agents-update',
@@ -32,14 +33,15 @@ export class EducationalAgentsUpdateComponent implements OnInit {
     private campusService:CampusService,
     private trainingCenterService: TrainingCenterService,
     private listYearsService:ListYearsService,
-    private route: ActivatedRoute ,
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
   ) { }
 
   private recordRoomId = '';
   private recordYear = -1 ;
   private userEncrypt:string = localStorage.getItem("user")!;
   private user =AES.decrypt(this.userEncrypt, environment.Key).toString(enc.Utf8);
-  
+
   public years: number[] = [];
   public trainingCenterList: TrainingCenterListDto[] = [];
   public campusList: CampusListDto[] = [];
@@ -63,12 +65,12 @@ export class EducationalAgentsUpdateComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.recordRoomId = params['recordRoom']
       this.recordYear = params['recordYear']
-      this.EducationalAgentsForm.patchValue({ 
+      this.EducationalAgentsForm.patchValue({
         DevelopmentRoomId: this.recordRoomId,
     })
     });
     this.educationalAgentsService
-    .getByDevRoomIdYearEduAgent(this.recordRoomId, this.recordYear).subscribe(data=> 
+    .getByDevRoomIdYearEduAgent(this.recordRoomId, this.recordYear).subscribe(data=>
       {
         let regiter = data["registros"][0]
         this.EducationalAgentsForm.patchValue({
@@ -84,7 +86,7 @@ export class EducationalAgentsUpdateComponent implements OnInit {
         this.educationalAgents()
       }
     )
-    
+
   }
   Trainingcenter(){
     this.trainingCenterService.GetAllEnabledTraningCenter().subscribe(data => this.trainingCenterList = data["registros"])
@@ -112,14 +114,22 @@ export class EducationalAgentsUpdateComponent implements OnInit {
   educationalAgents(){
     this.UsersService.getByTraininCenterCampusRole(
       this.EducationalAgentsForm.get('TrainingcenterF')?.value,
-      this.EducationalAgentsForm.get('SedeF')?.value, "Agente educativo" 
+      this.EducationalAgentsForm.get('SedeF')?.value, "Agente educativo"
       )
       .subscribe(data =>
         this.UsersList = data["registros"][0]
         )
   }
   UpdateAssignEduAgents(data: any){
-    this.educationalAgentsService.updateAssignEduAgent(data).subscribe(response => location.href = environment.url + "EducationalAgents")
+    let dialogRefL: any
+    setTimeout(() => {
+      dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+        data: {type: 'loading',title: 'Guardando el Registro', message: 'Espere unos minutos'},
+        disableClose: true
+      });
+      this.educationalAgentsService.updateAssignEduAgent(data).subscribe(response => location.href = environment.url + "EducationalAgents")
+    }, 100)
+    dialogRefL.close()
   }
 
 

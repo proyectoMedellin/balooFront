@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute  } from '@angular/router';
 import { AES, enc } from 'crypto-js';
+import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
 import { TrainingCenterService } from 'src/app/services/training-center.service';
 import { environment } from 'src/environments/environment';
 
@@ -16,6 +18,7 @@ export class TrainingCenterUpdateComponent implements OnInit {
     private route: ActivatedRoute ,
     private formBuilder: FormBuilder,
     private trainingCenterService: TrainingCenterService,
+    private dialog: MatDialog,
   ) { }
 
   private recordId = '';
@@ -51,7 +54,15 @@ export class TrainingCenterUpdateComponent implements OnInit {
 
 
   UpdateTrainingCenter(){
-    this.trainingCenterService.updateTraningCenter(this.TrainingCenterForm.value).subscribe(response => location.href = environment.url + "TrainingCenters")
+    let dialogRefL: any
+    setTimeout(() => {
+      dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+        data: {type: 'loading',title: 'Guardando el Registro', message: 'Espere unos minutos'},
+        disableClose: true
+      });
+      this.trainingCenterService.updateTraningCenter(this.TrainingCenterForm.value).subscribe(response => location.href = environment.url + "TrainingCenters")
+    }, 100)
+    dialogRefL.close()
   }
 
 }
