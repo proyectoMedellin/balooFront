@@ -10,6 +10,7 @@ import { ReportsService } from 'src/app/services/reports.service';
   styleUrls: ['./student-emotions.component.css'],
 })
 export class StudentEmotionsComponent implements OnInit {
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
   @Input() id!: string;
   @Input() fromDate!: string;
   @Input() toDate!: string;
@@ -17,14 +18,14 @@ export class StudentEmotionsComponent implements OnInit {
   public emotions: any[] = [];
   public attendances: any = [];
   public attendenceChartData: any = [];
+  public emotionsData: any = [];
   public emotionDataSource = new MatTableDataSource<any>();
   public attendancesDataSource = new MatTableDataSource<any>();
-  emotionTableColumns: string[] = ['date', 'emotion'];
-  attendenceTablecolumns: string[] = ['date', 'attended'];
+  public emotionTableColumns: string[] = ['date', 'emotion'];
+  public attendenceTablecolumns: string[] = ['date', 'attended'];
+  private emotionsLabels: any = [];
 
-  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
-
-  // Pie
+  // Pie chart for Emotions
   public pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     plugins: {
@@ -35,19 +36,21 @@ export class StudentEmotionsComponent implements OnInit {
     },
   };
   public emotionPieChartData: ChartData<'pie', number[], string | string[]> = {
-    labels: [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'],
+    labels: this.emotionsLabels,
     datasets: [
       {
-        data: [2, 1, 0],
+        data: this.emotionsData,
       },
     ],
   };
+
+  // Pie chart for Attendence
   public attendencePieChartData: ChartData<'pie', number[], string | string[]> =
     {
       labels: ['Yes', 'No'],
       datasets: [
         {
-          data: [],
+          data: [0, 0],
         },
       ],
     };
@@ -69,11 +72,34 @@ export class StudentEmotionsComponent implements OnInit {
     this.reportsService
       .GetEmotionsDataById(this.id, this.fromDate, this.toDate)
       .subscribe((data) => {
-        this.attendenceChartData = [];
-        let yesCount = 0,noCount = 0;
+        
         this.emotions = data['registros'];
+        // filter out all 0's in ID of emotions array
         this.emotions = this.emotions.filter((e) => e.id !== defaultString);
+        this.emotionDataSource = new MatTableDataSource<any>(this.emotions);
+        // prepare chart emotions dynamic data and update chart
+        let emotionsTypes: any = [];
+        this.emotions.forEach((e) => emotionsTypes.push(e.emotionName));
+        const emotionsCount = emotionsTypes.reduce((a: any, v: any) => {
+          a[v] = ++a[v] || 1;
+
+          return a;
+        }, []);
+        this.emotionsLabels = Object.keys(emotionsCount);
+        this.emotionsData = Object.values(emotionsCount);
+        this.emotionPieChartData.datasets[0].data = this.emotionsData;
+        this.emotionPieChartData.labels = this.emotionsLabels;
+        this.chart?.update();
+
+        // assign attendence data to dataSource
         this.attendances = data['registros'];
+        this.attendancesDataSource = new MatTableDataSource<any>(
+          this.attendances
+        );
+        this.attendenceChartData = [];
+        let yesCount = 0,
+          noCount = 0;
+        // prepare data and dynamic data for  attendance Chart
         this.attendances.forEach((e: any) => {
           if (e.id !== defaultString) {
             e.attendant = 'Sí';
@@ -86,13 +112,8 @@ export class StudentEmotionsComponent implements OnInit {
         });
         this.attendenceChartData.push(yesCount);
         this.attendenceChartData.push(noCount);
-        this.attendencePieChartData.datasets[0].data =
-          this.attendenceChartData;
+        this.attendencePieChartData.datasets[0].data = this.attendenceChartData;
         this.chart?.update();
-        this.attendancesDataSource = new MatTableDataSource<any>(
-          this.attendances
-        );
-        this.emotionDataSource = new MatTableDataSource<any>(this.emotions);
       });
   }
 }
