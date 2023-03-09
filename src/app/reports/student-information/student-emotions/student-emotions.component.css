@@ -1,0 +1,8 @@
+.report-container {
+    height: 400px;
+    overflow: auto;
+} 
+.chart-section{
+    width: 500px;
+    height: 500px;
+}

@@ -6,4 +6,8 @@
 .benPhotoCont{
     padding: 10px;
 }
-  
+
+.report-container {
+    height: 400px;
+    overflow: auto;
+  }  

@@ -122,7 +122,7 @@
                 <ng-container matColumnDef="Nutritional Information">
                     <th mat-header-cell style="text-align: right" *matHeaderCellDef>información Nutricional</th>
                     <td mat-cell style="text-align: right" *matCellDef="let element">
-                        <button mat-icon-button color="warn" [routerLink]="['/student-information/' + element.id]">
+                        <button mat-icon-button color="warn" [routerLink]="['/student-information/' + element.id]" [state]="{ type : 'reports' }">
                             <mat-icon>timeline</mat-icon>
                         </button>
                     </td>
@@ -130,8 +130,16 @@
                 <ng-container matColumnDef="Emotions">
                     <th mat-header-cell style="text-align: right" *matHeaderCellDef>emociones</th>
                     <td mat-cell style="text-align: right" *matCellDef="let element">
-                        <button mat-icon-button class="gray-color">
+                        <button mat-icon-button class="gray-color" [routerLink]="['/student-information/' + element.id]"  [state]="{ type : 'emotions' }">
                             <mat-icon>face</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="Attendance">
+                    <th mat-header-cell style="text-align: right" *matHeaderCellDef>Asistencia</th>
+                    <td mat-cell style="text-align: right" *matCellDef="let element">
+                        <button mat-icon-button class="gray-color" [routerLink]="['/student-information/' + element.id]" [state]="{ type : 'attendance' }">
+                            <mat-icon>assistant</mat-icon> 
                         </button>
                     </td>
                 </ng-container>
