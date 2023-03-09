@@ -120,7 +120,7 @@
                         element.otherNames}} </td>
                 </ng-container>
                 <ng-container matColumnDef="Nutritional Information">
-                    <th mat-header-cell style="text-align: right" *matHeaderCellDef>información Nutricional</th>
+                    <th mat-header-cell style="text-align: right" *matHeaderCellDef>Información Nutricional</th>
                     <td mat-cell style="text-align: right" *matCellDef="let element">
                         <button mat-icon-button color="warn" [routerLink]="['/student-information/' + element.id]" [state]="{ type : 'reports' }">
                             <mat-icon>timeline</mat-icon>
@@ -128,7 +128,7 @@
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="Emotions">
-                    <th mat-header-cell style="text-align: right" *matHeaderCellDef>emociones</th>
+                    <th mat-header-cell style="text-align: right" *matHeaderCellDef>Emociones</th>
                     <td mat-cell style="text-align: right" *matCellDef="let element">
                         <button mat-icon-button class="gray-color" [routerLink]="['/student-information/' + element.id]"  [state]="{ type : 'emotions' }">
                             <mat-icon>face</mat-icon>
@@ -145,6 +145,9 @@
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data available</td>
+                  </tr>
             </table>
             <br>
             <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 15, 20]" [showFirstLastButtons]="true">

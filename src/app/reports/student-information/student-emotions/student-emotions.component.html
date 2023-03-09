@@ -1,9 +1,10 @@
+<!-- emotions section starts -->
 <ng-container *ngIf="type === 'emotions'">
-
     <div class="row  pb-5 mt-4">
+        <!-- emotions table start -->
         <div class="col-md-6">
             <div>
-                <h1>Información emocional</h1>
+                <h1>Información Emocional</h1>
                 <mat-form-field class="full-width">
                     <mat-select placeholder="Select Export type">
                         <mat-option value="csv" (click)="exporter.exportTable('csv',{ fileName: 'report'} )">
@@ -28,27 +29,35 @@
                     </ng-container>
                     <tr mat-header-row *matHeaderRowDef="emotionTableColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: emotionTableColumns;"></tr>
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No data available</td>
+                      </tr>
                 </table>
             </div>
         </div>
+        <!-- emotions table end -->
+
+        <!-- emotions chart section start -->
         <div class="col-md-6 mt-4">
             <h1>Gráfica</h1>
-            <div class="chart-section">
+            <div class="chart-section" *ngIf="emotionsData.length > 0">
                 <canvas baseChart class="chart" [data]="emotionPieChartData" [type]="pieChartType"
                     [options]="pieChartOptions">
                 </canvas>
             </div>
         </div>
+        <!-- emotions chart section end -->
     </div>
-
 </ng-container>
+<!-- emotions section ends -->
 
-
+<!-- attendence main section starts here-->
 <ng-container *ngIf="type==='attendance'">
     <div class="row  pb-5 mt-4">
+        <!-- attendence table start -->
         <div class="col-md-6">
             <div>
-                <h1>Información de asistencia</h1>
+                <h1>Información de Asistencia</h1>
                 <mat-form-field class="full-width">
                     <mat-select placeholder="Select Export type">
                         <mat-option value="csv" (click)="exporter.exportTable('csv',{ fileName: 'report'} )">
@@ -73,9 +82,15 @@
                     </ng-container>
                     <tr mat-header-row *matHeaderRowDef="attendenceTablecolumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: attendenceTablecolumns;"></tr>
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No data available</td>
+                      </tr>
                 </table>
             </div>
         </div>
+        <!-- attendence table end -->
+
+        <!-- attendence chart section start here -->
         <div class="col-md-6 mt-4">
             <h1>Gráfica</h1>
             <div class="chart-section">
@@ -84,5 +99,7 @@
                 </canvas>
             </div>
         </div>
+        <!-- attendence chart section end here -->
     </div>
 </ng-container>
+<!-- attendence main section ends here-->
