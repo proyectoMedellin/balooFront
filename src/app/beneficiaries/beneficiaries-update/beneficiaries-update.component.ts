@@ -211,7 +211,8 @@ validateDoc(event: any){
 
   createFamilyFormGroup(): FormGroup {
     return this.formBuilder.group({
-      Id: ['', Validators.required],
+      BeneficiaryId: [this.GeneralInformationFormGroup.get("Id")?.value, Validators.required],
+      OrganizationId: [this.GeneralInformationFormGroup.get("OrganizationId")?.value, Validators.required],
       DocumentTypeId: ['', Validators.required],
       DocumentNumber: ['', Validators.required],
       FirstName: ['', Validators.required],

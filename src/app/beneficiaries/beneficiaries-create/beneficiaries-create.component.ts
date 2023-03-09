@@ -142,7 +142,7 @@ export class BeneficiariesCreateComponent implements OnInit {
   }
 
   GetZoneList(){
-    this.beneficiariesService.getParamDataByType("zone")
+    this.beneficiariesService.getParamDataByType("Zone")
     .subscribe(data => this.zoneList = data["registros"])
   }
 
