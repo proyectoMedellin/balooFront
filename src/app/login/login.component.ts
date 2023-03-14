@@ -4,10 +4,12 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { UsersService } from '../services/users.service';
 import { SecurityRolService } from '../services/security-rol.service';
 import { LocalService } from '../services/local.service';
+import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
 import {MD5, AES, enc} from 'crypto-js';
 import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +22,8 @@ export class LoginComponent implements OnInit {
     private userservice: UsersService,
     private securityServices: SecurityRolService,
     private alertMessage: MatSnackBar,
-    private localservice: LocalService
+    private localservice: LocalService,
+    private dialog: MatDialog
     ) { }
   public hide= true;
   public LoginForm  = new FormGroup({
@@ -51,6 +54,11 @@ export class LoginComponent implements OnInit {
       });
   }
   security(){
+    let dialogRefL: any
+    dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+      data: {type: 'loading',title: 'Iniciando sesión', message: 'Espere un momento'},
+      disableClose: true
+    });
     this.securityServices.getAllPermission(this.LoginForm.getRawValue()['User']).subscribe(data => {
       data["registros"][0].forEach((value: any) => 
       { 
@@ -60,9 +68,11 @@ export class LoginComponent implements OnInit {
      );
      let userEncrypt = AES.encrypt(this.LoginForm.getRawValue()['User'], environment.Key).toString()
      this.localservice.saveData("user", userEncrypt)
+     dialogRefL.close()
      location.href = environment.url + "Inicio"
     },
     err => {
+      dialogRefL.close()
       this.alertMessage.open("Error al consultar permisos", "Aceptar", 
       {
         horizontalPosition: 'center',
