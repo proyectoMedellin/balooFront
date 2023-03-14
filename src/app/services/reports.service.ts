@@ -93,4 +93,16 @@ export class ReportsService {
       `
     );
   }
+
+  //  Get students emotions Data by Id
+  GetAssistenceDataById(id: string,
+    from: string,
+    to: string) : Observable<any>{
+    return this.http.get(
+      `${environment.API_SERVICES}Beneficiaries/GetAssistenceDataById?id=${id}&from=${from ?? ''}&to=${
+        to ?? ''
+      }
+      `
+    );
+  }
 }

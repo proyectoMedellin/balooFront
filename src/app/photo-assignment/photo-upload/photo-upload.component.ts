@@ -71,6 +71,7 @@ export class PhotoUploadComponent implements OnInit {
         data: {type: 'loading',title: 'Guardando el Registro', message: 'Espere unos minutos'},
         disableClose: true
       });
+      
       if (files.length === 0 || this.localFileRoute === '') {
         return;
       }
@@ -90,9 +91,11 @@ export class PhotoUploadComponent implements OnInit {
           if(this.beneficiryData != undefined){
             this.beneficiryData.photoUrl = photoUrl;
             this.IsloadedPhoto = true;
+            location.href = environment.url + "PhotoAssignment"
           }
         }
-      );}, 100)
+      );
+    }, 100)
     dialogRefL.close()
   }
 }
