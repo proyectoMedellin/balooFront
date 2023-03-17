@@ -63,6 +63,10 @@ export class BeneficiariesService {
     return this.http.get(`${environment.API_SERVICES}Beneficiaries/GetById?id=${id}`,httpOptions);
   }
 
+  getPhotoById(id: string): Observable<any> {
+    return this.http.get(`${environment.API_SERVICES}Files/DownloadFileByBeneficiaryId?BeneficiaryId=${id}`,httpOptions);
+  }
+
   updateBeneficiaries(Beneficiaries: string){
     return this.http.post(environment.API_SERVICES + "Beneficiaries/Update", Beneficiaries, httpOptions);
   }

@@ -7,7 +7,7 @@
             <mat-card-content>
                 <div class="row" *ngIf="this.beneficiryData != undefined">
                     <div class="col-sm-4 benPhotoCont" *ngIf="IsloadedPhoto; else loadedImage">
-                        <img class="benPhoto" src={{this.beneficiryData.photoUrl}} />
+                        <img class="benPhoto" src="data:image/jpg;base64,{{this.beneficiaryPhoto}}" />
                     </div>
                     <ng-template #loadedImage>
                         <div class="col-sm-4 benPhotoCont">

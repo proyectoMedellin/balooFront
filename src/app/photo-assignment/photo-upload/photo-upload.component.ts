@@ -20,6 +20,7 @@ export class PhotoUploadComponent implements OnInit {
 
   private recordId = '';
   public beneficiryData: BeneficiaryBaseInfoDto | undefined;
+  public beneficiaryPhoto: any | undefined;
   public progress: number = 0;
   public message: string = "";
   public localFileRoute: string = "";
@@ -46,6 +47,9 @@ export class PhotoUploadComponent implements OnInit {
         if(this.beneficiryData != undefined && this.beneficiryData.photoUrl != ''){
           this.IsloadedPhoto = true;
         }
+      });
+      this.BeneficiariesService.getPhotoById(this.recordId).subscribe(b => {
+        this.beneficiaryPhoto = b['registros'][0];
       });
     })
   }

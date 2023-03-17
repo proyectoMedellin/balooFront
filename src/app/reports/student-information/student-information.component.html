@@ -23,11 +23,11 @@
     <div class="line"></div>
     <div class="row" *ngIf="this.studentInfo != undefined">
         <div class="col-sm-2 benPhotoCont" *ngIf="IsloadedPhoto; else loadedImage">
-            <img class="benPhoto" src="{{this.studentInfo.photoUrl}}" />
+            <img style="width: 100% !important;" src="data:image/jpg;base64,{{this.beneficiaryPhoto}}" />
         </div>
         <ng-template #loadedImage>
             <div class="col-sm-2 benPhotoCont">
-                <img class="benPhoto" src="../../../assets/images/no_image.png" />
+                <img style="width: 100% !important;" src="../../../assets/images/no_image.png" />
             </div>
         </ng-template>
         <div class="col-sm-10 pt-5">

@@ -67,7 +67,7 @@ export class ChangePasswordComponent implements OnInit, AfterContentInit {
     let UserData = {user: this.user, password: passwordchange}
     if(this.PasswordForm.get('PasswordUser')?.value == this.PasswordForm.get('ConfirmPass')?.value){
       this.userservices.updatePassword(this.user, passwordchange).subscribe(Response => {
-        location.href = environment.url
+        location.href = environment.url + "Login";
       })
      }else{
        this.alertMessage.open("Las contraseñas no coinciden", "Aceptar")

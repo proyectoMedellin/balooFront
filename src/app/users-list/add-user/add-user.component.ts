@@ -31,7 +31,7 @@ export class AddUserComponent implements OnInit {
     UserName: new FormControl('', [Validators.required]),
     Phone: new FormControl(''),
     DocumentTypeId: new FormControl('', [Validators.required]),
-    DocumentNo: new FormControl('', ),
+    DocumentNo: new FormControl('', [Validators.required]),
     CreatedBy: new FormControl(this.user, [Validators.required]),
     RolsId: new FormControl('', [Validators.required]),
     TrainingCenterId: new FormControl('00000000-0000-0000-0000-000000000000'),

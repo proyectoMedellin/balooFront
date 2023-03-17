@@ -19,6 +19,7 @@ export class UpdateUserComponent implements OnInit, AfterContentInit{
   public userEncrypt = this.localstorageservice.getData('user')!
   public user = AES.decrypt(this.userEncrypt, environment.Key).toString(enc.Utf8)
   public UpdateUsers = new FormGroup({
+    Id: new FormControl('', [Validators.required]),
     OldUserName: new FormControl('', [Validators.required]),
     FirstName: new FormControl('', [Validators.required]),
     OtherNames: new FormControl(''),
@@ -65,6 +66,7 @@ export class UpdateUserComponent implements OnInit, AfterContentInit{
     this.userservices.getUser(this.userName).subscribe(data=> {
       let user= data["registros"][0]
       this.UpdateUsers.patchValue({
+        Id:user["id"],
         OldUserName:user["userName"],
         FirstName: user["firstName"],
         OtherNames: user["otherNames"] != null ? user["otherNames"] : '',

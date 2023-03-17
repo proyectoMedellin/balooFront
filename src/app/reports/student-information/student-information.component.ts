@@ -6,6 +6,7 @@ import { ChartConfiguration, ChartType } from 'chart.js';
 import * as moment from 'moment';
 import { BaseChartDirective } from 'ng2-charts';
 import { ReportsService } from 'src/app/services/reports.service';
+import { BeneficiariesService } from 'src/app/services/beneficiaries.service';
 
 @Component({
   selector: 'app-student-information',
@@ -20,6 +21,7 @@ export class StudentInformationComponent implements OnInit {
   public IsloadedPhoto: boolean = false;
   public studentInfo: any;
   public familyMembers: any;
+  public beneficiaryPhoto: any | undefined;
   public lineChartOptions: ChartConfiguration['options'] = {
     elements: {
       line: {
@@ -103,13 +105,17 @@ export class StudentInformationComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private reportsService: ReportsService
+    private reportsService: ReportsService,
+    public BeneficiariesService: BeneficiariesService
   ) {}
 
   ngOnInit(): void {
     this.type = history.state.type ?? 'reports';
     this.route.params.subscribe((params) => {
       this.id = params['id'];
+      this.BeneficiariesService.getPhotoById(this.id).subscribe(b => {
+        this.beneficiaryPhoto = b['registros'][0];
+      });
       this.getStudentInformationById();
       if (this.id && this.type === 'reports') {
         this.getAnthropometricDataById();
