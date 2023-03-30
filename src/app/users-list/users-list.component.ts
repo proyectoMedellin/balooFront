@@ -70,10 +70,13 @@ export class UsersListComponent implements OnInit, AfterViewInit {
           if(!rData){
             const auxDialogRefL = this.dialog.open(ConfirmDialogComponent, {
               data: {type: 'alert',title: 'No se puede eliminar el registro', message: 'El usuario a eliminar tiene datos asociados, por favor elimine sus relaciones o inactivelo"'},
-              disableClose: true
             });
+            auxDialogRefL.afterClosed().subscribe(result => {
+              location.reload();
+            });
+          }else{
+            location.reload();
           }
-          location.reload()
         })
       }
     });
