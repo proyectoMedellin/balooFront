@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment';
 
 export class AppComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  title = 'Sieca';
+  title = 'Baloo';
   public user = "";
   public items: any[] = [] ;
   public login: boolean= false;

@@ -37,7 +37,7 @@ export class RecoverPasswordComponent implements OnInit {
     let text = `${this.RecoveryForm.get("UserName")?.value}||${moment().locale('es').format()}`
     let textEncrypt = AES.encrypt(text, environment.Key).toString()
     let url = environment.url + "ChangePassword?DateRecover=" + textEncrypt
-    Formdata['Body'] = '<!DOCTYPE html><html><body><p>Ha solicitado restablecer su contraña en SIECA.</p> <p>Por favor de clic en la siguiente liga: <a href="'+url+'">proporcione una nueva contraseña</a></p></body></html>'
+    Formdata['Body'] = '<!DOCTYPE html><html><body><p>Ha solicitado restablecer su contraña en Baloo.</p> <p>Por favor de clic en la siguiente liga: <a href="'+url+'">proporcione una nueva contraseña</a></p></body></html>'
     this.ns.sendEmailRecover(this.RecoveryForm.getRawValue()['Email'], Formdata).subscribe(
         response => {
           dialogRef.close()

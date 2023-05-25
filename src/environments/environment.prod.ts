@@ -1,11 +1,11 @@
 export const environment = {
   production: true,
 
-  url: "http://localhost:4200/",
+  url: "https://192.168.2.7:443/",
     //APIS
-  API_AUTHENTICATION: "https://localhost:7205/",
-  API_SERVICES:  "https://localhost:7205/",
-  API_NotificationRecover:  "https://localhost:7205/Notification/RecoverPassword",
+  API_AUTHENTICATION: "https://192.168.2.7:7205/",
+  API_SERVICES:  "https://192.168.2.7:7205/",
+  API_NotificationRecover:  "https://192.168.2.7:7205/Notification/RecoverPassword",
 
   //url: "https://siecafront.azurewebsites.net/",  
   //APIS
