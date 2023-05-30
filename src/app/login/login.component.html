@@ -1,59 +1,96 @@
+<mat-toolbar  style=" position: sticky; top: 0px; z-index:1; background: #719bd9; height: 5%;">
+
+</mat-toolbar>
 <div class="container pageContainer">
     <br />
+    <div class="col-sm-1"><img src="../../assets/images/Icon2.png" height="80px" style="position: absolute; bottom: 50%; left: 7%; z-index: 3;"></div>               
+    <div class="col-sm-1"><img src="../../assets/images/Icon.png" height="100px"  style="position: absolute; bottom: 60%; left: 33%; z-index: 3;"></div>
     <div class="row">
-        <div class="col-sm-6">
-            <img src="../../assets/images/Logo_Baloo.png" width="60%">
-            <img src="../../assets/images/Mesa de trabajo 9.png" width="60%">
+        <div class="col-sm-5">
+            <img src="../../assets/images/Logo_Baloo.png" height="150px" style="position: absolute; bottom: 70%; left: 7%; z-index: 2;">
+            <div class="col-sm-11"><img src="../../assets/images/MesaDeTrabajo.png" height="160px" style="position: absolute; bottom: 50%; left: 7%; z-index: 2;"></div>
+            <div class="row">
+                
+            </div>
         </div>
-        <div class="col-sm-6">
-            <form  (ngSubmit)="LoginForm.valid && login()" [formGroup]="LoginForm">
-                <mat-card>
-                    <mat-card-content>
-                        <div class="row">
-                            <div class="col-sm-12" style="text-align: center;">
-                                <label>Usuario: </label>
-                                <br />
-                                <mat-form-field appearance="outline">
-                                    <input matInput type="text" placeholder="Username" maxlength="150"  maxlength="150" formControlName="User">
-                                    <button mat-icon-button matSuffix >
-                                        <mat-icon></mat-icon>
-                                    </button>
-                                    <mat-error>
-                                        Este campo es <strong>obligatorio</strong>
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12" style="text-align: center;">
-                                <label>Contraseña: </label>
-                                <br />
-                                <mat-form-field appearance="outline">
-                                    <input matInput [type]="hide ? 'password' : 'text'" placeholder="Abc+90de" maxlength="150"  formControlName="UserPassword">
-                                    <button mat-icon-button matSuffix (click)="hide = !hide">
-                                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                    </button>
-                                    <mat-error>
-                                        Este campo es <strong>obligatorio</strong>
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12" style="text-align: center !important;">
-                                <a routerLink="/Recover">Recuperar contraseña</a>
-                            </div>
-                        </div>
-                    </mat-card-content>
-                    <mat-card-actions>
-                        <div class="row">
-                            <div class="col-sm-12" style="text-align: center !important;">
-                                <button style="width: 100px;" mat-raised-button color="primary" type="submit">Login</button>
-                            </div>
-                        </div>
-                    </mat-card-actions>
-                </mat-card>
-            </form>
+        <div class="col-md-4">
+            <img src="../../assets/images/Cuadricula.png"  style="position: absolute;  bottom: 10%;  z-index: 1;" >
+            <div class="loguin">
+                <div class="custom-form-loguin">
+                    <form  (ngSubmit)="LoginForm.valid && login()" [formGroup]="LoginForm" >
+                        <mat-card>
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col-sm-12" style="text-align: center;">
+                                        <label>Usuario: </label>
+                                        <br />
+                                        <mat-form-field appearance="outline">
+                                            <input matInput type="text" placeholder="Username" maxlength="150"  maxlength="150" formControlName="User">
+                                            <button mat-icon-button matSuffix >
+                                                <mat-icon></mat-icon>
+                                            </button>
+                                            <mat-error>
+                                                Este campo es <strong>obligatorio</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12" style="text-align: center;">
+                                        <label>Contraseña: </label>
+                                        <br />
+                                        <mat-form-field appearance="outline">
+                                            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Abc+90de" maxlength="150"  formControlName="UserPassword">
+                                            <button mat-icon-button matSuffix (click)="hide = !hide">
+                                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                            </button>
+                                            <mat-error>
+                                                Este campo es <strong>obligatorio</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12" style="text-align: center !important;">
+                                        <a routerLink="/Recover">Recuperar contraseña</a>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <div class="row">
+                                    <div class="col-sm-12" style="text-align: center !important;">
+                                        <button style="width: 100px;" mat-raised-button color="primary" type="submit">Login</button>
+                                    </div>
+                                </div>
+                            </mat-card-actions>
+                        </mat-card>
+                    </form>
+                </div>
+                <img src="../../assets/images/Icon3.png" style="position: relative; bottom: -200px; left: 30%; z-index: 4;">
+                <img src="../../assets/images/Icon4.png" style="position: relative; bottom: -100px; left: 112%; z-index: 5;">
+            </div>
         </div>  
     </div> 
+    <img src="../../assets/images/MesaDeTrabajo1.png" height="300px" width="100%" style="position: absolute; bottom: 10%; left: 0%; z-index: 2;" >
+    <img src="../../assets/images/Icon5.png" height="10px" width="32%" style="position: absolute; bottom: 45%; left: 9%; z-index: 3;" >
+    <img src="../../assets/images/Icon5.png" height="10px" width="32%" style="position: absolute; bottom: 20%; left: 9%; z-index: 3;" >
+    <div class="row">
+       
+        <div class="col-sm-5">
+            <p style="bottom: 23%; width: 30%; left: 10%;">La nutrición y la gestión emocional puede afectar la forma en que los niños
+                aprenden, el rendimiento escolar y las dificultades de comportamiento que
+                presenten a lo largo de su infancia. Por eso es tan importante contar con
+                información oportuna que dé cuenta de la asistencia de los niños a los
+                establecimientos educativos, su estado nutricional y socioemocional, para
+                identificar alertas tempranas, procurar su bienestar y con base en ello
+                potenciar su desarrollo y aprendizaje. Baloo te da esa información!</p>
+        </div>
+    </div>
 </div>
+<mat-toolbar  style=" position: absolute; bottom: 2.4%; z-index:1; background: #ffffff;">
+    <span class="spacer-loguin"></span>
+    <a routerLink="Inicio"><img width="170" height="50" src="../assets/images/Logo.png"></a>
+    <span class="spacer"></span>
+    <h1>Con apoyo de:</h1>
+    <a routerLink="Inicio"><img width="170" height="100" src="../assets/images/BUEN-COMIENZO-2022-logo.png"></a>
+</mat-toolbar>
