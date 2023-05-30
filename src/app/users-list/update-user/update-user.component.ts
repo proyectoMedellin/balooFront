@@ -10,6 +10,7 @@ import { CampusService } from '../../services/campus.service';
 import { SecurityRolService } from '../../services/security-rol.service';
 import { TrainingCenterService } from '../../services/training-center.service';
 import { UsersService } from '../../services/users.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-update-user',
   templateUrl: './update-user.component.html',
@@ -46,6 +47,7 @@ export class UpdateUserComponent implements OnInit, AfterContentInit{
     public trainingCenterService: TrainingCenterService,
     public localstorageservice: LocalService,
     private dialog: MatDialog,
+    private alertMessage: MatSnackBar,
   ) { }
 
   public urlTree = this.route.parseUrl(this.route.url);
@@ -109,7 +111,13 @@ export class UpdateUserComponent implements OnInit, AfterContentInit{
         data: {type: 'loading',title: 'Guardando el Registro', message: 'Espere unos minutos'},
         disableClose: true
       });
-    this.userservices.updateUser(Formdata).subscribe((data)=> location.href = environment.url + "UsersList")
+    this.userservices.updateUser(Formdata).subscribe((data)=> {location.href = environment.url + "UsersList"},
+    err=>{
+      this.alertMessage.open("Error al crear usuario", "Aceptar",
+    {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    })})
     }, 100)
     dialogRefL.close()
   }
