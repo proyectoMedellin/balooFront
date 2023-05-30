@@ -1,0 +1,51 @@
+.mat-card {
+    position: absolute;
+    min-width: 350px;
+    max-width: 500px;
+    height: 400px;
+    background: #f6f3f3 ;
+    text-align: right;
+    border-radius: 1rem;
+    margin: auto;
+    outline: 3px solid #719bd9;
+    background-color: #f6f3f3 ;
+    margin-top: 1rem;
+    z-index: 2;
+    vertical-align: middle;
+}
+
+.custom-form-loguin{
+    position: relative;
+    bottom: -60px;
+    left: 50%;
+    z-index: 3;
+}
+.spacer-loguin {
+    flex: 0 1 auto;
+  }
+.mat-form-field{
+    width: 90% !important;
+}
+.mat-form-field-appearance-outline-end{
+    background: white !important;
+}
+.loguin{
+    position: relative;
+    width: 100%;
+}
+p{
+    color: #ffffff;
+    text-align: justify;
+    position: absolute;
+    z-index: 3;
+}
+.row{
+    position: static;
+}
+label{
+    color: #042e6d;
+    font-size: 20px;
+}
+.mat-card-content{
+    margin-top: 50px !important
+}
