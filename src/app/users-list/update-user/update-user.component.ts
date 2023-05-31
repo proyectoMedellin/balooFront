@@ -113,11 +113,14 @@ export class UpdateUserComponent implements OnInit, AfterContentInit{
       });
     this.userservices.updateUser(Formdata).subscribe((data)=> {location.href = environment.url + "UsersList"},
     err=>{
-      this.alertMessage.open("Error al crear usuario", "Aceptar",
+      dialogRefL.close()
+      this.alertMessage.open("Error al actualizar usuario", "Aceptar",
     {
       horizontalPosition: 'center',
       verticalPosition: 'top',
-    })})
+    })
+    location.href = environment.url + "UsersList"
+    })
     }, 100)
     dialogRefL.close()
   }

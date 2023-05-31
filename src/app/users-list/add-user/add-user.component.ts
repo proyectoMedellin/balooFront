@@ -97,11 +97,13 @@ export class AddUserComponent implements OnInit {
    this.userservice.register(data).subscribe(response => 
     {this.sendNotificacion()},
       err=>{
+        dialogRefL.close()
         this.alertMessage.open("Error al crear usuario", "Aceptar",
           {
             horizontalPosition: 'center',
             verticalPosition: 'top',
           })
+        location.href = environment.url + "UsersList"
       })
     }, 100)
     dialogRefL.close()
