@@ -73,6 +73,7 @@ import { MatTableExporterModule } from 'mat-table-exporter';
 import { NgChartsModule } from 'ng2-charts';
 import { StudentEmotionsComponent } from './reports/student-information/student-emotions/student-emotions.component';
 import { UsersLoadFilesComponent } from './users-list/users-load-files/users-load-files.component';
+import { MassiveReportsComponent } from './massive-reports/massive-reports/massive-reports.component';
 
 @NgModule({
   declarations: [
@@ -117,6 +118,7 @@ import { UsersLoadFilesComponent } from './users-list/users-load-files/users-loa
     StudentEmotionsComponent,
     //aqui se adicionan los componentes creados  
     UsersLoadFilesComponent,
+    MassiveReportsComponent,
     //aqui se adicionan los componentes creados
   ],
   imports: [

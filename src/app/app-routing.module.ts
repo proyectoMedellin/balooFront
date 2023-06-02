@@ -38,6 +38,7 @@ import { BeneficiariesUpdateComponent } from './beneficiaries/beneficiaries-upda
 import { BeneficiariesDevelopmentRoomsUpdateComponent } from './beneficiaries-development-rooms/beneficiaries-development-rooms-update/beneficiaries-development-rooms-update.component';
 import { StudentInformationComponent } from './reports/student-information/student-information.component';
 import { UsersLoadFilesComponent } from './users-list/users-load-files/users-load-files.component';
+import { MassiveReportsComponent } from './massive-reports/massive-reports/massive-reports.component';
 
 const routes: Routes =
 [
@@ -206,6 +207,11 @@ const routes: Routes =
   {
     path: 'LoginCaptchat',
     component: LoginCaptchatComponent
+  },
+  {
+    path: 'MassiveReports',
+    component: MassiveReportsComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Reportes"]}
   },
   {
     path: 'Recover',

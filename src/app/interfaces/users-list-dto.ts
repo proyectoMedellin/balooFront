@@ -10,4 +10,7 @@ export interface UsersListDto {
     lastName: string;
     otherLastName: string;
     createdBy: string;
+    trainingCenterId: string;
+    campusId: string[];
+    globalUser: boolean;
 }
