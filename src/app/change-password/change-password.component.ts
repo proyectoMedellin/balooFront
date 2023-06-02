@@ -32,6 +32,7 @@ export class ChangePasswordComponent implements OnInit, AfterContentInit {
   public hide = true
   public hidetwo = true
   public user = "";
+  public login: boolean = false
   //formulario
   public PasswordForm  = new FormGroup({
     PasswordUser: new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&+])([A-Za-z\d$@$!%*?&]|[^ ]){8,50}$/)]),
@@ -39,6 +40,9 @@ export class ChangePasswordComponent implements OnInit, AfterContentInit {
   });
 
   ngOnInit(): void {
+    if(this.userservices.getToken() != null && this.userservices.getToken().length > 0){
+      this.login = true
+    }
     let nowMoment = moment().locale('es')
     let textEncrypt = this.DateRecover.replace(/ /g, "+")
     let textDecrypt = AES.decrypt(textEncrypt, environment.Key).toString(enc.Utf8)

@@ -94,7 +94,17 @@ export class AddUserComponent implements OnInit {
         data: {type: 'loading',title: 'Guardando el Registro', message: 'Espere unos minutos'},
         disableClose: true
       });
-   this.userservice.register(data).subscribe(response => this.sendNotificacion())
+   this.userservice.register(data).subscribe(response => 
+    {this.sendNotificacion()},
+      err=>{
+        dialogRefL.close()
+        this.alertMessage.open("Error al crear usuario", "Aceptar",
+          {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          })
+        location.href = environment.url + "UsersList"
+      })
     }, 100)
     dialogRefL.close()
   }

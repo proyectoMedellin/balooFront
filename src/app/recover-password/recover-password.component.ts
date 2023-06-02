@@ -6,6 +6,7 @@ import { AES, enc } from 'crypto-js';
 import * as moment from 'moment';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-recover-password',
@@ -16,7 +17,8 @@ export class RecoverPasswordComponent implements OnInit {
 
   constructor(
    public ns: CorreoService,
-   private dialog: MatDialog
+   private dialog: MatDialog,
+   private userservices: UsersService
   ) { }
   confirmed = false;
   public DateRecover = moment().locale('es').format()
@@ -25,8 +27,11 @@ export class RecoverPasswordComponent implements OnInit {
     UserName: new FormControl('', [Validators.required]),
     Subject: new FormControl('Recupercion')
   });
-  
+  public login: boolean = false;
   ngOnInit(): void {
+    if(this.userservices.getToken() != null && this.userservices.getToken().length > 0){
+      this.login = true
+    }
   }
   sendNotificacion(Formdata: any){
     let dialogRef: any

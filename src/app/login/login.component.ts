@@ -42,8 +42,16 @@ export class LoginComponent implements OnInit {
     
      this.userservice.login(dataUserLogin).subscribe(data => 
       {
-       this.userservice.setToken(data["registros"][0]["token"])
-       this.security();
+      if(data["registros"][0] != null ){
+        this.userservice.setToken(data["registros"][0]["token"])
+        this.security();
+      }else{
+        this.alertMessage.open("Datos incorrectos", "Aceptar", 
+        {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        })
+      }
       },
       err => {
         this.alertMessage.open("Datos incorrectos", "Aceptar", 
