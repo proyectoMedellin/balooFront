@@ -66,7 +66,7 @@
               <mat-card-actions style="display: flex; align-items: center;">
                   <button *ngIf="reports.value['trainingCenterId'].length != 0" style="margin-right: 0.1rem;" mat-raised-button color="primary" type="submit" (click)="applyFilter(reports.value, 'Asistencia')">Asistencia</button>
                   <button *ngIf="reports.value['trainingCenterId'].length != 0" style="margin-right: 0.1rem;" mat-raised-button color="primary" type="submit" (click)="applyFilter(reports.value, 'Emociones')">Emociones</button>
-                  <!-- <button *ngIf="reports.value['trainingCenterId'].length != 0" style="margin-right: 0.1rem;" mat-raised-button color="primary" type="submit" (click)="applyFilter(reports.value, 'Información Nutricional')">Información Nutricional</button> -->
+                  <button *ngIf="reports.value['trainingCenterId'].length != 0" style="margin-right: 0.1rem;" mat-raised-button color="primary" type="submit" (click)="applyFilter(reports.value, 'Información Nutricional')">Información Nutricional</button>
                   <button *ngIf="reports.value['trainingCenterId'].length != 0" style="margin-right: 0.1rem;" mat-raised-button class="lightBlue-bkg" (click)="cleanForm()">Limpiar</button>
                 </mat-card-actions>
           </mat-card>
