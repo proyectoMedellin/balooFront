@@ -82,7 +82,7 @@ export class ReportsComponent implements OnInit {
       TrainingCenterId: formValue.trainingCenterId,
       CampusId: formValue.campusId,
       documentNo: formValue.documentNo,
-      name: formValue.name,
+      name: formValue.name.replace(/ /g, ""),
       group: formValue.groupName,
       DevelopmentRoomId: formValue.developmentRoomId,
       documentType: formValue.documentTypeId,

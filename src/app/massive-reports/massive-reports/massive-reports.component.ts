@@ -32,7 +32,7 @@ export class MassiveReportsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource = new MatTableDataSource<any>();
   errorMessage: boolean = false
-  assistanceData: any
+  assistanceData: any[] = []
   emotionsData: any
   anthropometricData: any
   downloadFileButton = false
@@ -85,8 +85,18 @@ export class MassiveReportsComponent implements OnInit {
   }
 
   public onChangeUpdated(): void {
+    let todayDay = moment().locale('es').format('yyyy-MM-DD')
     this.fromDate = moment(this.range.value.from).format('yyyy-MM-DD');
     this.toDate = moment(this.range.value.to).format('yyyy-MM-DD');
+    if(this.fromDate > todayDay){
+      let dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+        data: {type: 'alert-red',title: 'No se puede cargar información de una fecha mayor que la actual', message: 'Verifique los datos', textButton: 'Aceptar'},
+      });
+      dialogRefL.afterClosed().toPromise();
+        this.range.get('from')?.setValue((moment(new Date()).subtract(1, 'months').format()))
+        this.range.get('to')?.setValue((moment(new Date()).format()))
+        return
+    }
   }
 
 
@@ -117,7 +127,7 @@ export class MassiveReportsComponent implements OnInit {
         disableClose: false
       });
     this.errorMessage = false
-    this.assistanceData = ""
+    this.assistanceData = []
     this.emotionsData = ""
     this.anthropometricData = ""
     this.allGroups = []
@@ -127,10 +137,10 @@ export class MassiveReportsComponent implements OnInit {
     this.allFilterData = []
     this.dataType = type;
     this.getYears()
-    if(formValue.trainingCenterId && formValue.campusId && formValue.groupNames){
+    if(formValue.trainingCenterId && formValue.campusId.length > 0 && formValue.groupNames){
       await this.getByIdDevRooms(formValue)
       await this.getAllDataByDevRoom()
-    }else if(formValue.trainingCenterId && formValue.campusId){
+    }else if(formValue.trainingCenterId && formValue.campusId > 0){
       await this.getByIdCampus(formValue)
       await this.getAllDataByCampus()
     }else if(formValue.trainingCenterId){
@@ -194,7 +204,14 @@ export class MassiveReportsComponent implements OnInit {
             for (let i = 0; i < this.allGroups.length; i++) {
               for (let y = 0; y < this.allGroups[i].devRooms.length; y++) {
                 const beneficiariesData = await this.educationalAgentsService.GetBeneficiariesByGroupsYearAssignment(this.allGroups[i].devRooms[y].id).toPromise();
-                this.beneficiariesData.push({ Beneficiaries: beneficiariesData['registros'] });
+                beneficiariesData['registros'].forEach((element: any, index: number) => {
+                  beneficiariesData['registros'][index] = {
+                    ...beneficiariesData['registros'][index],
+                    campusNameByBeneficiary: this.allGroups[i].devRooms[y].campusName,
+                    devRoomName: this.allGroups[i].devRooms[y].developmentRoomName
+                  }
+                })
+                this.beneficiariesData.push({ Beneficiaries: beneficiariesData['registros']});
               }
             }
             let result = true;
@@ -233,7 +250,14 @@ export class MassiveReportsComponent implements OnInit {
         for (let i = 0; i < this.allGroups.length; i++) {
           for (let y = 0; y < this.allGroups[i].devRooms.length; y++) {
             const beneficiariesData = await this.educationalAgentsService.GetBeneficiariesByGroupsYearAssignment(this.allGroups[i].devRooms[y].id).toPromise();
-            this.beneficiariesData.push({ Beneficiaries: beneficiariesData['registros'] });
+            beneficiariesData['registros'].forEach((element: any, index: number) => {
+              beneficiariesData['registros'][index] = {
+                ...beneficiariesData['registros'][index],
+                campusNameByBeneficiary: this.allGroups[i].devRooms[y].campusName,
+                devRoomName: this.allGroups[i].devRooms[y].developmentRoomName
+              }
+            })
+            this.beneficiariesData.push({ Beneficiaries: beneficiariesData['registros']});
           }
         }
         let result = true;
@@ -272,7 +296,14 @@ export class MassiveReportsComponent implements OnInit {
         for (let i = 0; i < this.allGroups.length; i++) {
           for (let y = 0; y < this.allGroups[i].devRooms.length; y++) {
             const beneficiariesData = await this.educationalAgentsService.GetBeneficiariesByGroupsYearAssignment(this.allGroups[i].devRooms[y].id).toPromise();
-            this.beneficiariesData.push({ Beneficiaries: beneficiariesData['registros'] });
+            beneficiariesData['registros'].forEach((element: any, index: number) => {
+              beneficiariesData['registros'][index] = {
+                ...beneficiariesData['registros'][index],
+                campusNameByBeneficiary: this.allGroups[i].devRooms[y].campusName,
+                devRoomName: this.allGroups[i].devRooms[y].developmentRoomName
+              }
+            })
+            this.beneficiariesData.push({ Beneficiaries: beneficiariesData['registros']});
           }
         }
         let result = true;
@@ -305,57 +336,35 @@ export class MassiveReportsComponent implements OnInit {
   }
 
   getAssistanceData(): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
+    let form: any = this.reports
+    let city: any = this.trainingCenter.find(x => x.id == form.value.trainingCenterId)
+    return new Promise<boolean>(async (resolve, reject) => {
     let defaultString = '00000000-0000-0000-0000-000000000000';
-    let observables = [];
+    let observables: any[] = [];
 
     for (let a = 0; a < this.beneficiariesData.length; a++) {
       for (let b = 0; b < this.beneficiariesData[a].Beneficiaries.length; b++) {
         let id = this.beneficiariesData[a].Beneficiaries[b].id;
-        let observable = this.reportsService.GetAssistenceDataById(id, this.fromDate, this.toDate).toPromise();
+        let observable = await this.reportsService.GetAssistenceDataById(id, this.fromDate, this.toDate).toPromise();
+        observable['registros'].forEach((e: any) => {
+          if (e.id !== defaultString) {
+            e.attendant = 'Si';
+          } else {
+            e.attendant = 'No';
+          }
+        this.beneficiariesData[a].Beneficiaries[b] = {
+          ...this.beneficiariesData[a].Beneficiaries[b],
+          City: city.name,
+          attendant: e.attendant,
+          date: `${moment(e.createdOn).format('yyyy-MM-DD')}`
+        }
         observables.push(observable);
+        this.assistanceData.push(this.beneficiariesData[a].Beneficiaries[b])
+      });
       }
     }
-
-    forkJoin(observables).subscribe((responses) => {
-      this.allFilterData = [];
-
-      for (let response of responses) {
-        this.allFilterData.push(response['registros']);
-      }
-
-      for (let c = 0; c < this.allFilterData.length; c++) {
-        for (let d = 0; d < this.allFilterData[c].length; d++) {
-          if (this.allFilterData[c][d].id !== defaultString) {
-            this.allFilterData[c][d].attendant = 'Si';
-          } else {
-            this.allFilterData[c][d].attendant = 'No';
-          }
-        }
-      }
-
-      const flattenedData = this.allFilterData.flat();
-      if(flattenedData.length > 0){
-        const count = flattenedData.reduce((acc, item) => {
-          acc[item.attendant] = (acc[item.attendant] || 0) + 1;
-          return acc;
-        }, {});
-
-        const total = flattenedData.length;
-        const percentageYes = (count['Si'] || 0) / total * 100;
-        const percentageNo = (count['No'] || 0) / total * 100;
-        const totalYes = count['Si'] || 0;
-        const totalNo = count['No'] || 0;
-
-        this.assistanceData = { total, percentageYes, percentageNo, totalYes, totalNo };
-        this.downloadFileButton = true;
-        resolve(true);
-      } else {
-        resolve(false);
-      }
-    }, (error) => {
-      reject(error);
-    });
+    this.downloadFileButton = true;
+    resolve(true);
   });
 }
 
@@ -386,29 +395,36 @@ export class MassiveReportsComponent implements OnInit {
         }, {});
 
         const total = flattenedData.length;
-        const percentageNormal = (count['Normal'] || 0) / total * 100;
-        const percentageSad = (count['Triste'] || 0) / total * 100;
-        const percentageHappy = (count['Feliz'] || 0) / total * 100;
-        const percentageConfuse = (count['Confundido'] || 0) / total * 100;
-        const percentageDisgusted = (count['Disgustado'] || 0) / total * 100;
-        const totalNormal = count['Normal'] || 0;
-        const totalSad = count['Triste'] || 0;
-        const totalHappy = count['Feliz'] || 0;
-        const totalConfuse = count['Confundido'] || 0;
-        const totalDisgusted = count['Disgustado'] || 0;
-
+        const percentageHappiness = ((count['Alegría'] || 0) / total * 100).toFixed(3);
+        const percentageAngry = ((count['Enfado'] || 0) / total * 100).toFixed(3);
+        const percentageSadness = ((count['Tristeza'] || 0) / total * 100).toFixed(3);
+        const percentageAfraid = ((count['Miedo'] || 0) / total * 100).toFixed(3);
+        const percentageSurprised = ((count['Sorpresa'] || 0) / total * 100).toFixed(3);
+        const percentageCalmAndControl = ((count['Calma y control'] || 0) / total * 100).toFixed(3);
+        const percentageAnticipation = ((count['Anticipación'] || 0) / total * 100).toFixed(3);
+        const totalHappiness = count['Alegría'] || 0;
+        const totalAngry = count['Enfado'] || 0;
+        const totalSadness = count['Tristeza'] || 0;
+        const totalAfraid = count['Miedo'] || 0;
+        const totalSurprised = count['Sorpresa'] || 0;
+        const totalCalmAndControl = count['Calma y control'] || 0;
+        const totalAnticipation = count['Anticipación'] || 0;
         this.emotionsData = {
           total,
-          percentageNormal,
-          percentageSad,
-          percentageHappy,
-          percentageConfuse,
-          percentageDisgusted,
-          totalNormal,
-          totalSad,
-          totalHappy,
-          totalConfuse,
-          totalDisgusted
+          percentageHappiness,
+          percentageAngry,
+          percentageSadness,
+          percentageAfraid,
+          percentageSurprised,
+          percentageCalmAndControl,
+          percentageAnticipation,
+          totalHappiness,
+          totalAngry,
+          totalSadness,
+          totalAfraid,
+          totalSurprised,
+          totalCalmAndControl,
+          totalAnticipation,
         };
         this.downloadFileButton = true;
         resolve(true);
@@ -472,19 +488,46 @@ export class MassiveReportsComponent implements OnInit {
   getDataType(){
     let csvData
     if(this.dataType == 'Asistencia'){
-      csvData = [
-        ['Asistencia', 'Porcentaje de asistencia', 'Cantidad de muestras', 'Rango de consulta(fecha)'],
-        ['Si', `${this.assistanceData.percentageYes}%`, this.assistanceData.totalYes, `${this.fromDate} a ${this.toDate}`],
-        ['No', `${this.assistanceData.percentageNo}%`, this.assistanceData.totalNo, `${this.fromDate} a ${this.toDate}`]
-      ];
+      const fields: any = {
+        City: 'Ciudad',
+        campusNameByBeneficiary: 'Sede',
+        devRoomName: 'Grupo',
+        documentNumber: 'Id',
+        firstName: 'Nombre',
+        lastName: 'Apellido',
+        attendant: 'Asistencia',
+        date: 'Fecha'
+      }
+      const auxfields: any = [
+        'Ciudad',
+        'Sede',
+        'Grupo',
+        'Id',
+        'Nombre',
+        'Apellido',
+        'Asistencia',
+        'Fecha'
+      ]
+      // csvData = this.assistanceData.map(csvDatas => Object.values(csvDatas));
+      csvData = this.assistanceData.map(registro => {
+        const registroFiltrado: any = {};
+        Object.keys(fields).forEach(campo => {
+          registroFiltrado[fields[campo]] = registro[campo];
+        });
+        return registroFiltrado;
+      });
+      csvData = csvData.map(registro => Object.values(registro));
+      csvData.unshift(auxfields);
     }else if(this.dataType == 'Emociones'){
       csvData = [
         ['Emociones', 'Porcentaje de emoción', 'Cantidad de muestras', 'Rango de consulta(fecha)'],
-        ['Normal', `${this.emotionsData.percentageNormal}%`, this.emotionsData.totalNormal, `${this.fromDate} a ${this.toDate}`],
-        ['Confundido', `${this.emotionsData.percentageConfuse}%`, this.emotionsData.totalConfuse, `${this.fromDate} a ${this.toDate}`],
-        ['Triste', `${this.emotionsData.percentageSad}%`, this.emotionsData.totalSad, `${this.fromDate} a ${this.toDate}`],
-        ['Disgustado', `${this.emotionsData.percentageDisgusted}%`, this.emotionsData.totalDisgusted, `${this.fromDate} a ${this.toDate}`],
-        ['Feliz', `${this.emotionsData.percentageHappy}%`, this.emotionsData.totalHappy, `${this.fromDate} a ${this.toDate}`]
+        ['Alegría', `${this.emotionsData.percentageHappiness}%`, this.emotionsData.totalHappiness, `${this.fromDate} a ${this.toDate}`],
+        ['Enfado', `${this.emotionsData.percentageAngry}%`, this.emotionsData.totalAngry, `${this.fromDate} a ${this.toDate}`],
+        ['Tristeza', `${this.emotionsData.percentageSadness}%`, this.emotionsData.totalSadness, `${this.fromDate} a ${this.toDate}`],
+        ['Miedo', `${this.emotionsData.percentageAfraid}%`, this.emotionsData.totalAfraid, `${this.fromDate} a ${this.toDate}`],
+        ['Sorpresa', `${this.emotionsData.percentageSurprised}%`, this.emotionsData.totalSurprised, `${this.fromDate} a ${this.toDate}`],
+        ['Calma y control', `${this.emotionsData.percentageCalmAndControl}%`, this.emotionsData.totalCalmAndControl, `${this.fromDate} a ${this.toDate}`],
+        ['Anticipación', `${this.emotionsData.percentageAnticipation}%`, this.emotionsData.totalAnticipation, `${this.fromDate} a ${this.toDate}`]
       ];
     } else if(this.dataType == 'Información Nutricional'){
       csvData = [
