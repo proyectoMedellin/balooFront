@@ -69,7 +69,7 @@ export class TrainingCentersComponent implements OnInit {
             let rData = response['registros'][0];
             if(!rData){
               const auxDialogRefL = this.dialog.open(ConfirmDialogComponent, {
-                data: {type: 'alert',title: 'No se puede eliminar el registro', message: 'El centro de formación a eliminar tiene datos asociados, por favor elimine sus relaciones o inactivelo"'},
+                data: {type: 'alert',title: 'No se puede eliminar el registro', message: 'La ciudad a eliminar tiene datos asociados, por favor elimine sus relaciones o inactivelo"'},
                 disableClose: true
               });
             }

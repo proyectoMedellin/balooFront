@@ -112,7 +112,7 @@
                         <div  [hidden]="AddUsers.value['GlobalUser']" class="row">
                             <div class="col-md-6">
                                 <mat-form-field class="full-width">
-                                    <mat-select [required]="!AddUsers.value['GlobalUser']" placeholder="Centro de formación" formControlName="TrainingCenterId" (selectionChange)="Campus(AddUsers.value['TrainingCenterId'])">
+                                    <mat-select [required]="!AddUsers.value['GlobalUser']" placeholder="Ciudad" formControlName="TrainingCenterId" (selectionChange)="Campus(AddUsers.value['TrainingCenterId'])">
                                     <mat-option *ngFor="let tido of trainingcenter" [value]="tido.id">
                                         {{tido.name}}
                                     </mat-option>
