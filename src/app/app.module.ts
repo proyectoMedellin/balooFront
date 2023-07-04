@@ -74,6 +74,9 @@ import { NgChartsModule } from 'ng2-charts';
 import { StudentEmotionsComponent } from './reports/student-information/student-emotions/student-emotions.component';
 import { UsersLoadFilesComponent } from './users-list/users-load-files/users-load-files.component';
 import { MassiveReportsComponent } from './massive-reports/massive-reports/massive-reports.component';
+import { TeacherReportsComponent } from './teacher-reports/teacher-reports.component';
+import { TeacherInformationComponent } from './teacher-reports/teacher-information/teacher-information.component';
+import { TeacherEmotionsComponent } from './teacher-reports/teacher-information/teacher-emotions/teacher-emotions.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +102,9 @@ import { MassiveReportsComponent } from './massive-reports/massive-reports/massi
     PhotoUploadComponent,
     BeneficiariesDevelopmentRoomsComponent,
     ReportsComponent,
+    TeacherReportsComponent,
+    TeacherInformationComponent,
+    TeacherEmotionsComponent,
     IntegrationsComponent,
     HolidaysCreateComponent,
     TrainingCenterCreateComponent,
@@ -116,7 +122,7 @@ import { MassiveReportsComponent } from './massive-reports/massive-reports/massi
     HolidaysUpdateComponent,
     StudentInformationComponent,
     StudentEmotionsComponent,
-    //aqui se adicionan los componentes creados  
+    //aqui se adicionan los componentes creados
     UsersLoadFilesComponent,
     MassiveReportsComponent,
     //aqui se adicionan los componentes creados

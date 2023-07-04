@@ -39,6 +39,8 @@ import { BeneficiariesDevelopmentRoomsUpdateComponent } from './beneficiaries-de
 import { StudentInformationComponent } from './reports/student-information/student-information.component';
 import { UsersLoadFilesComponent } from './users-list/users-load-files/users-load-files.component';
 import { MassiveReportsComponent } from './massive-reports/massive-reports/massive-reports.component';
+import { TeacherReportsComponent } from './teacher-reports/teacher-reports.component';
+import { TeacherInformationComponent } from './teacher-reports/teacher-information/teacher-information.component';
 
 const routes: Routes =
 [
@@ -171,6 +173,17 @@ const routes: Routes =
     path: 'student-information/:id',
     component: StudentInformationComponent,
     canActivate:[AuthPermissionGuard], data:{permiso: ["Reportes"]}
+  },
+  {
+    path: 'teacherReports',
+    component: TeacherReportsComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Reporte docentes"]}
+  },
+  {
+    //Url
+    path: 'teacher-information/:id',
+    component: TeacherInformationComponent,
+    canActivate:[AuthPermissionGuard], data:{permiso: ["Reporte docentes"]}
   },
   {
     //Url

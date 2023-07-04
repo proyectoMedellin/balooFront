@@ -1,0 +1,111 @@
+<div class="container pageContainer">
+    <br>
+    <div class="row d-flex ">
+        <div class="col-md-7">
+            <h1>Información Estudiante</h1>
+        </div>
+
+        <div class="col-md-4">
+            <mat-form-field appearance="fill">
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input [rangePicker]="picker" [formGroup]="range">
+                    <input matStartDate placeholder="Start date" formControlName="from">
+                    <input matEndDate placeholder="End date" formControlName="to" (dateChange)="onChangeUpdated()">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+        </div>
+        <div class="col-md-1">
+            <button mat-raised-button class="lightBlue-bkg" [routerLink]="['/teacherReports']">Regresar</button>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="row" *ngIf="this.teacherInfo != undefined">
+        <div class="col-sm-2 benPhotoCont" *ngIf="IsloadedPhoto; else loadedImage">
+            <img style="width: 100% !important;" src="data:image/jpg;base64,{{this.beneficiaryPhoto}}" />
+        </div>
+        <ng-template #loadedImage>
+            <div class="col-sm-2 benPhotoCont">
+                <img style="width: 100% !important;" src="../../../assets/images/no_image.png" />
+            </div>
+        </ng-template>
+        <div class="col-sm-10 pt-5">
+            <div class="row">
+                <div class="col-sm-4">
+                    <p>{{ this.selectedUser.firstName }}  {{ this.selectedUser.otherNames }}
+                      {{ this.selectedUser.lastName }} {{ this.selectedUser.otherLastName }} </p>
+                    <div class="line"></div>
+                    <span>Nombre y apellido</span>
+                </div>
+                <div class="col-sm-3">
+                    <p>{{ this.selectedUser.documentTypeName }} </p>
+                    <div class="line"></div>
+                    <span>Tipo de documento</span>
+                </div>
+                <div class="col-sm-3">
+                    <p>{{ this.selectedUser.documentNo }}</p>
+                    <div class="line"></div>
+                    <span>Número de documento</span>
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+
+    <div class="thick-line"></div>
+    <!-- <div class="row  pb-5 mt-4" *ngIf="type==='reports' ">
+        <div class="col-md-6">
+            <div>
+                <h1>Información Antropométrica</h1>
+                <mat-form-field class="full-width">
+                    <mat-select placeholder="Select Export type">
+                        <mat-option value="csv" (click)="exporter.exportTable('csv',{ fileName: 'report'} )">
+                            CSV
+                        </mat-option>
+                        <mat-option value="excel" (click)="exporter.exportTable('xlsx',{ fileName: 'report'} )">
+                            Excel
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="report-container">
+                <table #table mat-table [dataSource]="dataSource" class="mat-e" matTableExporter
+                    #exporter="matTableExporter">
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef> Fecha </th>
+                        <td mat-cell *matCellDef="let element">{{ element.createdOn | date: 'MM-dd-yyyy' }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="weight">
+                        <th mat-header-cell *matHeaderCellDef> Peso </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.weight }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="bmi">
+                        <th mat-header-cell *matHeaderCellDef> IMC </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.bmi }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="size">
+                        <th mat-header-cell *matHeaderCellDef> Talla </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.height }}</td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No data available</td>
+                      </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6 mt-4">
+            <h1>Gráfica</h1>
+            <canvas baseChart class="chart" [data]="lineChartData" [options]="lineChartOptions"
+                [type]="lineChartType"></canvas>
+
+        </div>
+    </div> -->
+
+    <ng-container *ngIf="type==='emotions' || type==='attendance'">
+        <app-teacher-emotions [type]="type" [id]="id" [fromDate]="fromDate" [toDate]="toDate"></app-teacher-emotions>
+    </ng-container>
+
+</div>

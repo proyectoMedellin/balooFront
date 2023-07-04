@@ -1,0 +1,13 @@
+.benPhoto{
+    position: relative;
+    width: 200px;
+    height: 220px;
+}
+.benPhotoCont{
+    padding: 10px;
+}
+
+.report-container {
+    height: 400px;
+    overflow: auto;
+  }  
