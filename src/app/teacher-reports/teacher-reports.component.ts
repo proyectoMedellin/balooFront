@@ -56,30 +56,34 @@ export class TeacherReportsComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.documentsList();
-    this.getEnabledBeneficiaries();
+    this.getTeachers();
     this.trainingCenter();
   }
 
-  getEnabledBeneficiaries() {
-    this.userservice.getAllUser(0, this.initPageSize).subscribe(data =>
-      {
+  async getTeachers() {
+    let data = await this.userservice.getAllUser(0, this.initPageSize).toPromise()
         data["registros"][0].forEach((e: any, i: any) => {
           let doc = this.documents.find((x: any) => x.id == e.documentTypeId)
           data["registros"][0][i] = {
             ...data["registros"][0][i],
             documentTypeName: doc.name,
           }
-        });;
-        this.dataSource = new MatTableDataSource<any>(data["registros"][0])
+        });
+        this.dataSource = new MatTableDataSource<any>(data["registros"][0].filter((x: any) => x.documentTypeId != "b6dda96b-a81b-d212-c68c-9f35ffc21eba"))
         this.dataSource.paginator = this.paginator;
-        // this.countUsers = data["totalDbRegistros"];
-      });
-    // this.reportsService
-    //   .getEnabledBeneficiaries(this.options)
-    //   .subscribe((data) => {
-    //     this.dataSource = new MatTableDataSource<any>(data['registros']);
-    //     this.dataSource.paginator = this.paginator;
-    //   });
+        await this.getTeachersInfo()
+}
+
+  async getTeachersInfo(){
+    for (let i = 0; i < this.dataSource.data.length; i++) {
+      console.log(this.dataSource.data[i])
+      let teacherInfo: any = await this.userservice.getUser(this.dataSource.data[i].email).toPromise();
+      teacherInfo = teacherInfo["registros"][0];
+      this.dataSource.data[i] = {
+        ...this.dataSource.data[i],
+        campusId: teacherInfo.campusId,
+      };
+    }
   }
 
 
@@ -90,22 +94,29 @@ export class TeacherReportsComponent implements OnInit {
 
 
   // Apply Filter
-  applyFilter(formValue: any) {
-    const data = {
-      page: 0,
-      TrainingCenterId: formValue.trainingCenterId,
-      CampusId: formValue.campusId,
-      documentNo: formValue.documentNo,
-      name: formValue.name.replace(/ /g, ""),
-      group: formValue.groupName,
-      DevelopmentRoomId: formValue.developmentRoomId,
-      documentType: formValue.documentTypeId,
-      pageSize: 100,
-    };
-    this.reportsService.getEnabledBeneficiaries(data).subscribe((data) => {
-      this.dataSource = new MatTableDataSource<any>(data['registros']);
-      this.dataSource.paginator = this.paginator;
-    });
+  async applyFilter(formValue: any) {
+    await this.getTeachers();
+    console.log(this.dataSource.data)
+    if(formValue.trainingCenterId){
+      this.dataSource.data = this.dataSource.data.filter((x: any) => x.trainingCenterId == formValue.trainingCenterId)
+    }if(formValue.campusId){
+      this.dataSource.data = this.dataSource.data.filter((x: any) => x.campusId.includes(formValue.campusId));
+    }if(formValue.developmentRoomId){
+      this.dataSource.data = this.dataSource.data.filter((x: any) => x.trainingCenterId == formValue.developmentRoomId)
+    }if(formValue.groupName){
+      this.dataSource.data = this.dataSource.data.filter((x: any) => x.trainingCenterId == formValue.groupName)
+    }if(formValue.documentTypeId){
+      this.dataSource.data = this.dataSource.data.filter((x: any) => x.documentTypeId == formValue.documentTypeId)
+    }if(formValue.documentNo){
+      this.dataSource.data = this.dataSource.data.filter((x: any) => x.trainingCenterId == formValue.documentNo)
+    }if(formValue.name){
+      this.dataSource.data = this.dataSource.data.filter((x: any) => x.trainingCenterId == formValue.name)
+    }
+    console.log(this.dataSource.data)
+    // this.reportsService.getEnabledBeneficiaries(data).subscribe((data) => {
+    //   this.dataSource = new MatTableDataSource<any>(data['registros']);
+    //   this.dataSource.paginator = this.paginator;
+    // });
   }
 
   getDevelopmentRooms(Id: string) {
@@ -131,6 +142,7 @@ export class TeacherReportsComponent implements OnInit {
   }
 
   public campusList(trainingCenter: any): void {
+    this.reports.get('campusId')?.setValue('')
     this.campusService
       .getAllBytrainingCenterCampus(trainingCenter)
       .subscribe((data) => (this.campus = data['registros']));
@@ -150,5 +162,6 @@ export class TeacherReportsComponent implements OnInit {
       name: "",
       trainingCenterId: ""
     })
+    this.getTeachers();
   }
 }
