@@ -50,6 +50,10 @@ export class StudentInformationComponent implements OnInit {
   public lineChartType: ChartType = 'line';
   private studentHeights: any = [];
   private studentWeights: any = [];
+  private studentPulses: any = [];
+  private studentSpo2: any = [];
+  private studentTemperatures: any = [];
+
   private datesList: any[] = [];
   private studentBmis: any = [];
 
@@ -64,7 +68,7 @@ export class StudentInformationComponent implements OnInit {
   toDate = moment(new Date()).format('yyyy-MM-DD');
 
   // Chart Columns and charts Data
-  displayedColumns: string[] = ['date', 'weight', 'bmi', 'size'];
+  displayedColumns: string[] = ['date', 'weight', 'size', 'pulse', 'spo2', 'temperature']; //bmi
   public lineChartData: ChartConfiguration['data'] = {
     datasets: [
       {
@@ -88,9 +92,42 @@ export class StudentInformationComponent implements OnInit {
         pointHoverBorderColor: 'rgba(77,83,96,1)',
         fill: 'origin',
       },
+      // {
+      //   data: [],
+      //   label: 'IMC',
+      //   yAxisID: 'y1',
+      //   backgroundColor: 'rgba(255,0,0,0.3)',
+      //   borderColor: 'red',
+      //   pointBackgroundColor: 'rgba(148,159,177,1)',
+      //   pointBorderColor: '#fff',
+      //   pointHoverBackgroundColor: '#fff',
+      //   pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+      // },
       {
         data: [],
-        label: 'IMC',
+        label: 'Pulso',
+        yAxisID: 'y1',
+        backgroundColor: 'rgba(0, 0, 255, 0.2)',
+        borderColor: 'rgba(0,0,80,1)',
+        pointBackgroundColor: 'rgba(148,159,177,1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+      },
+      {
+        data: [],
+        label: 'SPO2',
+        yAxisID: 'y1',
+        backgroundColor: 'rgba(255, 74, 215, 0.3)',
+        borderColor: 'rgba(255, 74, 215, 1)',
+        pointBackgroundColor: 'rgba(148,159,177,1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+      },
+      {
+        data: [],
+        label: 'Temperatura',
         yAxisID: 'y1',
         backgroundColor: 'rgba(255,0,0,0.3)',
         borderColor: 'red',
@@ -132,18 +169,27 @@ export class StudentInformationComponent implements OnInit {
         const anthropometricData = data['registros'];
         this.studentHeights = [];
         this.studentWeights = [];
-        this.studentBmis = [];
+        // this.studentBmis = [];
+        this.studentPulses = [];
+        this.studentSpo2 = [];
+        this.studentTemperatures = [];
         this.datesList = [];
         anthropometricData.map((e: any) => {
           this.studentHeights.push(e['height'].toString());
           this.studentWeights.push(e['weight'].toString());
-          this.studentBmis.push(e['bmi'].toString());
+          this.studentPulses.push(e['pulse'].toString());
+          this.studentTemperatures.push(e['temperature'].toString());
+          this.studentSpo2.push(e['spo2'].toString());
+          // this.studentBmis.push(e['bmi'].toString());
           this.datesList.push(moment(e['createdOn']).format('MM-DD-yyyy'));
         });
         this.lineChartData.labels = this.datesList;
         this.lineChartData.datasets[0].data = this.studentHeights;
         this.lineChartData.datasets[1].data = this.studentWeights;
-        this.lineChartData.datasets[2].data = this.studentBmis;
+        // this.lineChartData.datasets[2].data = this.studentBmis;
+        this.lineChartData.datasets[2].data = this.studentPulses;
+        this.lineChartData.datasets[3].data = this.studentSpo2;
+        this.lineChartData.datasets[4].data = this.studentTemperatures;
         this.chart?.update();
       });
   }
@@ -166,6 +212,9 @@ export class StudentInformationComponent implements OnInit {
     }
   }
 
+  changeWindow(type: string){
+    this.type = type
+  }
   // Get Students information
   private getStudentInformationById(): void {
     this.reportsService.getStudentDataById(this.id).subscribe((data) => {
