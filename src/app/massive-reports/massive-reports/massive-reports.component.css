@@ -1,0 +1,13 @@
+.chart-section{
+    width: 312px;
+    height: 312px;
+  }
+  
+  .centered-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    text-align: center;
+  }
+  
