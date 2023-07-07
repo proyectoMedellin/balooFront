@@ -4,10 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSelectChange } from '@angular/material/select';
 import { MatTableDataSource } from '@angular/material/table';
-import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { AES, enc } from 'crypto-js';
+import { resolve } from 'dns';
 import * as moment from 'moment';
-import { BaseChartDirective } from 'ng2-charts';
 import { forkJoin } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
 import { CampusListDto } from 'src/app/interfaces/campus-list-dto';
@@ -29,7 +28,7 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./massive-reports.component.css']
 })
 export class MassiveReportsComponent implements OnInit {
-  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource = new MatTableDataSource<any>();
   errorMessage: boolean = false
@@ -47,40 +46,8 @@ export class MassiveReportsComponent implements OnInit {
   public singleDevRoomData: any;
   public beneficiariesData: any[] = []
   public allFilterData: any[] = []
-  private emotionsLabels: any = [];
-  public emotionsDataChart: any = [];
-  public pieChartType: ChartType = 'pie';
+
   initPageSize: number = 1000
-  public attendenceChartData: any = [];
-
-  public emotionPieChartData: ChartData<'pie', number[], string | string[]> = {
-    labels: this.emotionsLabels,
-    datasets: [
-      {
-        data: this.emotionsDataChart,
-      },
-    ],
-  };
-  public pieChartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-    plugins: {
-      legend: {
-        display: true,
-        position: 'top',
-      },
-    },
-  };
-
-    // Pie chart for Attendence
-    public attendencePieChartData: ChartData<'pie', number[], string | string[]> =
-    {
-      labels: ['Si', 'No'],
-      datasets: [
-        {
-          data: this.attendenceChartData
-        },
-      ],
-    };
 
   public reports = new FormGroup({
     trainingCenterId: new FormControl(''),
@@ -159,9 +126,6 @@ export class MassiveReportsComponent implements OnInit {
         data: {type: 'loading',title: 'Obteniendo información', message: 'Espere un momento'},
         disableClose: false
       });
-    this.downloadFileButton = false
-    this.emotionsDataChart = []
-    this.attendenceChartData = []
     this.errorMessage = false
     this.assistanceData = []
     this.emotionsData = ""
@@ -186,7 +150,7 @@ export class MassiveReportsComponent implements OnInit {
     dialogRefL.close()
     if(!this.errorMessage){
       dialogRefL = this.dialog.open(ConfirmDialogComponent, {
-        data: {type: 'successful',title: 'Información obtenida', message: 'Es posible descargar el archivo', textButton: 'Descargar excel'},
+        data: {type: 'successful',title: 'Información obtenida', message: '¿Desea descargar el archivo?', textButton: 'Descargar excel'},
       });
     dialogRefL.afterClosed().subscribe(result => {
       if(result){
@@ -372,11 +336,11 @@ export class MassiveReportsComponent implements OnInit {
   }
 
   getAssistanceData(): Promise<boolean> {
-    this.attendenceChartData = [];
     let form: any = this.reports
     let city: any = this.trainingCenter.find(x => x.id == form.value.trainingCenterId)
     return new Promise<boolean>(async (resolve, reject) => {
     let defaultString = '00000000-0000-0000-0000-000000000000';
+    let observables: any[] = [];
 
     for (let a = 0; a < this.beneficiariesData.length; a++) {
       for (let b = 0; b < this.beneficiariesData[a].Beneficiaries.length; b++) {
@@ -394,29 +358,14 @@ export class MassiveReportsComponent implements OnInit {
           attendant: e.attendant,
           date: `${moment(e.createdOn).format('yyyy-MM-DD')}`
         }
+        observables.push(observable);
         this.assistanceData.push(this.beneficiariesData[a].Beneficiaries[b])
       });
       }
     }
-    this.getAttendanceDataToChart()
+    this.downloadFileButton = true;
     resolve(true);
   });
-}
-
-getAttendanceDataToChart(){
-  const count = this.assistanceData.reduce((acc, item) => {
-    acc[item.attendant] = (acc[item.attendant] || 0) + 1;
-    return acc;
-    }, {});
-    const total = this.assistanceData.length;
-    const percentageYes = ((count['Si'] || 0) / total * 100).toFixed(1);
-    const percentageNo = ((count['No'] || 0) / total * 100).toFixed(1);
-    this.attendenceChartData.push(percentageYes);
-    this.attendenceChartData.push(percentageNo);
-    this.attendencePieChartData.datasets[0].data = this.attendenceChartData;
-    this.attendencePieChartData.datasets[0].label = "Porcentaje %";
-    this.chart?.update();
-    this.downloadFileButton = true;
 }
 
   getEmotionsData() {
@@ -446,13 +395,13 @@ getAttendanceDataToChart(){
         }, {});
 
         const total = flattenedData.length;
-        const percentageHappiness = ((count['Alegría'] || 0) / total * 100).toFixed(1);
-        const percentageAngry = ((count['Enfado'] || 0) / total * 100).toFixed(1);
-        const percentageSadness = ((count['Tristeza'] || 0) / total * 100).toFixed(1);
-        const percentageAfraid = ((count['Miedo'] || 0) / total * 100).toFixed(1);
-        const percentageSurprised = ((count['Sorpresa'] || 0) / total * 100).toFixed(1);
-        const percentageCalmAndControl = ((count['Calma y control'] || 0) / total * 100).toFixed(1);
-        const percentageAnticipation = ((count['Anticipación'] || 0) / total * 100).toFixed(1);
+        const percentageHappiness = ((count['Alegría'] || 0) / total * 100).toFixed(3);
+        const percentageAngry = ((count['Enfado'] || 0) / total * 100).toFixed(3);
+        const percentageSadness = ((count['Tristeza'] || 0) / total * 100).toFixed(3);
+        const percentageAfraid = ((count['Miedo'] || 0) / total * 100).toFixed(3);
+        const percentageSurprised = ((count['Sorpresa'] || 0) / total * 100).toFixed(3);
+        const percentageCalmAndControl = ((count['Calma y control'] || 0) / total * 100).toFixed(3);
+        const percentageAnticipation = ((count['Anticipación'] || 0) / total * 100).toFixed(3);
         const totalHappiness = count['Alegría'] || 0;
         const totalAngry = count['Enfado'] || 0;
         const totalSadness = count['Tristeza'] || 0;
@@ -477,7 +426,7 @@ getAttendanceDataToChart(){
           totalCalmAndControl,
           totalAnticipation,
         };
-        this.getEmotionDataInChart(flattenedData)
+        this.downloadFileButton = true;
         resolve(true);
       } else {
         resolve(false);
@@ -486,24 +435,6 @@ getAttendanceDataToChart(){
       reject(error);
     });
   });
-}
-
-getEmotionDataInChart(data: any){
-  this.emotionsDataChart = []
-  let emotionsTypes: any = [];
-  data.forEach((e: any) => emotionsTypes.push(e.emotionName));
-  const emotionsCount = emotionsTypes.reduce((a: any, v: any) => {
-    a[v] = ++a[v] || 1;
-    return a;
-  }, []);
-  this.emotionsLabels = Object.keys(emotionsCount);
-  this.emotionsDataChart = Object.values(emotionsCount);
-  let emotionsDataPercent= this.emotionsDataChart.map((item: any)=> item = ((item/emotionsTypes.length)*100).toFixed(1))
-  this.emotionPieChartData.datasets[0].data = emotionsDataPercent;
-  this.emotionPieChartData.datasets[0].label = "Porcentaje %";
-  this.emotionPieChartData.labels = this.emotionsLabels;
-  this.chart?.update();
-  this.downloadFileButton = true;
 }
 
   getAnthropometricData() {
@@ -676,9 +607,6 @@ getEmotionDataInChart(data: any){
   }
 
   cleanForm(){
-    this.downloadFileButton = false
-    this.emotionsDataChart = []
-    this.attendenceChartData = []
     this.reports.setValue({
       campusId: "",
       groupNames: "",

@@ -4,9 +4,7 @@
       <h1>Consulta de Información</h1>
       <div class="line"></div>
   </div>
-  <mat-card>
   <div class="row">
-    <div class="col-md-6">
       <form [formGroup]="reports">
           <mat-card>
               <mat-card-header>
@@ -15,7 +13,7 @@
               </mat-card-header>
               <mat-card-content>
                   <div class="row">
-                      <div class="col-md-8">
+                      <div class="col-md-6">
                           <mat-form-field class="full-width">
                               <mat-select placeholder="Ciudad" formControlName="trainingCenterId" (selectionChange)="onSelectTrainingCenter($event)">
                                 <mat-option value="">Seleccione...</mat-option>
@@ -27,7 +25,7 @@
                       </div>
                   </div>
                   <div class="row">
-                      <div class="col-md-8">
+                      <div class="col-md-6">
                           <mat-form-field class="full-width">
                               <mat-select placeholder="Sede" multiple
                               [disabled]="reports.value['trainingCenterId'].length == 0"
@@ -40,7 +38,7 @@
                       </div>
                   </div>
                   <div class="row">
-                      <div class="col-md-8">
+                      <div class="col-md-6">
                         <mat-form-field class="full-width">
                           <mat-select placeholder="Grupo"
                           [disabled]="reports.value['campusId'].length == 0"
@@ -53,8 +51,7 @@
                       </mat-form-field>
                       </div>
                   </div>
-                  <div class="row">
-                  <div class="col-md-8">
+                  <div class="col-md-4">
                     <mat-form-field appearance="fill">
                         <mat-label>Enter a date range</mat-label>
                         <mat-date-range-input [rangePicker]="picker" [formGroup]="range">
@@ -65,42 +62,14 @@
                         <mat-date-range-picker #picker></mat-date-range-picker>
                     </mat-form-field>
                 </div>
-              </div>
               </mat-card-content>
               <mat-card-actions style="display: flex; align-items: center;">
-                  <button *ngIf="reports.value['trainingCenterId'].length != 0" style="margin-right: 0.05rem;" mat-raised-button color="primary" type="submit" (click)="applyFilter(reports.value, 'Asistencia')">Asistencia</button>
-                  <button *ngIf="reports.value['trainingCenterId'].length != 0" style="margin-right: 0.05rem;" mat-raised-button color="primary" type="submit" (click)="applyFilter(reports.value, 'Emociones')">Emociones</button>
-                  <button *ngIf="reports.value['trainingCenterId'].length != 0" style="margin-right: 0.05rem;" mat-raised-button color="primary" type="submit" (click)="applyFilter(reports.value, 'Información Nutricional')">Información Nutricional</button>
-                  <button *ngIf="reports.value['trainingCenterId'].length != 0" style="margin-right: 0.05rem;" mat-raised-button class="lightBlue-bkg" (click)="cleanForm()">Limpiar</button>
-                  <button *ngIf="downloadFileButton == true" style="margin-right: 0.05rem;" mat-raised-button class="lightBlue-bkg" (click)="downloadFile()">Descargar excel</button>
+                  <button *ngIf="reports.value['trainingCenterId'].length != 0" style="margin-right: 0.1rem;" mat-raised-button color="primary" type="submit" (click)="applyFilter(reports.value, 'Asistencia')">Asistencia</button>
+                  <button *ngIf="reports.value['trainingCenterId'].length != 0" style="margin-right: 0.1rem;" mat-raised-button color="primary" type="submit" (click)="applyFilter(reports.value, 'Emociones')">Emociones</button>
+                  <button *ngIf="reports.value['trainingCenterId'].length != 0" style="margin-right: 0.1rem;" mat-raised-button color="primary" type="submit" (click)="applyFilter(reports.value, 'Información Nutricional')">Información Nutricional</button>
+                  <button *ngIf="reports.value['trainingCenterId'].length != 0" style="margin-right: 0.1rem;" mat-raised-button class="lightBlue-bkg" (click)="cleanForm()">Limpiar</button>
                 </mat-card-actions>
           </mat-card>
       </form>
-    </div>
-      <div class="col-md-6">
-        <mat-card>
-          <mat-card-content class="centered-content">
-        <!-- emotions chart section start -->
-                  <div class="col-md-6" *ngIf="emotionsDataChart.length > 0 || attendenceChartData.length > 0">
-                    <div class="chart-section" *ngIf="emotionsDataChart.length > 0">
-                      <h1>Gráfica de emociones</h1>
-                        <canvas baseChart class="chart" [data]="emotionPieChartData" [type]="pieChartType"
-                            [options]="pieChartOptions">
-                        </canvas>
-                    </div>
-                    <div class="chart-section" *ngIf="attendenceChartData.length > 0">
-                      <h1>Gráfica de asistencias</h1>
-                      <canvas baseChart class="chart" [data]="attendencePieChartData" [type]="pieChartType"
-                          [options]="pieChartOptions">
-                      </canvas>
-                  </div>
-                </div>
-        <!-- emotions chart section end -->
-      </mat-card-content>
-      <br>
-      </mat-card>
-      </div>
   </div>
-  <br>
-</mat-card>
 </div>
