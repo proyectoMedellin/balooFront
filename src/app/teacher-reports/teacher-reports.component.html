@@ -118,14 +118,14 @@
                     <th mat-header-cell *matHeaderCellDef> Nombres y apellido </th>
                     <td mat-cell *matCellDef="let element"> {{ element.firstName }} {{ element.otherNames }} {{ element.lastName }} {{ element.otherLastName }}</td>
                 </ng-container>
-                <ng-container matColumnDef="Nutritional Information">
+                <!-- <ng-container matColumnDef="Nutritional Information">
                     <th mat-header-cell style="text-align: right" *matHeaderCellDef>Información Nutricional</th>
                     <td mat-cell style="text-align: right" *matCellDef="let element">
                         <button mat-icon-button color="warn" [routerLink]="['/teacher-information/' + element.id]" [state]="{ type : 'reports', user: element }">
                             <mat-icon>timeline</mat-icon>
                         </button>
                     </td>
-                </ng-container>
+                </ng-container> -->
                 <ng-container matColumnDef="Emotions">
                     <th mat-header-cell style="text-align: right" *matHeaderCellDef>Emociones</th>
                     <td mat-cell style="text-align: right" *matCellDef="let element">

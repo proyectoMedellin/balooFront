@@ -2,7 +2,7 @@
     <br>
     <div class="row d-flex ">
         <div class="col-md-7">
-            <h1>Información Estudiante</h1>
+            <h1>Información Docente</h1>
         </div>
 
         <div class="col-md-4">
@@ -54,6 +54,12 @@
     </div>
 
     <div class="thick-line"></div>
+    <br>
+    <mat-card-actions>
+      <!-- <button *ngIf="type !== 'reports'" style="margin-right: 0.3rem;" mat-raised-button class="lightBlue-bkg" (click)="changeWindow('reports')" [state]="{ type : 'reports' }" [routerLink]="['/teacher-information/' + this.id]">Información nutricional</button> -->
+      <button *ngIf="type !== 'emotions'" style="margin-right: 0.3rem;" mat-raised-button class="lightBlue-bkg" (click)="changeWindow('emotions')" [state]="{ type : 'emotions' }" [routerLink]="['/teacher-information/' + this.id]">Emociones</button>
+      <button *ngIf="type !== 'attendance'" style="margin-right: 0.3rem;" mat-raised-button class="lightBlue-bkg" (click)="changeWindow('attendance')" [state]="{ type : 'attendance' }" [routerLink]="['/teacher-information/' + this.id]">Asistencia</button>
+    </mat-card-actions>
     <!-- <div class="row  pb-5 mt-4" *ngIf="type==='reports' ">
         <div class="col-md-6">
             <div>

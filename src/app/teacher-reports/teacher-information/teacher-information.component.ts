@@ -127,6 +127,10 @@ export class TeacherInformationComponent implements OnInit {
     });
   }
 
+  changeWindow(type: string){
+    this.type = type
+  }
+
   // Anthropometric Data
   private getAnthropometricDataById(): void {
     this.reportsService
