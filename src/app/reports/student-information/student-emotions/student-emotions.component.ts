@@ -41,18 +41,13 @@ export class StudentEmotionsComponent implements OnInit {
     datasets: [
       {
         backgroundColor: [
-
           'rgb(54, 162, 235)',
-
           'rgb(0, 204, 0)',
-
           'rgb(255, 99, 132)',
-
           'rgb(255, 159, 64)',
-
           'rgb(255, 205, 86)',
-
-          'rgb(75, 192, 192)'],
+          'rgb(75, 192, 192)',
+          'rgb(255, 0, 0)'],
         data: this.emotionsData,
       },
     ],
