@@ -61,7 +61,7 @@ export class TeacherReportsComponent implements OnInit {
   }
 
   getEnabledBeneficiaries() {
-    this.userservice.getAllUser(0, this.initPageSize).subscribe(data =>
+    this.userservice.getAllTeachers(0, this.initPageSize).subscribe(data =>
       {
         data["registros"][0].forEach((e: any, i: any) => {
           let doc = this.documents.find((x: any) => x.id == e.documentTypeId)
