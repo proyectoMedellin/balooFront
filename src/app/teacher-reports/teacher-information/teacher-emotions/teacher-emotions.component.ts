@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective} from 'ng2-charts';
@@ -9,7 +9,7 @@ import { ReportsService } from 'src/app/services/reports.service';
   templateUrl: './teacher-emotions.component.html',
   styleUrls: ['./teacher-emotions.component.css'],
 })
-export class TeacherEmotionsComponent implements OnInit {
+export class TeacherEmotionsComponent implements OnInit, OnChanges {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
   @Input() id!: string;
   @Input() fromDate!: string;
@@ -65,6 +65,23 @@ export class TeacherEmotionsComponent implements OnInit {
     };
   public pieChartType: ChartType = 'pie';
   constructor(private reportsService: ReportsService) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.type == "emotions"){
+      this.getEmotionsById();
+      this.reportsService.dateUpdated.subscribe((res) => {
+        if (res) {
+          this.getEmotionsById();
+        }
+      });
+    }else if(this.type == "attendance"){
+      this.getAssistenceById();
+      this.reportsService.dateUpdated.subscribe((res) => {
+        if (res) {
+          this.getAssistenceById();
+        }
+      });
+    }
+  }
 
   ngOnInit(): void {
     if(this.type == "emotions"){
