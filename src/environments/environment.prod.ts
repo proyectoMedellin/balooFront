@@ -1,13 +1,13 @@
 export const environment = {
   production: true,
 
-  url: "https://192.168.2.7:443/",
+  url: "https://baloo.uwcolombia.org/",
     //APIS
-  API_AUTHENTICATION: "https://192.168.2.7:7205/",
-  API_SERVICES:  "https://192.168.2.7:7205/",
-  API_NotificationRecover:  "https://192.168.2.7:7205/Notification/RecoverPassword",
+  API_AUTHENTICATION: "https://baloo.uwcolombia.org:7205/",
+  API_SERVICES:  "https://baloo.uwcolombia.org:7205/",
+  API_NotificationRecover:  "https://baloo.uwcolombia.org:7205/Notification/RecoverPassword",
 
-  //url: "https://siecafront.azurewebsites.net/",  
+  //url: "https://siecafront.azurewebsites.net/",
   //APIS
   //API_AUTHENTICATION: "https://siecaapi20230210190623.azurewebsites.net/",
   //API_SERVICES:  "https://siecaapi20230210190623.azurewebsites.net/",
