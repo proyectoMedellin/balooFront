@@ -26,7 +26,7 @@ export class BeneficiariesDevelopmentRoomsUpdateComponent implements OnInit {
   private user =AES.decrypt(this.userEncrypt, environment.Key).toString(enc.Utf8);
   public documentTypeList: any = [];
   public EaAssignment: EaAsignmentDto = new EaAsignmentDto();
-  
+
   public BenSearchForm:FormGroup = this.formBuilder.group({
     DocumentTypeId:[],
     DocumentNumber:[],
@@ -59,7 +59,7 @@ export class BeneficiariesDevelopmentRoomsUpdateComponent implements OnInit {
       });
       this.LoadGroupAssignmentData();
     });
-  } 
+  }
 
   GetDocumentTypeList(){
     this.userServices.getAllDocuments().subscribe(data => this.documentTypeList = data["registros"][0])
@@ -69,17 +69,16 @@ export class BeneficiariesDevelopmentRoomsUpdateComponent implements OnInit {
     this.educationalAgentsService.GetGroupsYearAssignmentById(this.recordRoomId)
     .subscribe(response => {
       this.EaAssignment = response["registros"][0];
-      console.log(this.EaAssignment)
     });
     this.educationalAgentsService.GetBeneficiariesByGroupsYearAssignment(this.recordRoomId)
     .subscribe(response => {
       let registros: BeneficiaryBaseInfoDto[] = response['registros'];
       registros.forEach((ben:BeneficiaryBaseInfoDto) => {
         this.Beneficiaries.push(this.BeneficiariesListFormData(
-          ben.id, ben.documentTypeName, ben.documentNumber, 
+          ben.id, ben.documentTypeName, ben.documentNumber,
           (ben.firstName + " " + ben.otherNames+ " "  + ben.lastName+ " "  + ben.otherLastName)));
       });
-      
+
     });
   }
 
@@ -100,7 +99,7 @@ export class BeneficiariesDevelopmentRoomsUpdateComponent implements OnInit {
         //Aqui se pone modal de error
       }
     })
-    
+
   }
 
   Search(filterData: any){
@@ -116,7 +115,7 @@ export class BeneficiariesDevelopmentRoomsUpdateComponent implements OnInit {
       let registros = data['registros']
       registros.forEach((ben:BeneficiaryBaseInfoDto) => {
         this.BeneficiariesToAssign.push(this.BeneficiariesListFormData(
-          ben.id, ben.documentTypeName, ben.documentNumber, 
+          ben.id, ben.documentTypeName, ben.documentNumber,
           (ben.firstName + " " + ben.otherNames+ " "  + ben.lastName+ " "  + ben.otherLastName)));
       });
     });

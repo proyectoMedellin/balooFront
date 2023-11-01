@@ -13,32 +13,33 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 export class UsersListComponent implements OnInit, AfterViewInit {
 
   confirmed = false;
-  public displayedColumns: string[] = ['userName', 'email', 'firstName', 
+  public displayedColumns: string[] = ['userName', 'email', 'firstName',
     'lastName', 'documentNo', 'Update']
   public countUsers:number = 0
   public initPageSize: number = 1
   users: UsersListDto[] = [];
-  dataSource = new MatTableDataSource<UsersListDto>(this.users);
+  dataSource = new MatTableDataSource<UsersListDto>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  
+
   constructor(
     private userservices: UsersService,
     private dialog: MatDialog
   ) { }
- 
-  ngOnInit(): void {   
+
+  ngOnInit(): void {
     this.userservices.getAllUser(0,this.initPageSize).subscribe(data=>
       {
-        this.users = data["registros"][0];  
+        this.dataSource = new MatTableDataSource<UsersListDto>(data["registros"][0]);
         this.countUsers = data["totalDbRegistros"];
+        this.dataSource.paginator = this.paginator;
       });
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
-  
+
   applyFilter(filterValue: string){
     this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
   }
@@ -47,12 +48,12 @@ export class UsersListComponent implements OnInit, AfterViewInit {
     //this.roles.paginator = this.paginator
     /*this.userservices.getAllUser(event.pageIndex,event.pageSize).subscribe(data=>
       {
-        this.users = new MatTableDataSource(data["registros"][0])  
+        this.users = new MatTableDataSource(data["registros"][0])
         this.countUsers = data["totalDbRegistros"]
       })*/
   }
   changePageIndex(event: Event) {
-    
+
   }
   deletedRegister(userName: string){
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {

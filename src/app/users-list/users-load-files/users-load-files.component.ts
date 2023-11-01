@@ -195,7 +195,6 @@ export class UsersLoadFilesComponent implements OnInit {
 
   validateUserName(formdata: any){
     return new Promise((resolve) => {
-      console.log(this.userForm.getRawValue()['userName'])
       this.userservice.existUserName(this.userForm.getRawValue()['userName']).subscribe((data)=> {
         setTimeout(() => {
           if (data["registros"][0] == false){
@@ -211,30 +210,31 @@ export class UsersLoadFilesComponent implements OnInit {
   }
 
   SignUp(data: any){
-    let dialogRefL;
     this.userservice.register(data).subscribe(response => {
       if(response['codigoRespuesta'] == "PreconditionFailed"){
         setTimeout(() => {
-          dialogRefL = this.dialog.open(ConfirmDialogComponent, {
-            data: {type: 'alert',title: 'Carga con errores identificados', message: 'Espere unos minutos'},
+          let dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+            data: {type: 'alert', title: 'Error', message: 'Carga con errores identificados'},
             disableClose: true
           });
-        },100)
+          dialogRefL.close()
+        },1000)
       }else{
-        dialogRefL = this.dialog.open(ConfirmDialogComponent, {
-          data: {type: 'alert',title: 'Guardando el Registro', message: 'Espere unos minutos'},
+        let dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+          data: {type: 'alert', title: 'Guardando el Registro', message: 'Espere unos minutos'},
           disableClose: true
         });
-        this.sendNotificacion()
         dialogRefL.close()
+        this.sendNotificacion()
       }
     },err => {
       setTimeout(() => {
-        dialogRefL = this.dialog.open(ConfirmDialogComponent, {
-          data: {type: 'alert',title: 'Carga con errores identificados', message: 'Espere unos minutos'},
+        let dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+          data: {type: 'alert', title: 'Error', message: 'Carga con errores identificados'},
           disableClose: true
         });
-      }, 100)
+        dialogRefL.close()
+      },1000)
     });
    }
 
@@ -245,24 +245,22 @@ export class UsersLoadFilesComponent implements OnInit {
     let dataUser = {Body:urlpassword, UserName:this.userForm.get("userName")?.value, Subject:"Asignar clave"}
 
     this.correoservice.sendEmailRecover(this.userForm.getRawValue()['userEmail'], dataUser).subscribe(
-        (response: any) => {location.href = environment.url + "UsersList"
-        console.log(response)}
-
+        (response: any) => {location.href = environment.url + "UsersList"}
       )
   }
   UpdateRegister(Formdata: any){
-    let dialogRefL;
     this.userservice.updateUser(Formdata).subscribe((data) => {
       if(data['codigoRespuesta'] == "PreconditionFailed"){
         setTimeout(() => {
-          dialogRefL = this.dialog.open(ConfirmDialogComponent, {
-            data: {type: 'alert',title: 'Carga con errores identificados', message: 'Espere unos minutos'},
+          let dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+            data: {type: 'alert', title: 'Error', message: 'Carga con errores identificados'},
             disableClose: true
           });
-        }, 100)
+          dialogRefL.close()
+        }, 1000)
       }else{
-        dialogRefL = this.dialog.open(ConfirmDialogComponent, {
-          data: {type: 'loading',title: 'Guardando el Registro', message: 'Espere unos minutos'},
+        let dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+          data: {type: 'loading', title: 'Guardando el Registro', message: 'Espere unos minutos'},
           disableClose: true
         });
         dialogRefL.close()
@@ -270,11 +268,12 @@ export class UsersLoadFilesComponent implements OnInit {
       }
     },err => {
       setTimeout(() => {
-        dialogRefL = this.dialog.open(ConfirmDialogComponent, {
-          data: {type: 'alert',title: 'Carga con errores identificados', message: 'Espere unos minutos'},
+        let dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+          data: {type: 'alert', title: 'Error', message: 'Carga con errores identificados'},
           disableClose: true
         });
-      }, 100)
+        dialogRefL.close()
+      }, 1000)
     });
   }
 }

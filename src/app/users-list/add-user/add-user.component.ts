@@ -20,6 +20,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent implements OnInit {
+  public dialogRefL: any;
   public userEncrypt = this.localstorageservice.getData('user')!
   public user = AES.decrypt(this.userEncrypt, environment.Key).toString(enc.Utf8)
   public AddUsers = new FormGroup({
@@ -88,26 +89,22 @@ export class AddUserComponent implements OnInit {
     })
   }
   SignUp(data: any){
-    let dialogRefL: any
-    setTimeout(() => {
-      dialogRefL = this.dialog.open(ConfirmDialogComponent, {
-        data: {type: 'loading',title: 'Guardando el Registro', message: 'Espere unos minutos'},
-        disableClose: true
-      });
-   this.userservice.register(data).subscribe(response => 
-    {this.sendNotificacion()},
-      err=>{
-        dialogRefL.close()
-        this.alertMessage.open("Error al crear usuario", "Aceptar",
-          {
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-          })
-        location.href = environment.url + "UsersList"
+  this.dialogRefL = this.dialog.open(ConfirmDialogComponent, {
+    data: {type: 'loading',title: 'Guardando el Registro', message: 'Espere unos minutos'},
+    disableClose: true
+  });
+   this.userservice.register(data).subscribe(response => {
+    this.sendNotificacion()
+  }, err => {
+    this.dialogRefL.close()
+    this.alertMessage.open("Error al crear usuario", "Aceptar",
+      {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
       })
-    }, 100)
-    dialogRefL.close()
-  }
+      location.href = environment.url + "UsersList"
+  })
+}
   validateDocument(formdata: any){
   this.userservice.existdocument(this.AddUsers.getRawValue()['DocumentTypeId'], this.AddUsers.getRawValue()['DocumentNo']).subscribe(
     (data)=> {
@@ -141,11 +138,19 @@ export class AddUserComponent implements OnInit {
     let textEncrypt = AES.encrypt(text, environment.Key).toString()
     let urlpassword = environment.url + "ChangePassword?DateRecover=" + textEncrypt
     let message ='<!DOCTYPE html><html><body><p>Debe establecer una contraseña para Baloo.</p> <p>Por favor de clic en la siguiente liga: <a href="'+urlpassword +'">proporcione una contraseña</a></p></body></html>'
-    let dataUser = {Body:message, UserName:this.AddUsers.get("UserName")?.value, Subject:"Asignar clave"}
-
-    this.correoservice.sendEmailRecover(this.AddUsers.getRawValue()['Email'], dataUser).subscribe(
-        response => {location.href = environment.url + "UsersList"}
-      )
+    let dataUser = {Body: message, UserName:this.AddUsers.get("UserName")?.value, Subject:"Asignar clave"}
+    this.correoservice.sendEmailRecover(this.AddUsers.getRawValue()['Email'], dataUser).subscribe(response => {
+      this.dialogRefL.close()
+      location.href = environment.url + "UsersList"
+    }, err => {
+      this.dialogRefL.close()
+      this.alertMessage.open("Error al enviar notificación", "Aceptar",
+        {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        })
+        // location.href = environment.url + "UsersList"
+    })
   }
   change(){
     this.AddUsers.patchValue({

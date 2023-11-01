@@ -52,7 +52,6 @@ export class BeneficiariesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
       this.confirmed = result;
       if (this.confirmed) {
         const dialogRefL = this.dialog.open(ConfirmDialogComponent, {
